@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */ = {isa = PBXBuildFile; productRef = 48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */; };
 		48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD7C2245C5CD300A249BD /* AppDelegate.swift */; };
 		48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD7C4245C5CD300A249BD /* SceneDelegate.swift */; };
 		48DDD7C7245C5CD300A249BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD7C6245C5CD300A249BD /* ViewController.swift */; };
@@ -100,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +194,9 @@
 				48DDD7D6245C5CD500A249BD /* PBXTargetDependency */,
 			);
 			name = CoThings;
+			packageProductDependencies = (
+				48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */,
+			);
 			productName = CoThings;
 			productReference = 48DDD7BF245C5CD300A249BD /* CoThings.app */;
 			productType = "com.apple.product-type.application";
@@ -260,6 +265,9 @@
 				Base,
 			);
 			mainGroup = 48DDD7B6245C5CD300A249BD;
+			packageReferences = (
+				48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */,
+			);
 			productRefGroup = 48DDD7C0245C5CD300A249BD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -643,6 +651,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/davidstump/SwiftPhoenixClient.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */;
+			productName = SwiftPhoenixClient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 48DDD7B7245C5CD300A249BD /* Project object */;
 }
