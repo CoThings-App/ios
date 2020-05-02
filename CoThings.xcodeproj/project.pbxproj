@@ -23,6 +23,8 @@
 		48DDD7EE245C5CD600A249BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7ED245C5CD600A249BD /* Assets.xcassets */; };
 		48DDD800245C76F400A249BD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FE245C76F400A249BD /* README.md */; };
 		48DDD801245C76F400A249BD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FF245C76F400A249BD /* LICENSE */; };
+		48DDD803245D1E8800A249BD /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD802245D1E8800A249BD /* ServerSettingsViewController.swift */; };
+		48DDD805245D1FC100A249BD /* OnBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD804245D1FC100A249BD /* OnBoard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		48DDD7FE245C76F400A249BD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		48DDD802245D1E8800A249BD /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
+		48DDD804245D1FC100A249BD /* OnBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnBoard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,8 @@
 				48DDD7CB245C5CD500A249BD /* Assets.xcassets */,
 				48DDD7CD245C5CD500A249BD /* LaunchScreen.storyboard */,
 				48DDD7D0245C5CD500A249BD /* Info.plist */,
+				48DDD802245D1E8800A249BD /* ServerSettingsViewController.swift */,
+				48DDD804245D1FC100A249BD /* OnBoard.storyboard */,
 			);
 			path = CoThings;
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48DDD805245D1FC100A249BD /* OnBoard.storyboard in Resources */,
 				48DDD7CF245C5CD500A249BD /* LaunchScreen.storyboard in Resources */,
 				48DDD7CC245C5CD500A249BD /* Assets.xcassets in Resources */,
 				48DDD800245C76F400A249BD /* README.md in Resources */,
@@ -302,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48DDD803245D1E8800A249BD /* ServerSettingsViewController.swift in Sources */,
 				48DDD7C7245C5CD300A249BD /* ViewController.swift in Sources */,
 				48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */,
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
