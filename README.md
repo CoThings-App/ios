@@ -4,6 +4,8 @@
 
 Project's progress is [here](https://github.com/rainlab-inc/cothings-ios/projects/1)
 
+[Designs](https://github.com/rainlab-inc/cothings-design)
+
 #### Stack Versions
 
 Swift: 5.2
