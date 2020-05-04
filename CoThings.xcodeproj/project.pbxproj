@@ -26,6 +26,7 @@
 		48DDD801245C76F400A249BD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FF245C76F400A249BD /* LICENSE */; };
 		48DDD803245D1E8800A249BD /* ServerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD802245D1E8800A249BD /* ServerSettingsViewController.swift */; };
 		48DDD805245D1FC100A249BD /* OnBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD804245D1FC100A249BD /* OnBoard.storyboard */; };
+		698D8C92245FB33D00F73F5A /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698D8C91245FB33D00F73F5A /* Room.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		48DDD802245D1E8800A249BD /* ServerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsViewController.swift; sourceTree = "<group>"; };
 		48DDD804245D1FC100A249BD /* OnBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OnBoard.storyboard; sourceTree = "<group>"; };
+		698D8C91245FB33D00F73F5A /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		48DDD7C1245C5CD300A249BD /* CoThings */ = {
 			isa = PBXGroup;
 			children = (
+				698D8C90245FB30600F73F5A /* Model */,
 				48DDD7C2245C5CD300A249BD /* AppDelegate.swift */,
 				48DDD7C4245C5CD300A249BD /* SceneDelegate.swift */,
 				48DDD7C6245C5CD300A249BD /* ViewController.swift */,
@@ -174,6 +177,14 @@
 				48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */,
 			);
 			path = "CoThings WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		698D8C90245FB30600F73F5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				698D8C91245FB33D00F73F5A /* Room.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +332,7 @@
 				48DDD7C7245C5CD300A249BD /* ViewController.swift in Sources */,
 				48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */,
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
+				698D8C92245FB33D00F73F5A /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

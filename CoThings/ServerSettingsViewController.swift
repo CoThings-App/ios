@@ -20,8 +20,9 @@ class ServerSettingsViewController: UIViewController {
     
     @IBAction func buttonConnectTapped(_ sender: Any) {
         UserDefaults.standard.set(serverHostname.text!, forKey: "serverHostname")
-        
-        //TODO: Change session to Main Storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let initialVC = storyboard.instantiateInitialViewController() else { return }
+        self.present(initialVC, animated: true, completion: nil)
     }
     
     /*

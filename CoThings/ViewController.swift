@@ -24,7 +24,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     var lobbyChannel: Channel!
     var timer: Timer?
     var seconds = 0
-    var rooms = [String]()
+    var rooms = [Room]()
     
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var beaconLabel: UILabel!
@@ -136,18 +136,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
             .delegateReceive("ok", to: self) { (self, data) in
                 self.infoLabel.text =  "Socket: Joined Channel"
                 
-                if let dictionary = data.payload["response"] as? [String: Any] {
-                    if let array = dictionary["rooms"] as? [Any] {
-                        
-                        for object in array {
-                            let room = object as? [String: Any]
-                            let name = room?["name"] as? String
-                            self.rooms.append(name!)
-                        }
-                        
-                        self.lobbyTable.reloadData()
-                    }
+                guard let response = MessageAdapter(message: data).decodeRoomResponse() else {
+                    return
                 }
+                self.rooms = response.rooms
+                self.lobbyTable.reloadData()
                 
         }.delegateReceive("error", to: self) { (self, message) in
             self.infoLabel.text =  "Socket: Failed to join channel: \(message.payload)"
@@ -322,7 +315,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         let cell: UITableViewCell = (self.lobbyTable.dequeueReusableCell(withIdentifier: "room") as UITableViewCell?)!
         
         // set the text from the data model
-        cell.textLabel?.text = self.rooms[indexPath.row]
+        cell.textLabel?.text = self.rooms[indexPath.row].name
         
         return cell
     }
@@ -330,5 +323,48 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell number \(indexPath.row).")
+    }
+}
+
+
+
+class MessageAdapter {
+    
+    struct RoomsResponse: Decodable {
+        enum CodingKeys: String, CodingKey {
+            case status
+            case response
+        }
+        
+        enum ResponseKeys: String, CodingKey {
+            case rooms
+        }
+        
+        var status: String
+        var rooms: [Room]
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            status = try container.decode(String.self, forKey: .status)
+            let nestedContainer = try container.nestedContainer(keyedBy: ResponseKeys.self, forKey: .response)
+            rooms = try nestedContainer.decode([Room].self, forKey: .rooms)
+        }
+    }
+    
+    private var message: Message
+    
+    init(message: Message) {
+        self.message = message
+    }
+    
+    func decodeRoomResponse() -> RoomsResponse? {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: message.payload, options: .fragmentsAllowed)
+            let decoder = JSONDecoder()
+            let roomResponse = try decoder.decode(RoomsResponse.self, from: jsonData)
+            return roomResponse
+        } catch {
+            return nil
+        }
     }
 }
