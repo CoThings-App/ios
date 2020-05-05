@@ -9,22 +9,21 @@ import Foundation
 import UIKit
 import CoreLocation
 import CoreBluetooth
-import SwiftPhoenixClient
 import UserNotifications
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    var locManager: CLLocationManager = CLLocationManager()
-    var entered = false
-    var exited = false
-    var lastAction: String?
-    var lastActionTime: Date = Date()
-    var socket: Socket?
-    var topic: String = "lobby:*"
-    var lobbyChannel: Channel!
+    var locManager = CLLocationManager()
+    var topic = "lobby:*"
     var timer: Timer?
     var seconds = 0
-    var rooms = [String]()
+    var rooms = [Room]()
+    var socket: MessageSocketAdapter? {
+        didSet {
+            guard let socket = socket else { return }
+            setup(socket: socket)
+        }
+    }
     
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var beaconLabel: UILabel!
@@ -34,17 +33,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let serverHostname = UserDefaults.standard.string(forKey: "serverHostname")
-        socket = Socket("wss://" + serverHostname! + "/socket/websocket")
+        guard let serverHostname = UserDefaults.standard.string(forKey: "serverHostname") else {
+            self.infoLabel.text = "Socket: Host Name Not Set"
+            return
+        }
         
-        self.infoLabel.text = "Socket: Connecting ..."
+        socket = MessageSocketAdapter(serverHostName: serverHostname)
         
         lobbyTable.delegate = self
         lobbyTable.dataSource = self
         
         notificationRequest()
         locationPermissionCheck()
-        connectToTheSocket()
         
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fire), userInfo: nil, repeats: true)
     }
@@ -78,81 +78,58 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         locManager.startUpdatingLocation()
     }
     
-    func notitfy(msg: String) {
-        let content = UNMutableNotificationContent() // Содержимое уведомления
-        content.title = "Co-Living"
-        content.body = "Action: " + msg
-        content.sound = UNNotificationSound.default
+    func setup(socket: MessageSocketAdapter) {
+        listenTo(socket: socket)
+        socket.connect()
+        socket.joinChannel(topic: topic)
     }
     
-    func connectToTheSocket() {
-        socket!.delegateOnOpen(to: self) { (self) in
-            self.infoLabel.text = "Socket: Opened!"
+    func listenTo(socket: MessageSocketAdapter) {
+        socket.socketStatusChanged = {[weak self] (status) in
+            guard let self = self else { return }
+            switch status {
+            case .socketConnecting:
+                self.infoLabel.text = "Socket: Connecting ..."
+            case .socketOpen:
+                self.infoLabel.text = "Socket: Opened!"
+            case .socketClosed:
+                self.infoLabel.text = "Socket: Disconnected!"
+            case .error(let error):
+                self.infoLabel.text = "Socket: ERROR!: " + error.localizedDescription
+            case .socketDisconnect:
+                self.infoLabel.text = "Socket: Disconnected"
+            case .channelDec:
+                self.infoLabel.text = "Channel: Dec"
+            case .channelInc:
+                self.infoLabel.text = "Channel: Inc"
+            case .channelUpdate(let channelState):
+                self.infoLabel.text = "Channel: Update"
+                if let rooms = channelState.rooms {
+                    self.rooms = rooms
+                    self.lobbyTable.reloadData()
+                }
+            case .roomJoin:
+                self.infoLabel.text = "Channel: Joined the room"
+            case .channelJoin(let channelState):
+                if let rooms = channelState.rooms {
+                    self.rooms = rooms
+                    self.lobbyTable.reloadData()
+                }
+            case .channelPushResponse(let channelState):
+                if let action = channelState.action {
+                    self.infoLabel.text =  "Socket: Sent: " + action
+                }
+                if let rooms = channelState.rooms {
+                    self.rooms = rooms
+                    self.lobbyTable.reloadData()
+                }
+            }
         }
-        
-        socket!.delegateOnClose(to: self) { (self) in
-            self.infoLabel.text = "Socket: Disconnected!"
-        }
-        
-        socket!.delegateOnError(to: self) { (self, error) in
-            self.infoLabel.text = "Socket: ERROR!: " + error.localizedDescription
-        }
-        
-        socket!.logger = { msg in print("LOG:", msg) }
-        
-        connectAndJoin()
-        
     }
     
     private func disconnectAndLeave() {
         // Be sure the leave the channel or call socket.remove(lobbyChannel)
-        lobbyChannel.leave()
-        socket!.disconnect {
-            self.infoLabel.text = "Socket: Disconnected"
-        }
-    }
-    
-    private func connectAndJoin() {
-        let channel = socket!.channel(topic, params: ["status": "joining"])
-        channel.delegateOn("join", to: self) { (self, _) in
-            self.infoLabel.text = "Socket: You joined the room."
-        }
-        
-        channel.delegateOn("update", to: self) { (self, _) in
-            self.infoLabel.text = "Socket: received: update"
-        }
-        
-        channel.delegateOn("inc", to: self) { (self, _) in
-            self.infoLabel.text = "Socket: received: inc"
-        }
-        
-        channel.delegateOn("dec", to: self) { (self, _) in
-            self.infoLabel.text = "Socket: received: dec"
-        }
-        
-        self.lobbyChannel = channel
-        self.lobbyChannel
-            .join()
-            .delegateReceive("ok", to: self) { (self, data) in
-                self.infoLabel.text =  "Socket: Joined Channel"
-                
-                if let dictionary = data.payload["response"] as? [String: Any] {
-                    if let array = dictionary["rooms"] as? [Any] {
-                        
-                        for object in array {
-                            let room = object as? [String: Any]
-                            let name = room?["name"] as? String
-                            self.rooms.append(name!)
-                        }
-                        
-                        self.lobbyTable.reloadData()
-                    }
-                }
-                
-        }.delegateReceive("error", to: self) { (self, message) in
-            self.infoLabel.text =  "Socket: Failed to join channel: \(message.payload)"
-        }
-        self.socket!.connect()
+        socket?.leaveChannel(topic: topic)
     }
     
     private func startScanning() {
@@ -169,7 +146,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        updateSocket(action: "inc")
+        
+        socket?.pushToChannel(topic: topic, action: .inc)
         
         self.seconds = 0
         
@@ -194,7 +172,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        updateSocket(action: "dec")
+        
+        socket?.pushToChannel(topic: topic, action: .dec)
         
         self.seconds = 0
         
@@ -218,38 +197,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         
     }
     
-    //    func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-    //        if beacons.count > 0 {
-    //            updateDistance(beacons[0].proximity)
-    //        } else {
-    //            updateDistance(.unknown)
-    //        }
-    //    }
-    //    
-    func shouldUpdate() -> Bool {
-        let elapsed = Date().timeIntervalSince(lastActionTime)
-        print(elapsed)
-        return elapsed > 3
-    }
-    
-    func updateSocket(action: String) {
-        //        if (self.lastAction == action) {
-        //            return;
-        //        }
-        self.lastAction = action
-        let payload = [String: Any]()
-        self.lobbyChannel
-            .push(action, payload: payload)
-            .receive("ok") { (message) in
-                print("success", message)
-        }
-        .receive("error") { (errorMessage) in
-            print("error: ", errorMessage)
-        }
-        
-        self.infoLabel.text =  "Socket: Sent: " + action
-    }
-    
     func updateDistance(_ distance: CLProximity) {
         UIView.animate(withDuration: 0.8) {
             switch distance {
@@ -265,24 +212,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
                 self.view.backgroundColor = UIColor.red
             }
         }
-        if !shouldUpdate() {
-            return
-        }
-        lastActionTime = Date()
+        guard let socket = socket,
+            socket.shouldUpdate else { return }
+        
         switch distance {
-        case .unknown:
-            self.updateSocket(action: "dec")
+        case .unknown, .far:
+            socket.pushToChannel(topic: topic, action: .dec)
             
-        case .far:
-            self.updateSocket(action: "dec")
-            
-        case .near:
-            self.updateSocket(action: "inc")
-            
-        case .immediate:
-            self.updateSocket(action: "inc")
+        case .near, .immediate:
+            socket.pushToChannel(topic: topic, action: .inc)
         @unknown default:
-            self.view.backgroundColor = UIColor.red
+            break
         }
     }
     
@@ -322,7 +262,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         let cell: UITableViewCell = (self.lobbyTable.dequeueReusableCell(withIdentifier: "room") as UITableViewCell?)!
         
         // set the text from the data model
-        cell.textLabel?.text = self.rooms[indexPath.row]
+        cell.textLabel?.text = self.rooms[indexPath.row].name
         
         return cell
     }
@@ -332,3 +272,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         print("You tapped cell number \(indexPath.row).")
     }
 }
+
+
+
+
