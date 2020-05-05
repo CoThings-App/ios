@@ -160,13 +160,13 @@ class MessageSocketAdapter {
     
     private func createError(type: ErrorCodes, userInfo: [String: Any]) -> Error {
         return NSError(domain: self.ErrorDomain,
-                       code: ErrorCodes.channelReceive.rawValue,
+                       code: type.rawValue,
                        userInfo: userInfo)
     }
     
     private func createError(type: ErrorCodes, message: String) -> Error {
         return NSError(domain: self.ErrorDomain,
-                       code: ErrorCodes.channelReceive.rawValue,
+                       code: type.rawValue,
                        userInfo: ["info": message])
     }
 }
