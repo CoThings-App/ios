@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -25,11 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene =  scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            
-            let storyboard = UIStoryboard.init(name: "OnBoard", bundle: nil)
-            let viewController = storyboard.instantiateViewController(identifier: "ServerSettings") as! ServerSettingsViewController
-            
-            self.window?.rootViewController = viewController
+            self.window?.rootViewController = UIHostingController(rootView: OnBoardView())
             self.window?.makeKeyAndVisible()
         }
     }
