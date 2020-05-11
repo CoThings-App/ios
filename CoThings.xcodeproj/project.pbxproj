@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */ = {isa = PBXBuildFile; productRef = 48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */; };
-		48B33AFA24682495000A1F5C /* OnBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AF924682495000A1F5C /* OnBoardView.swift */; };
+		48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AF924682495000A1F5C /* ServerSettingsView.swift */; };
 		48B33AFC24682D93000A1F5C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AFB24682D93000A1F5C /* HomeView.swift */; };
 		48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD7C2245C5CD300A249BD /* AppDelegate.swift */; };
 		48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD7C4245C5CD300A249BD /* SceneDelegate.swift */; };
@@ -75,7 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		48B33AF924682495000A1F5C /* OnBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardView.swift; sourceTree = "<group>"; };
+		48B33AF924682495000A1F5C /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		48B33AFB24682D93000A1F5C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		48DDD7BF245C5CD300A249BD /* CoThings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoThings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48DDD7C2245C5CD300A249BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		48B33AF824682483000A1F5C /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				48B33AF924682495000A1F5C /* OnBoardView.swift */,
+				48B33AF924682495000A1F5C /* ServerSettingsView.swift */,
 				48B33AFB24682D93000A1F5C /* HomeView.swift */,
 			);
 			path = SwiftUI;
@@ -356,7 +356,7 @@
 				48DDD803245D1E8800A249BD /* ServerSettingsViewController.swift in Sources */,
 				698D8C95246059CE00F73F5A /* SwiftPhoenixAdapters.swift in Sources */,
 				48DDD7C7245C5CD300A249BD /* ViewController.swift in Sources */,
-				48B33AFA24682495000A1F5C /* OnBoardView.swift in Sources */,
+				48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */,
 				48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */,
 				48B33AFC24682D93000A1F5C /* HomeView.swift in Sources */,
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
