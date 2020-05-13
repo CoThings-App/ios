@@ -14,8 +14,8 @@ struct AppRootView: View {
 	var body: some View {
 		Group {
 			if appState.serverHostnameIsSet {
-//				HomeView()
-				BeaconView()
+				HomeView()
+//				BeaconView()
 			} else {
 				ServerSettingsView(appState: self.appState)
 			}

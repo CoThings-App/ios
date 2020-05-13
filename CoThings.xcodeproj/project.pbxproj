@@ -11,6 +11,8 @@
 		48241B6F246BBE8D00EDAE16 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* AppRootView.swift */; };
 		48241B71246BC94200EDAE16 /* BeaconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconView.swift */; };
 		48241B73246BD47D00EDAE16 /* BeaconDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B72246BD47D00EDAE16 /* BeaconDetector.swift */; };
+		48241B77246C09F800EDAE16 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B76246C09F800EDAE16 /* SocketManager.swift */; };
+		48241B79246C149700EDAE16 /* RoomRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B78246C149700EDAE16 /* RoomRowItem.swift */; };
 		48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */ = {isa = PBXBuildFile; productRef = 48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */; };
 		48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AF924682495000A1F5C /* ServerSettingsView.swift */; };
 		48B33AFC24682D93000A1F5C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AFB24682D93000A1F5C /* HomeView.swift */; };
@@ -83,6 +85,8 @@
 		48241B6E246BBE8D00EDAE16 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		48241B70246BC94200EDAE16 /* BeaconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconView.swift; sourceTree = "<group>"; };
 		48241B72246BD47D00EDAE16 /* BeaconDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDetector.swift; sourceTree = "<group>"; };
+		48241B76246C09F800EDAE16 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		48241B78246C149700EDAE16 /* RoomRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRowItem.swift; sourceTree = "<group>"; };
 		48B33AF924682495000A1F5C /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		48B33AFB24682D93000A1F5C /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		48DDD7BF245C5CD300A249BD /* CoThings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoThings.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +143,7 @@
 				48241B6C246BAB2400EDAE16 /* AppState.swift */,
 				48241B6E246BBE8D00EDAE16 /* AppRootView.swift */,
 				48241B70246BC94200EDAE16 /* BeaconView.swift */,
+				48241B78246C149700EDAE16 /* RoomRowItem.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 				48DDD802245D1E8800A249BD /* ServerSettingsViewController.swift */,
 				48DDD804245D1FC100A249BD /* OnBoard.storyboard */,
 				48241B72246BD47D00EDAE16 /* BeaconDetector.swift */,
+				48241B76246C09F800EDAE16 /* SocketManager.swift */,
 			);
 			path = CoThings;
 			sourceTree = "<group>";
@@ -371,7 +377,9 @@
 				48DDD7C7245C5CD300A249BD /* ViewController.swift in Sources */,
 				48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */,
 				48241B6F246BBE8D00EDAE16 /* AppRootView.swift in Sources */,
+				48241B77246C09F800EDAE16 /* SocketManager.swift in Sources */,
 				48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */,
+				48241B79246C149700EDAE16 /* RoomRowItem.swift in Sources */,
 				48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */,
 				48241B71246BC94200EDAE16 /* BeaconView.swift in Sources */,
 				48B33AFC24682D93000A1F5C /* HomeView.swift in Sources */,

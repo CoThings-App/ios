@@ -17,7 +17,7 @@ class MessageSocketAdapter {
         case channelPushResponse (MessageAdapter.ChannelState)
     }
     
-    internal enum Action: String {
+     enum Action: String {
         case dec
         case inc
     }

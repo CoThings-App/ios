@@ -12,38 +12,20 @@ import Combine
 
 struct HomeView: View {
 
+	@ObservedObject var socket: SocketManager = SocketManager()
+
 	var body: some View {
 		VStack {
 			Text("Socket")
 			Text("Beacon")
 			Text("Timer")
 			List {
-				Section(header: Text("Living Room"))
-				{
-					Text("Kitchen")
-					Text("Cooking")
+				ForEach(self.socket.rooms, id: \.id) {room in
+					RoomRowItem(item: room)
 				}
-
-				Section(header: Text("Bathrooms")) {
-					Text("Women")
-					Text("Men")
-				}
-
-
-				Section(header: Text("Washing Machines")) {
-					Text("Women")
-					Text("Men")
-				}
-
-
-				Section(header: Text("Dryers")) {
-					Text("Women")
-					Text("Men")
-				}
-
-			}
+			}.navigationBarTitle("Rooms")
+		}
 	}
-}
 }
 
 struct HomeView_Previews: PreviewProvider {
