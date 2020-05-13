@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import Foundation
+import Combine
 
 struct HomeView: View {
 
@@ -21,7 +23,6 @@ struct HomeView: View {
 					Text("Kitchen")
 					Text("Cooking")
 				}
-
 
 				Section(header: Text("Bathrooms")) {
 					Text("Women")

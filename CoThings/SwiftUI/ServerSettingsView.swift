@@ -12,7 +12,7 @@ import Combine
 
 struct ServerSettingsView: View {
 	@State private var serverHostname: String = UserDefaults.standard.string(forKey: "serverHostname") ?? ""
-	@State private var isActive: Bool = false
+	@ObservedObject var appState: AppState
 
 	var body: some View {
 
@@ -31,27 +31,20 @@ struct ServerSettingsView: View {
 						.border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 1)
 				})
 
-				NavigationLink(destination: HomeView(), isActive: self.$isActive) {
-					Text("")
-				}
-
 				Button(action: {
 					UserDefaults.standard.set(self.serverHostname, forKey: "serverHostname")
-					self.isActive = true
+					self.appState.serverHostnameIsSet = true
 				})
 				{
 					Text("Connect")
 				}
 			}
 		}
-
 	}
-
 }
 
 struct OnBoardView_Previews: PreviewProvider {
 	static var previews: some View {
-		ServerSettingsView()
+		ServerSettingsView(appState:AppState())
 	}
 }
-
