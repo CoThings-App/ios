@@ -17,7 +17,7 @@ struct AppRootView: View {
 			if appState.serverHostnameIsSet {
 //				HomeView()
 //				BeaconView()
-                RoomsScreen(rooms: roomColl)
+                RoomsScreen()
 			} else {
 				ServerSettingsView(appState: self.appState)
 			}

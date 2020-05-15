@@ -11,18 +11,28 @@ import DateHelper
 
 struct RoomsScreen: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var placeSession: CoThingsServer
-    
-    @State private var scrollOffset: CGFloat = 0
-    
-    let roomColl: RoomCollection
-    
-    init(rooms: RoomCollection) {
-        roomColl = rooms
-    }
+
+	var placeSession: CoThingsServer? = nil
+
+	@State private var scrollOffset: CGFloat = 0
+
+	var roomColl: RoomCollection? = nil
+
+	init() {
+		let hostname = UserDefaults.standard.string(forKey: "serverHostname")!
+		let serverURL = URL.init(string: "https://" + hostname);
+		let socketURL = URL.init(string: "wss://" + hostname + "/socket/websocket")
+
+		self.placeSession = CoThingsServer(url: serverURL! , socketURL: socketURL!)
+		self.roomColl = RoomCollection.init(from: self.placeSession!.rooms)
+	}
+
+	init(rooms: RoomCollection) {
+		roomColl = rooms
+	}
     
     func sectionHeader(nth: Int, group: String) -> some View {
-        return GroupHeaderView(title: group, occupants: roomColl.population[group] ?? 0)
+		return GroupHeaderView(title: group, occupants: roomColl!.population[group] ?? 0)
             .padding(.top)
             .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
             .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
@@ -47,9 +57,9 @@ struct RoomsScreen: View {
                     .scrollOffset(value: $scrollOffset)
                 
                 
-                ForEach(Array(roomColl.groups.enumerated()), id: \.1) { (i, group) in
+                ForEach(Array(roomColl!.groups.enumerated()), id: \.1) { (i, group) in
                     Section(header: self.sectionHeader(nth: i, group: group)) {
-                        ForEach(self.roomColl.rooms[group] ?? [], id: \.name) { room in
+                        ForEach(self.roomColl!.rooms[group] ?? [], id: \.name) { room in
                             RoomRow(room: room)
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                                 .frame(height: 84)
@@ -77,7 +87,7 @@ struct SpacesScreen_Previews: PreviewProvider {
     static var previews: some View {
         let coll = RoomCollection(from: rooms)
         return Group {
-            RoomsScreen(rooms: coll)
+			RoomsScreen(rooms: coll)
                 .colorScheme(.dark)
             
             RoomsScreen(rooms: coll)
