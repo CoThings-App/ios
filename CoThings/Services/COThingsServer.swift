@@ -1,5 +1,5 @@
 //
-//  COThingsServer.swift
+//  CoThingsServer.swift
 //  CoThings
 //
 //  Created by Umur Gedik on 2020/05/05.
@@ -23,7 +23,7 @@ struct UpdateError: Error {
     }
 }
 
-class COThingsServer: ObservableObject {
+class CoThingsServer: ObservableObject {
     let url: URL
     let socketURL: URL
     

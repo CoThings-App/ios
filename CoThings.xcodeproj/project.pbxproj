@@ -30,7 +30,7 @@
 		A96ECFC2246C564600F2D55C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC1246C564600F2D55C /* Models.swift */; };
 		A96ECFC4246C5A0200F2D55C /* BeaconDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC3246C5A0200F2D55C /* BeaconDetector.swift */; };
 		A96ECFC9246C5B3200F2D55C /* PlaceSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */; };
-		A96ECFCA246C5B3200F2D55C /* COThingsServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC7246C5B3200F2D55C /* COThingsServer.swift */; };
+		A96ECFCA246C5B3200F2D55C /* CoThingsServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC7246C5B3200F2D55C /* CoThingsServer.swift */; };
 		A96ECFCE246C5F0E00F2D55C /* PlaceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFCC246C5F0E00F2D55C /* PlaceHeaderView.swift */; };
 		A96ECFCF246C5F0E00F2D55C /* RoomsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFCD246C5F0E00F2D55C /* RoomsScreen.swift */; };
 		A96ECFD4246C5F9B00F2D55C /* EdgeBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD1246C5F9B00F2D55C /* EdgeBorderModifier.swift */; };
@@ -119,7 +119,7 @@
 		A96ECFC1246C564600F2D55C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A96ECFC3246C5A0200F2D55C /* BeaconDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDetector.swift; sourceTree = "<group>"; };
 		A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSession.swift; sourceTree = "<group>"; };
-		A96ECFC7246C5B3200F2D55C /* COThingsServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COThingsServer.swift; sourceTree = "<group>"; };
+		A96ECFC7246C5B3200F2D55C /* CoThingsServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoThingsServer.swift; sourceTree = "<group>"; };
 		A96ECFCC246C5F0E00F2D55C /* PlaceHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceHeaderView.swift; sourceTree = "<group>"; };
 		A96ECFCD246C5F0E00F2D55C /* RoomsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomsScreen.swift; sourceTree = "<group>"; };
 		A96ECFD1246C5F9B00F2D55C /* EdgeBorderModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeBorderModifier.swift; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 			children = (
 				A96ECFC3246C5A0200F2D55C /* BeaconDetector.swift */,
 				A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */,
-				A96ECFC7246C5B3200F2D55C /* COThingsServer.swift */,
+				A96ECFC7246C5B3200F2D55C /* CoThingsServer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -467,7 +467,7 @@
 				48B33AFC24682D93000A1F5C /* HomeView.swift in Sources */,
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
 				A96ECFCF246C5F0E00F2D55C /* RoomsScreen.swift in Sources */,
-				A96ECFCA246C5B3200F2D55C /* COThingsServer.swift in Sources */,
+				A96ECFCA246C5B3200F2D55C /* CoThingsServer.swift in Sources */,
 				A96ECFD4246C5F9B00F2D55C /* EdgeBorderModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

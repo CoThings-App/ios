@@ -11,7 +11,7 @@ import DateHelper
 
 struct RoomsScreen: View {
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var placeSession: COThingsServer
+    @EnvironmentObject var placeSession: CoThingsServer
     
     @State private var scrollOffset: CGFloat = 0
     

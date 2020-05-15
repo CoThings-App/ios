@@ -13,11 +13,11 @@ class PlaceSession: ObservableObject {
     @Published var connectionStatus: ConnectionStatus
     @Published var rooms: [Room]
     
-    private let server: COThingsServer
+    private let server: CoThingsServer
     private var roomsCancellable: AnyCancellable!
     private var connectionStatusCancellable: AnyCancellable!
     
-    init(server: COThingsServer) {
+    init(server: CoThingsServer) {
         self.server = server
         self.rooms = []
         
