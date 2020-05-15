@@ -98,7 +98,7 @@ struct CircularButton: ButtonStyle {
 
 struct RoomRow_Previews: PreviewProvider {
     static let lastUpdated = Date().adjust(.minute, offset: -5)
-    static let sampleRoom = Room(id: "4",
+    static let sampleRoom = Room(id: 4,
                                    name: "Kitchen",
                                    group: "Common Area",
                                    population: 3,
