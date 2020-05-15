@@ -43,7 +43,7 @@
 		A96ECFE5246C605C00F2D55C /* Date+Ago.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFE2246C605C00F2D55C /* Date+Ago.swift */; };
 		A96ECFE6246C605C00F2D55C /* UIKit+Mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFE3246C605C00F2D55C /* UIKit+Mix.swift */; };
 		A96ECFE7246C605C00F2D55C /* Color+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFE4246C605C00F2D55C /* Color+Utils.swift */; };
-		A96ECFE9246C606800F2D55C /* COHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFE8246C606800F2D55C /* COHostingController.swift */; };
+		A96ECFE9246C606800F2D55C /* CoHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFE8246C606800F2D55C /* CoHostingController.swift */; };
 		A96ECFEB246C608500F2D55C /* GroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFEA246C608500F2D55C /* GroupHeaderView.swift */; };
 		A96ECFEE246C611400F2D55C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A96ECFED246C611400F2D55C /* Preview Assets.xcassets */; };
 		A96ECFF0246C615500F2D55C /* RoomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFEF246C615500F2D55C /* RoomData.swift */; };
@@ -131,7 +131,7 @@
 		A96ECFE2246C605C00F2D55C /* Date+Ago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ago.swift"; sourceTree = "<group>"; };
 		A96ECFE3246C605C00F2D55C /* UIKit+Mix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Mix.swift"; sourceTree = "<group>"; };
 		A96ECFE4246C605C00F2D55C /* Color+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Utils.swift"; sourceTree = "<group>"; };
-		A96ECFE8246C606800F2D55C /* COHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = COHostingController.swift; sourceTree = "<group>"; };
+		A96ECFE8246C606800F2D55C /* CoHostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoHostingController.swift; sourceTree = "<group>"; };
 		A96ECFEA246C608500F2D55C /* GroupHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupHeaderView.swift; sourceTree = "<group>"; };
 		A96ECFED246C611400F2D55C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A96ECFEF246C615500F2D55C /* RoomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomData.swift; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 				A96ECFD0246C5F9B00F2D55C /* Common */,
 				A96ECFC0246C562600F2D55C /* RoomsScreen */,
 				48241B6E246BBE8D00EDAE16 /* AppRootView.swift */,
-				A96ECFE8246C606800F2D55C /* COHostingController.swift */,
+				A96ECFE8246C606800F2D55C /* CoHostingController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 			files = (
 				A96ECFC9246C5B3200F2D55C /* PlaceSession.swift in Sources */,
 				A96ECFC2246C564600F2D55C /* Models.swift in Sources */,
-				A96ECFE9246C606800F2D55C /* COHostingController.swift in Sources */,
+				A96ECFE9246C606800F2D55C /* CoHostingController.swift in Sources */,
 				A96ECFC4246C5A0200F2D55C /* BeaconDetector.swift in Sources */,
 				A96ECFDB246C5FAF00F2D55C /* DonutPercentageView.swift in Sources */,
 				48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */,
