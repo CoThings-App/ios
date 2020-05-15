@@ -10,6 +10,7 @@
 		48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6C246BAB2400EDAE16 /* AppState.swift */; };
 		48241B6F246BBE8D00EDAE16 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* AppRootView.swift */; };
 		48241B71246BC94200EDAE16 /* BeaconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconView.swift */; };
+		48AA3056246EA28500F7F9BA /* DateFormatter+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */; };
 		48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */ = {isa = PBXBuildFile; productRef = 48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */; };
 		48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AF924682495000A1F5C /* ServerSettingsView.swift */; };
 		48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DDD7C2245C5CD300A249BD /* AppDelegate.swift */; };
@@ -94,6 +95,7 @@
 		48241B6C246BAB2400EDAE16 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		48241B6E246BBE8D00EDAE16 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		48241B70246BC94200EDAE16 /* BeaconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconView.swift; sourceTree = "<group>"; };
+		48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Custom.swift"; sourceTree = "<group>"; };
 		48B33AF924682495000A1F5C /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		48DDD7BF245C5CD300A249BD /* CoThings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoThings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48DDD7C2245C5CD300A249BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				A96ECFE4246C605C00F2D55C /* Color+Utils.swift */,
 				A96ECFE2246C605C00F2D55C /* Date+Ago.swift */,
 				A96ECFE3246C605C00F2D55C /* UIKit+Mix.swift */,
+				48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				A96ECFC2246C564600F2D55C /* Models.swift in Sources */,
 				A96ECFE9246C606800F2D55C /* CoHostingController.swift in Sources */,
 				A96ECFC4246C5A0200F2D55C /* BeaconDetector.swift in Sources */,
+				48AA3056246EA28500F7F9BA /* DateFormatter+Custom.swift in Sources */,
 				A96ECFDB246C5FAF00F2D55C /* DonutPercentageView.swift in Sources */,
 				48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */,
 				A96ECFD5246C5F9B00F2D55C /* Environment.swift in Sources */,
