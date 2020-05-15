@@ -11,14 +11,28 @@ import Combine
 
 struct AppRootView: View {
 	@ObservedObject var appState: AppState
+    let roomColl = RoomCollection(from: rooms)
 	var body: some View {
 		Group {
 			if appState.serverHostnameIsSet {
 //				HomeView()
-				BeaconView()
+//				BeaconView()
+                RoomsScreen(rooms: roomColl)
 			} else {
 				ServerSettingsView(appState: self.appState)
 			}
 		}
 	}
+}
+
+struct AppRootView_Previews: PreviewProvider {
+    static let state: AppState = {
+        let s = AppState()
+        s.serverHostnameIsSet = true
+        return s
+    }()
+    
+    static var previews: some View {
+        AppRootView(appState: state)
+    }
 }

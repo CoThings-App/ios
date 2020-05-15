@@ -11,17 +11,15 @@ import CoreLocation
 import Combine
 
 class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
-
 	var didChange = PassthroughSubject<CLProximity, Never>()
-	var localitionManager: CLLocationManager?
+	var localitionManager = CLLocationManager()
 	@Published var lastDistance = CLProximity.unknown
 
 	override init() {
-		super.init()
-
-		localitionManager = CLLocationManager()
-		localitionManager?.delegate = self
-		localitionManager?.requestAlwaysAuthorization()
+        super.init()
+        
+		localitionManager.delegate = self
+		localitionManager.requestAlwaysAuthorization()
 	}
 
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -39,18 +37,14 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		let constraint = CLBeaconIdentityConstraint(uuid: uuid, major: 1, minor: 10)
 		let beaconRegion = CLBeaconRegion(beaconIdentityConstraint: constraint, identifier: "")
 
-		localitionManager?.startMonitoring(for: beaconRegion)
-		localitionManager?.startRangingBeacons(satisfying: constraint)
-
-//		print("looking for beacons")
+		localitionManager.startMonitoring(for: beaconRegion)
+		localitionManager.startRangingBeacons(satisfying: constraint)
 	}
 
 	func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
 		if let beacon = beacons.first {
-//			print("beacon found.");
 			update(distance: beacon.proximity)
 		} else {
-//			print("NO beacon found!")
 			update(distance: .unknown)
 		}
 	}
