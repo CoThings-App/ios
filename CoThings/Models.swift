@@ -9,7 +9,7 @@
 import Foundation
 
 struct Room: Hashable, Identifiable {
-    let id: String
+    let id: Int
     var name: String
     var group: String
     var population: Int
@@ -31,13 +31,13 @@ extension Room: Decodable {
         case id
         case name
         case population = "count"
-        case capacity = "limit"
+        case capacity
         case group
         case altBeaconUUID = "altbeacon_uuid"
         case iBeaconUUID = "ibeacon_uuid"
         case major
         case minor
-        case lastUpdated = "last_updated"
+        case lastUpdated = "updated_at"
     }
 }
 
