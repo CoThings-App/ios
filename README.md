@@ -12,3 +12,7 @@ Swift: 5.2
 Xcode:14.4.1
 iOS SDK: 13.4
 Min. iOS Support: 13.0+
+
+### Contact with the team
+ - info@cothings.app
+ - IRC channel on freenode.net #cothings
