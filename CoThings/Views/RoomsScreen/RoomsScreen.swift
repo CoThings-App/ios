@@ -10,29 +10,13 @@ import SwiftUI
 import DateHelper
 
 struct RoomsScreen: View {
-    @Environment(\.colorScheme) var colorScheme
-
-	var placeSession: CoThingsServer? = nil
-
-	@State private var scrollOffset: CGFloat = 0
-
-	var roomColl: RoomCollection? = nil
-
-	init() {
-		let hostname = UserDefaults.standard.string(forKey: "serverHostname")!
-		let serverURL = URL.init(string: "https://" + hostname);
-		let socketURL = URL.init(string: "wss://" + hostname + "/socket/websocket")
-
-		self.placeSession = CoThingsServer(url: serverURL! , socketURL: socketURL!)
-		self.roomColl = RoomCollection.init(from: self.placeSession!.rooms)
-	}
-
-	init(rooms: RoomCollection) {
-		roomColl = rooms
-	}
+    @ObservedObject var roomsController: RoomsController
     
-    func sectionHeader(nth: Int, group: String) -> some View {
-		return GroupHeaderView(title: group, occupants: roomColl!.population[group] ?? 0)
+	@State private var scrollOffset: CGFloat = 0
+    @Environment(\.colorScheme) private var colorScheme
+    
+    func sectionHeader(group: String) -> some View {
+        return GroupHeaderView(title: group, occupants: roomsController.groupPopulations[group] ?? 0)
             .padding(.top)
             .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
             .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
@@ -49,6 +33,9 @@ struct RoomsScreen: View {
             .clipped()
             .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
             .zIndex(1)
+            .onScrollOffsetChange() {
+                self.scrollOffset = $0
+            }
                     
             List {
                 Spacer()
@@ -57,11 +44,11 @@ struct RoomsScreen: View {
                     .scrollOffset(value: $scrollOffset)
                 
                 
-                ForEach(Array(roomColl!.groups.enumerated()), id: \.1) { (i, group) in
-                    Section(header: self.sectionHeader(nth: i, group: group)) {
-                        ForEach(self.roomColl!.rooms[group] ?? [], id: \.name) { room in
+                ForEach(roomsController.groups, id: \.self) { group in
+                    Section(header: self.sectionHeader(group: group)) {
+                        ForEach(self.roomsController.rooms[group] ?? []) { room in
                             RoomRow(room: room)
-                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .listRowInsets(EdgeInsets())
                                 .frame(height: 84)
                                 .padding([.leading, .trailing])
                                 .background(self.colorScheme == .dark ? Color(hex: "111111") : Color.white)
@@ -69,10 +56,6 @@ struct RoomsScreen: View {
                         }
                     }
                 }
-            }
-            .onScrollOffsetChange() {
-                print($0)
-                self.scrollOffset = $0
             }
             .onAppear() {
                 UITableView.appearance().separatorStyle = .none
@@ -85,16 +68,16 @@ struct RoomsScreen: View {
 
 struct SpacesScreen_Previews: PreviewProvider {
     static var previews: some View {
-        let coll = RoomCollection(from: rooms)
+        let roomsController = RoomsController(session: PlaceSession(service: InMemoryBackend()))
         return Group {
-			RoomsScreen(rooms: coll)
+			RoomsScreen(roomsController: roomsController)
                 .colorScheme(.dark)
             
-            RoomsScreen(rooms: coll)
-                .colorScheme(.light)
+//            RoomsScreen(roomsController: roomsController)
+//                .colorScheme(.light)
             
-            RoomsScreen(rooms: coll)
-                .previewDevice("iPhone 11")
+//            RoomsScreen(roomsController: roomsController)
+//                .previewDevice("iPhone 11")
         }
     }
 }

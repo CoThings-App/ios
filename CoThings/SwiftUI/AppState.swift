@@ -10,6 +10,8 @@ import Foundation
 import SwiftUI
 import Combine
 
-class AppState: ObservableObject {
-	@Published var serverHostnameIsSet: Bool = UserDefaults.standard.string(forKey: "serverHostname") != nil
+enum AppState {
+    case initialRun
+    case configurationNeeded
+    case ready(session: PlaceSession)
 }

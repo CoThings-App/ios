@@ -12,16 +12,27 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    @ObservedObject var appState = AppState()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+        let session = UserDefaults.standard.string(forKey: ServerHostNameKey)
+            .map { hn in ServerBackend(hostname: hn) }
+            .map { server in PlaceSession(service: server ) }
+            .map { session in AppState.ready(session: session) }
+        
+        let initialRun = UserDefaults.standard.bool(forKey: PassOnboardingKey)
+            ? AppState.configurationNeeded
+            : AppState.initialRun
+        
+        let appState = session ?? initialRun
+        let stateController = StateController(state: appState)
 
 		if let windowScene =  scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-			self.window?.rootViewController = UIHostingController(rootView: AppRootView(appState: self.appState))
+            self.window?.rootViewController = CoHostingController(rootView: RootView(stateController: stateController))
             self.window?.makeKeyAndVisible()
         }
     }

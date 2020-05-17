@@ -8,6 +8,9 @@
 
 import Foundation
 
+let ServerHostNameKey = "serverHostname"
+let PassOnboardingKey = "passOnboarding"
+
 struct Room: Hashable, Identifiable {
     let id: Int
     var name: String

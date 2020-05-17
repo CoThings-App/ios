@@ -11,7 +11,7 @@ import Foundation
 let ca = "Common Area"
 let br = "Bathrooms"
 let gb = "Garbage"
-let rooms: [Room] = [
+let previewRooms: [Room] = [
 	Room(id: 1, name: "Kitchen", group: ca, population: 3, capacity: 4, lastUpdated: .ago(.minute, 3)),
 	Room(id: 2, name: "Living Room", group: ca, population: 5, capacity: 4, lastUpdated: .ago(.minute, 5)),
 	Room(id: 3, name: "Study Room", group: ca, population: 1, capacity: 4, lastUpdated: .ago(.hour, 2)),

@@ -10,28 +10,16 @@ import Foundation
 import Combine
 import SwiftPhoenixClient
 
-enum ConnectionStatus: String {
-    case connecting
-    case connected
-    case disconnected
-    case failed
-}
-
-struct UpdateError: Error {
-    var localizedDescription: String {
-        "failed to update room"
-    }
-}
-
-class CoThingsServer: ObservableObject {
+class ServerBackend: ObservableObject, CoThingsBackend {
     let url: URL
     let socketURL: URL
     
-    @Published private(set) var connectionStatus: ConnectionStatus
-    @Published private(set) var rooms: [Room]
-
-	var didChange = PassthroughSubject<[Room], Never>()
+    @Published private(set) var status: ConnectionStatus
+    lazy var statusPublisher = $status.eraseToAnyPublisher()
     
+    @Published private(set) var rooms: [Room]
+    lazy var roomsPublisher = $rooms.eraseToAnyPublisher()
+        
     private let socket: Socket
     private var lobbyChan: Channel?
     
@@ -39,17 +27,22 @@ class CoThingsServer: ObservableObject {
         self.url = url
         self.socketURL = socketURL
         self.socket = Socket(socketURL.absoluteString)
+        self.socket.connect()
+        self.socket.logger = { msg in print("LOG:", msg) }
         
-        self.connectionStatus = .connecting
+        self.status = .connecting
         self.rooms = []
         
         self.socket.delegateOnOpen(to: self) { s in s.didSocketConnected() }
         self.socket.delegateOnClose(to: self) { s in s.didSocketClosed() }
         self.socket.delegateOnError(to: self) { (s, err) in s.didSocketErrored(error: err) }
-
-		self.socket.logger = { msg in print("LOG:", msg) }
-
-		self.socket.connect()
+    }
+    
+    convenience init(hostname: String) {
+        let url = URL(string: "https://" + hostname)!
+        let socketURL = URL(string: "wss://" + hostname + "/socket")!
+        
+        self.init(url: url, socketURL: socketURL)
     }
     
     func increasePopulation(room: Room, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
@@ -76,7 +69,9 @@ class CoThingsServer: ObservableObject {
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError()))})
     }
     
-    private func didSocketConnected() {        
+    // MARK: - Handle Socket Events
+    
+    private func didSocketConnected() {
         lobbyChan = socket.channel("room:lobby")
         lobbyChan?.join()
             .delegateReceive("ok", to: self, callback: { (s, m) in s.didJoinedLobby(msg: m) })
@@ -84,12 +79,12 @@ class CoThingsServer: ObservableObject {
     }
     
     private func didFailJoinLobby(msg: Message) {
-        connectionStatus = .failed
+        status = .failed
         print("error: failed to join lobby")
     }
     
     private func didJoinedLobby(msg: Message) {
-        connectionStatus = .connected
+        status = .ready
         
         print("joined to lobby")
 
@@ -103,62 +98,54 @@ class CoThingsServer: ObservableObject {
             return
         }
         
-        lobbyChan?.delegateOn("update", to: self) { s, m in
-			s.updateRoom(data: m.payload)
-        }
-
-		lobbyChan?.delegateOn("inc", to: self, callback: { (s, m) in
-			s.updateRoom(data: m.payload)
-		})
-
-		lobbyChan?.delegateOn("dec", to: self, callback: { (s, m) in
-			s.updateRoom(data: m.payload)
-		})
+        lobbyChan?.delegateOn("room_list", to: self) { s, m in s.onRoomList(data: m.payload) }
+        lobbyChan?.delegateOn("update",    to: self) { s, m in s.onUpdateRoom(data: m.payload) }
+		lobbyChan?.delegateOn("inc",       to: self) { s, m in s.onUpdateRoom(data: m.payload) }
+		lobbyChan?.delegateOn("dec",       to: self) { s, m in s.onUpdateRoom(data: m.payload) }
         
         updateRooms(from: roomsDict)
 
     }
+    
+    private func onRoomList(data: Payload) {
+        guard let newRooms = parseJSON([Room].self, from: data["rooms"] ?? []) else { return }
+        objectWillChange.send()
+        rooms = newRooms
+    }
 
-	private func updateRoom(data: Any) {
-		do {
-			let jsonData = try JSONSerialization.data(withJSONObject: data, options: .fragmentsAllowed)
-			let decoder = JSONDecoder()
-			decoder.dateDecodingStrategy = .formatted(DateFormatter.customISO8601)
-			let room = try! decoder.decode(Room.self, from: jsonData)
-			for (index, item) in self.rooms.enumerated() {
-				if item.id == room.id {
-					self.rooms[index] = room
-					break;
-				}
-			}
-			didChange.send(self.rooms)
-		} catch {
-			print("Got unexpeced payload for rooms data")
-		}
+	private func onUpdateRoom(data: Payload) {
+        guard let newRoom = parseJSON(Room.self, from: data) else { return }
+        for (index, item) in self.rooms.enumerated() {
+            if item.id == newRoom.id {
+                self.rooms[index] = newRoom
+                break;
+            }
+        }
 	}
     
     private func updateRooms(from dicts: [[String:Any]]) {
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: dicts, options: .fragmentsAllowed)
-			let decoder = JSONDecoder()
-			decoder.dateDecodingStrategy = .formatted(DateFormatter.customISO8601)
-			let rooms = try! decoder.decode([Room].self, from: jsonData)
-			self.rooms = rooms
-			didChange.send(self.rooms)
-        } catch {
-            print("Got unexpeced payload for rooms data")
-        }
+        guard let newRooms = parseJSON([Room].self, from: dicts) else { return }
+        self.rooms = newRooms
     }
     
     private func didSocketClosed() {
-        self.connectionStatus = .disconnected
     }
     
     private func didSocketErrored(error: Error) {
-        
     }
+}
 
-
+fileprivate func parseJSON<T: Decodable>(_ targetType: T.Type, from payload: Any) -> T? {
+    do {
+        let jsonData = try JSONSerialization.data(withJSONObject: payload, options: .fragmentsAllowed)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.customISO8601)
+        
+        return try! decoder.decode(targetType, from: jsonData)
+    } catch {
+        print("Got unexpected payload")
+        return nil
+    }
 }
 
 

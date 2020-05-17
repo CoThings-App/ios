@@ -6,58 +6,63 @@
 //  Copyright © 2020 Umur Gedik. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class PlaceSession: ObservableObject {
     @Published var connectionStatus: ConnectionStatus
     @Published var rooms: [Room]
     
-    private let server: CoThingsServer
-    private var roomsCancellable: AnyCancellable!
-    private var connectionStatusCancellable: AnyCancellable!
+    private let service: CoThingsBackend
+    private var roomsCancellable: AnyCancellable?
+    private var connectionStatusCancellable: AnyCancellable?
     
-    init(server: CoThingsServer) {
-        self.server = server
+    init(service: CoThingsBackend) {
+        self.service = service
         self.rooms = []
+        self.connectionStatus = service.status
         
-        self.connectionStatus = server.connectionStatus
-        self.roomsCancellable = self.server.$rooms.assign(to: \.rooms, on: self)
-        self.connectionStatusCancellable = self.server.$connectionStatus.assign(to: \.connectionStatus, on: self)
+        self.roomsCancellable = self.service.roomsPublisher
+            .print("service.roomsPublisher")
+            .assign(to: \.rooms, on: self)
+        
+        self.connectionStatusCancellable = self.service.statusPublisher
+            .print("service.statusPublisher")
+            .assign(to: \.connectionStatus, on: self)
     }
     
     func increasePopulation(room: Room) {
         guard
-            connectionStatus == .connected,
-            let spaceIndex = rooms.firstIndex(of: room) else {
+            connectionStatus == .ready,
+            let roomIndex = rooms.firstIndex(of: room) else {
             return
         }
         
-        var newSpace = rooms[spaceIndex]
-        newSpace.population += 1
-        rooms[spaceIndex] = newSpace
+        var newRoom = rooms[roomIndex]
+        newRoom.population += 1
+        rooms[roomIndex] = newRoom
         
-        server.increasePopulation(room: room) { res in
+        service.increasePopulation(room: room) { res in
             if case .failure = res {
-                self.rooms = self.server.rooms
+                self.rooms = self.service.rooms
             }
         }
     }
     
     func decreasePopulation(room: Room) {
         guard
-            connectionStatus == .connected,
-            let spaceIndex = rooms.firstIndex(of: room) else {
+            connectionStatus == .ready,
+            let roomIndex = rooms.firstIndex(of: room) else {
             return
         }
         
-        var newSpace = rooms[spaceIndex]
-        newSpace.population -= 1
-        rooms[spaceIndex] = newSpace
+        var newRoom = rooms[roomIndex]
+        newRoom.population -= 1
+        rooms[roomIndex] = newRoom
         
-        server.decreasePopulation(room: room) { res in
+        service.decreasePopulation(room: room) { res in
             if case .failure = res {
-                self.rooms = self.server.rooms
+                self.rooms = self.service.rooms
             }
         }
     }
