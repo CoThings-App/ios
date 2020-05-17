@@ -57,6 +57,7 @@ struct RoomsScreen: View {
                     }
                 }
             }
+            .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
             .onAppear() {
                 UITableView.appearance().separatorStyle = .none
                 UITableView.appearance().sectionFooterHeight = .leastNonzeroMagnitude
@@ -73,11 +74,11 @@ struct SpacesScreen_Previews: PreviewProvider {
 			RoomsScreen(roomsController: roomsController)
                 .colorScheme(.dark)
             
-//            RoomsScreen(roomsController: roomsController)
-//                .colorScheme(.light)
+            RoomsScreen(roomsController: roomsController)
+                .colorScheme(.light)
             
-//            RoomsScreen(roomsController: roomsController)
-//                .previewDevice("iPhone 11")
+            RoomsScreen(roomsController: roomsController)
+                .previewDevice("iPhone 11")
         }
     }
 }

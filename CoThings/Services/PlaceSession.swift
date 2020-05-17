@@ -23,11 +23,9 @@ class PlaceSession: ObservableObject {
         self.connectionStatus = service.status
         
         self.roomsCancellable = self.service.roomsPublisher
-            .print("service.roomsPublisher")
             .assign(to: \.rooms, on: self)
         
         self.connectionStatusCancellable = self.service.statusPublisher
-            .print("service.statusPublisher")
             .assign(to: \.connectionStatus, on: self)
     }
     

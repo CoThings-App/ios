@@ -27,6 +27,7 @@ class ServerBackend: ObservableObject, CoThingsBackend {
         self.url = url
         self.socketURL = socketURL
         self.socket = Socket(socketURL.absoluteString)
+        self.socket.timeout = TimeInterval(60)
         self.socket.connect()
         self.socket.logger = { msg in print("LOG:", msg) }
         

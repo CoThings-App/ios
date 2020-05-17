@@ -22,12 +22,7 @@ class RoomsController: ObservableObject {
         self.session = session
         
         roomsSubscription = session.$rooms
-            .print("roomsController session.$rooms")
-            .sink { rooms in
-                if rooms.count == 0 {
-                    return
-                }
-                
+            .sink { rooms in                
                 self.rooms = Dictionary(grouping: rooms, by: { $0.group })
                 self.groups = NSOrderedSet(array: rooms.map(\.group), copyItems: true).array as! [String]
                 

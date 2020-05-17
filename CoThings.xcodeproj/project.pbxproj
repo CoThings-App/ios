@@ -41,8 +41,8 @@
 		A96ECFD4246C5F9B00F2D55C /* EdgeBorderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD1246C5F9B00F2D55C /* EdgeBorderModifier.swift */; };
 		A96ECFD5246C5F9B00F2D55C /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD2246C5F9B00F2D55C /* Environment.swift */; };
 		A96ECFD6246C5F9B00F2D55C /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD3246C5F9B00F2D55C /* Scrolling.swift */; };
-		A96ECFDB246C5FAF00F2D55C /* DonutPercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD8246C5FAF00F2D55C /* DonutPercentageView.swift */; };
-		A96ECFDC246C5FAF00F2D55C /* DonutSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD9246C5FAF00F2D55C /* DonutSegment.swift */; };
+		A96ECFDB246C5FAF00F2D55C /* RoomFullnessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD8246C5FAF00F2D55C /* RoomFullnessView.swift */; };
+		A96ECFDC246C5FAF00F2D55C /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFD9246C5FAF00F2D55C /* CircularProgress.swift */; };
 		A96ECFDD246C5FAF00F2D55C /* RoomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFDA246C5FAF00F2D55C /* RoomRow.swift */; };
 		A96ECFE0246C602100F2D55C /* DateHelper in Frameworks */ = {isa = PBXBuildFile; productRef = A96ECFDF246C602100F2D55C /* DateHelper */; };
 		A96ECFE5246C605C00F2D55C /* Date+Ago.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFE2246C605C00F2D55C /* Date+Ago.swift */; };
@@ -135,8 +135,8 @@
 		A96ECFD1246C5F9B00F2D55C /* EdgeBorderModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeBorderModifier.swift; sourceTree = "<group>"; };
 		A96ECFD2246C5F9B00F2D55C /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A96ECFD3246C5F9B00F2D55C /* Scrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
-		A96ECFD8246C5FAF00F2D55C /* DonutPercentageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutPercentageView.swift; sourceTree = "<group>"; };
-		A96ECFD9246C5FAF00F2D55C /* DonutSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutSegment.swift; sourceTree = "<group>"; };
+		A96ECFD8246C5FAF00F2D55C /* RoomFullnessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomFullnessView.swift; sourceTree = "<group>"; };
+		A96ECFD9246C5FAF00F2D55C /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		A96ECFDA246C5FAF00F2D55C /* RoomRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomRow.swift; sourceTree = "<group>"; };
 		A96ECFE2246C605C00F2D55C /* Date+Ago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ago.swift"; sourceTree = "<group>"; };
 		A96ECFE3246C605C00F2D55C /* UIKit+Mix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Mix.swift"; sourceTree = "<group>"; };
@@ -305,8 +305,8 @@
 		A96ECFD7246C5FAF00F2D55C /* RoomRow */ = {
 			isa = PBXGroup;
 			children = (
-				A96ECFD8246C5FAF00F2D55C /* DonutPercentageView.swift */,
-				A96ECFD9246C5FAF00F2D55C /* DonutSegment.swift */,
+				A96ECFD8246C5FAF00F2D55C /* RoomFullnessView.swift */,
+				A96ECFD9246C5FAF00F2D55C /* CircularProgress.swift */,
 				A96ECFDA246C5FAF00F2D55C /* RoomRow.swift */,
 			);
 			path = RoomRow;
@@ -480,7 +480,7 @@
 				A96ECFE9246C606800F2D55C /* CoHostingController.swift in Sources */,
 				A96ECFC4246C5A0200F2D55C /* BeaconDetector.swift in Sources */,
 				48AA3056246EA28500F7F9BA /* DateFormatter+Custom.swift in Sources */,
-				A96ECFDB246C5FAF00F2D55C /* DonutPercentageView.swift in Sources */,
+				A96ECFDB246C5FAF00F2D55C /* RoomFullnessView.swift in Sources */,
 				48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */,
 				A96ECFD5246C5F9B00F2D55C /* Environment.swift in Sources */,
 				48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */,
@@ -489,7 +489,7 @@
 				A96ECFCE246C5F0E00F2D55C /* PlaceHeaderView.swift in Sources */,
 				A9176B76246ED95C00027D6C /* OnBoardingScreen.swift in Sources */,
 				A96ECFDD246C5FAF00F2D55C /* RoomRow.swift in Sources */,
-				A96ECFDC246C5FAF00F2D55C /* DonutSegment.swift in Sources */,
+				A96ECFDC246C5FAF00F2D55C /* CircularProgress.swift in Sources */,
 				A96ECFE6246C605C00F2D55C /* UIKit+Mix.swift in Sources */,
 				A96ECFF0246C615500F2D55C /* RoomData.swift in Sources */,
 				A9176B7E246F3CF700027D6C /* CoThingsBackend.swift in Sources */,

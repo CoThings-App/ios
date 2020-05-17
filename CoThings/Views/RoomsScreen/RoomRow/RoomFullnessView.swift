@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct DonutPercentageView: View {
+struct RoomFullnessView: View {
     let percentage: Float
     
     static let percentageFont = Font.custom("DIN Condensed", size: 20).bold()
@@ -23,25 +23,25 @@ struct DonutPercentageView: View {
     
     var body: some View {
         ZStack {
-            DonutSegment(percentage: percentage)
+            CircularProgress(percentage: percentage)
             
             Text(percentageText)
                 .foregroundColor(textColor)
-                .font(DonutPercentageView.percentageFont)
+                .font(RoomFullnessView.percentageFont)
                 .padding(.top, 5)
         }
     }
 }
 
-struct DonutPercentageView_Previews: PreviewProvider {
+struct RoomFullnessView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 20) {
-            DonutPercentageView(percentage: 0.25)
-            DonutPercentageView(percentage: 0.583)
-            DonutPercentageView(percentage: 0.91234)
-            DonutPercentageView(percentage: 1.0)
-            DonutPercentageView(percentage: 2.0)
-            DonutPercentageView(percentage: 0)
+            RoomFullnessView(percentage: 0.25)
+            RoomFullnessView(percentage: 0.583)
+            RoomFullnessView(percentage: 0.91234)
+            RoomFullnessView(percentage: 1.0)
+            RoomFullnessView(percentage: 2.0)
+            RoomFullnessView(percentage: 0)
         }
         .padding()
         .previewLayout(.sizeThatFits)

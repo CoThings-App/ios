@@ -51,7 +51,7 @@ struct RoomRow: View {
                     .buttonStyle(CircularButton(colorScheme: colorScheme))
                 }
                 
-                DonutPercentageView(percentage: Float(room.population) / Float(room.capacity))
+                RoomFullnessView(percentage: Float(room.population) / Float(room.capacity))
                 
                 Button(action: {}) {
                     Image("plusIcon")
