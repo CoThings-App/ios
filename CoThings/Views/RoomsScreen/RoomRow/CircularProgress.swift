@@ -14,8 +14,8 @@ struct CircularProgress: View {
     @Environment(\.colorScheme) var colorScheme
     
     fileprivate static let colors: [(Float, ProgressColor)] = [
-        (0.5, ProgressColor(.hex("C8FF3F"), .hex("B4E33E"))),
-        (1.0, ProgressColor(.hex("FFC000"), .hex("EBA90E"))),
+        (0.6, ProgressColor(.hex("C8FF3F"), .hex("B4E33E"))),
+		(0.8, ProgressColor(.hex("FFC000"), .hex("EBA90E"))),
         (Float.infinity, ProgressColor(.hex("E64200"), .hex("B92D1A")))
     ]
 
