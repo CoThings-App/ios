@@ -53,7 +53,7 @@ class ServerBackend: ObservableObject, CoThingsBackend {
             return
         }
         
-        lobbyChan.push("inc", payload: [String : Any]())
+        lobbyChan.push("inc", payload: ["room_id" : room.id])
             .receive("ok", callback: { _ in completionHandler(.success(())) })
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError())) })
     }
@@ -65,7 +65,7 @@ class ServerBackend: ObservableObject, CoThingsBackend {
             return
         }
         
-        lobbyChan.push("dec", payload: [String: Any]())
+        lobbyChan.push("dec", payload: ["room_id": room.id])
             .receive("ok", callback: { _ in completionHandler(.success(()))})
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError()))})
     }

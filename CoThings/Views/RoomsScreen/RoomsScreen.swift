@@ -15,13 +15,20 @@ struct RoomsScreen: View {
 	@State private var scrollOffset: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
     
+    var rowBackground: Color {
+        colorScheme == .dark ? Color(hex: "111111") : Color.white
+    }
+    
+    var rowBorder: Color {
+        colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd")
+    }
+    
     func sectionHeader(group: String) -> some View {
         return GroupHeaderView(title: group, occupants: roomsController.groupPopulations[group] ?? 0)
             .padding(.top)
             .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
-            .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
+            .edgeBorder(rowBorder, edges: .bottom)
     }
-    
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -33,32 +40,35 @@ struct RoomsScreen: View {
             .clipped()
             .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
             .zIndex(1)
-            .onScrollOffsetChange() {
-                self.scrollOffset = $0
-            }
+            
                     
             List {
                 Spacer()
                     .frame(height: 125)
                     .listRowInsets(EdgeInsets())
-                    .scrollOffset(value: $scrollOffset)
-                
+                    .scrollOffset()
+                    .onScrollOffsetChange() {
+                        self.scrollOffset = $0
+                    }
                 
                 ForEach(roomsController.groups, id: \.self) { group in
                     Section(header: self.sectionHeader(group: group)) {
                         ForEach(self.roomsController.rooms[group] ?? []) { room in
-                            RoomRow(room: room)
+                            RoomRow(room: room,
+                                    onPlus: { self.roomsController.session.increasePopulation(room: $0)},
+                                    onMinus: { self.roomsController.session.decreasePopulation(room: $0)})
                                 .listRowInsets(EdgeInsets())
                                 .frame(height: 84)
                                 .padding([.leading, .trailing])
-                                .background(self.colorScheme == .dark ? Color(hex: "111111") : Color.white)
-                                .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
+                                .background(self.rowBackground)
+                                .edgeBorder(self.rowBorder, edges: .bottom)
                         }
                     }
                 }
             }
             .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
             .onAppear() {
+                UITableView.appearance().backgroundColor = .clear
                 UITableView.appearance().separatorStyle = .none
                 UITableView.appearance().sectionFooterHeight = .leastNonzeroMagnitude
             }

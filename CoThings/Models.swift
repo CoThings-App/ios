@@ -43,30 +43,3 @@ extension Room: Decodable {
         case lastUpdated = "updated_at"
     }
 }
-
-struct RoomCollection {
-    let groups: [String]
-    let rooms: [String: [Room]]
-    let population: [String: Int]
-    
-    init(from rooms: [Room]) {
-        var groups = [String]()
-        var groupSpaces = [String:[Room]]()
-        var groupPopulation = [String:Int]()
-        
-        for space in rooms {
-            if !groups.contains(space.group) {
-                groups.append(space.group)
-                groupSpaces[space.group] = []
-                groupPopulation[space.group] = 0
-            }
-            
-            groupSpaces[space.group]?.append(space)
-            groupPopulation[space.group]! += 1
-        }
-        
-        self.groups = groups
-        self.rooms = groupSpaces
-        self.population = groupPopulation
-    }
-}

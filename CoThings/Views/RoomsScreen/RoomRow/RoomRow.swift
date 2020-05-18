@@ -13,10 +13,18 @@ struct RoomRow: View {
     @Environment(\.colorScheme) var colorScheme
     
     let room: Room
+    let onPlus: (Room) -> Void
+    let onMinus: (Room) -> Void
     
     static let titleFont = Font.system(size: 16).bold()
     static let occupiedFont = Font.custom("SF Pro Text", size: 14)
     static let timeFont = Font.custom("SF Pro Text", size: 12)
+    
+    init(room: Room, onPlus: @escaping (Room) -> Void = { _ in }, onMinus: @escaping (Room) -> Void = { _ in }) {
+        self.room = room
+        self.onPlus = onPlus
+        self.onMinus = onMinus
+    }
     
     var occupation: String {
         room.population == 0 ? "Empty" : "Occupied: \(room.population) of \(room.capacity)"
@@ -43,7 +51,7 @@ struct RoomRow: View {
             
             HStack {
                 if room.population > 0 {
-                    Button(action: {}) {
+                    Button(action: { self.onMinus(self.room) }) {
                         Image("minusIcon")
                             .resizable()
                             .scaledToFill()
@@ -53,7 +61,7 @@ struct RoomRow: View {
                 
                 RoomFullnessView(percentage: Float(room.population) / Float(room.capacity))
                 
-                Button(action: {}) {
+                Button(action: { self.onPlus(self.room) }) {
                     Image("plusIcon")
                     .resizable()
                     .scaledToFill()

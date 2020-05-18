@@ -19,8 +19,6 @@ struct ScrollOffsetPreferenceKey: PreferenceKey, Equatable {
 }
 
 struct ScrollOffsetModifier: ViewModifier {
-    @Binding var value: CGFloat
-    
     func body(content: Content) -> some View {
         let geomReader = GeometryReader { geom in
             Rectangle()
@@ -28,19 +26,14 @@ struct ScrollOffsetModifier: ViewModifier {
                 .preference(key: ScrollOffsetPreferenceKey.self,
                             value: geom.frame(in: .global).minY)
         }
+        
         return content.background(geomReader)
     }
 }
 
 extension View {
-    func scrollOffset(value: Binding<CGFloat>) -> some View {
-        modifier(ScrollOffsetModifier(value: value))
-    }
-    
-    func onScrollOffsetChange(assignTo: Binding<CGFloat>) -> some View {
-        onPreferenceChange(ScrollOffsetPreferenceKey.self) {
-            assignTo.wrappedValue = $0
-        }
+    func scrollOffset() -> some View {
+        modifier(ScrollOffsetModifier())
     }
     
     func onScrollOffsetChange(perform: @escaping (CGFloat) -> Void) -> some View {
