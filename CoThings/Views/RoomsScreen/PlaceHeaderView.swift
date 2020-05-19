@@ -49,7 +49,7 @@ struct PlaceHeaderView: View {
 
 struct PlaceHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let headerView = PlaceHeaderView(title: "Firehouse Co-Living", population: 14)
+        let headerView = PlaceHeaderView(title: "CoThings", population: 14)
             .edgesIgnoringSafeArea(.all)
         
         return Group {
