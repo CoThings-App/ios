@@ -33,7 +33,7 @@ struct RoomsScreen: View {
     var body: some View {
         ZStack(alignment: .top) {
             GeometryReader { geom in
-                PlaceHeaderView(title: "Firehouse Co-Living", population: 14)
+                PlaceHeaderView(title: "CoThings", population: 14)
                     .opacity(Double(geom.frame(in: .global).maxY / 125))
             }
             .frame(height: 125 + self.scrollOffset)
