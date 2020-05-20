@@ -20,9 +20,11 @@ struct Room: Hashable, Identifiable {
     var lastUpdated: Date
     
     var altBeaconUUID: String?
-    var iBeaconUUID: String?
+    var iBeaconUUID: UUID?
     var major: Int?
     var minor: Int?
+	var beaconFound: Bool = false
+	var info: String = ""
     
     var percentage: Int {
         Int(population / capacity * 100)
