@@ -10,14 +10,29 @@ import Foundation
 import CoreLocation
 import Combine
 
+enum BeaconStatus: String {
+	case found
+	case lost
+}
+
 class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
-	var didChange = PassthroughSubject<CLProximity, Never>()
+
+	var beaconExitTimer: Timer? = nil
+	var entered: Bool = false
+
 	var localitionManager = CLLocationManager()
-	@Published var lastDistance = CLProximity.unknown
+	@Published var rooms: [Room]
 
 	override init() {
+		self.rooms = [
+
+			// Sample Data
+			Room(id: 1, name: "Cooking", group: "Common", population: 5, capacity: 12, lastUpdated: Date(), altBeaconUUID: nil, iBeaconUUID: UUID(uuidString: "9419F9BF-AC27-4F5A-8531-125CA957B139"), major: 1, minor: 10, beaconFound: false),
+			Room(id: 2, name: "My Room", group: "Common", population: 1, capacity: 12, lastUpdated: Date(), altBeaconUUID: nil, iBeaconUUID: UUID(uuidString: "0DC76D8D-4197-4F32-ADD1-379E109AFC12"), major: 2, minor: 20, beaconFound: false)
+
+		]
         super.init()
-        
+
 		localitionManager.delegate = self
 		localitionManager.requestAlwaysAuthorization()
 	}
