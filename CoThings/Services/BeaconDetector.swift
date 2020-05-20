@@ -48,24 +48,57 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 	}
 
 	func startScanning() {
-		let uuid = UUID(uuidString: "")!
-		let constraint = CLBeaconIdentityConstraint(uuid: uuid, major: 1, minor: 10)
-		let beaconRegion = CLBeaconRegion(beaconIdentityConstraint: constraint, identifier: "")
-
-		localitionManager.startMonitoring(for: beaconRegion)
-		localitionManager.startRangingBeacons(satisfying: constraint)
-	}
-
-	func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-		if let beacon = beacons.first {
-			update(distance: beacon.proximity)
-		} else {
-			update(distance: .unknown)
+		for room in self.rooms {
+			if room.iBeaconUUID != nil {
+				// no need to extra monitoring, when starting in ranging it will monitoring it
+//				let beaconRegion = CLBeaconRegion(uuid: room.iBeaconUUID!, identifier: String(room.id))
+//				localitionManager.startMonitoring(for: beaconRegion)
+				let constraint = createConstraintForTheRoom(room: room)
+				localitionManager.startRangingBeacons(satisfying: constraint)
+			}
 		}
 	}
 
-	func update(distance: CLProximity) {
-		lastDistance = distance
-		didChange.send(lastDistance)
+	func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+		if (beacons.count == 0) {
+			return
+		}
+
+		 #if DEBUG
+			print("monitored region count:\(localitionManager.monitoredRegions.count)")
+			print("beacon count= \(beacons.count)")
+		#endif
+
+		for beacon in beacons {
+			if let room = self.rooms.first(where: { $0.iBeaconUUID == beacon.uuid }) {
+				let beaconStatus = beacon.proximity != .unknown
+				let roomIndex = findRoomIndexByRegion(room: room)
+				if (room.beaconFound != beaconStatus) {
+					self.rooms[roomIndex].beaconFound = beaconStatus
+					self.rooms[roomIndex].lastUpdated = Date()
+				}
+				self.rooms[roomIndex].info = "rssi: \(beacon.rssi)"
+			}
+		}
+	}
+
+	func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+		print("Failed monitoring region: \(error.localizedDescription)")
+	}
+
+	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+		print("Location manager failed: \(error.localizedDescription)")
+	}
+
+	func findRoomByRegion(region: CLRegion) -> Room {
+		return self.rooms.first(where: { String($0.id) == region.identifier })!
+	}
+
+	func findRoomIndexByRegion(room: Room) -> Int {
+		return self.rooms.firstIndex(of: room)!
+	}
+
+	func createConstraintForTheRoom(room: Room) -> CLBeaconIdentityConstraint {
+		return CLBeaconIdentityConstraint(uuid: room.iBeaconUUID!, major: CLBeaconMajorValue(room.major!), minor: CLBeaconMinorValue(room.minor!))
 	}
 }
