@@ -29,7 +29,9 @@ class ServerBackend: ObservableObject, CoThingsBackend {
         self.socket = Socket(socketURL.absoluteString)
         self.socket.timeout = TimeInterval(60)
         self.socket.connect()
-        self.socket.logger = { msg in print("LOG:", msg) }
+		#if DEBUG
+			self.socket.logger = { msg in print("LOG:", msg) }
+		#endif
         
         self.status = .connecting
         self.rooms = []
