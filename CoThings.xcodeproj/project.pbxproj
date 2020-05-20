@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6C246BAB2400EDAE16 /* AppState.swift */; };
 		48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* RootView.swift */; };
-		48241B71246BC94200EDAE16 /* BeaconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconView.swift */; };
+		48241B71246BC94200EDAE16 /* BeaconDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconDebugView.swift */; };
 		48AA3056246EA28500F7F9BA /* DateFormatter+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */; };
 		48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */ = {isa = PBXBuildFile; productRef = 48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */; };
 		48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B33AF924682495000A1F5C /* ServerSettingsView.swift */; };
@@ -32,6 +32,8 @@
 		A9176B7C246EED7100027D6C /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B7B246EED7100027D6C /* RoomsController.swift */; };
 		A9176B7E246F3CF700027D6C /* CoThingsBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B7D246F3CF700027D6C /* CoThingsBackend.swift */; };
 		A9176B82246FF0A400027D6C /* InMemoryBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B81246FF0A400027D6C /* InMemoryBackend.swift */; };
+		A94042A924757CEB003C26D2 /* DebugList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94042A824757CEB003C26D2 /* DebugList.swift */; };
+		A94042AB247585E8003C26D2 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94042AA247585E8003C26D2 /* SettingsScreen.swift */; };
 		A96ECFC2246C564600F2D55C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC1246C564600F2D55C /* Models.swift */; };
 		A96ECFC4246C5A0200F2D55C /* BeaconDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC3246C5A0200F2D55C /* BeaconDetector.swift */; };
 		A96ECFC9246C5B3200F2D55C /* PlaceSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */; };
@@ -52,6 +54,7 @@
 		A96ECFEB246C608500F2D55C /* GroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFEA246C608500F2D55C /* GroupHeaderView.swift */; };
 		A96ECFEE246C611400F2D55C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A96ECFED246C611400F2D55C /* Preview Assets.xcassets */; };
 		A96ECFF0246C615500F2D55C /* RoomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96ECFEF246C615500F2D55C /* RoomData.swift */; };
+		A9F301D42475710400CCA27E /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F301D32475710400CCA27E /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +102,7 @@
 /* Begin PBXFileReference section */
 		48241B6C246BAB2400EDAE16 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		48241B6E246BBE8D00EDAE16 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		48241B70246BC94200EDAE16 /* BeaconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconView.swift; sourceTree = "<group>"; };
+		48241B70246BC94200EDAE16 /* BeaconDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDebugView.swift; sourceTree = "<group>"; };
 		48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Custom.swift"; sourceTree = "<group>"; };
 		48B33AF924682495000A1F5C /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		48DDD7BF245C5CD300A249BD /* CoThings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoThings.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +129,8 @@
 		A9176B7B246EED7100027D6C /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
 		A9176B7D246F3CF700027D6C /* CoThingsBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoThingsBackend.swift; sourceTree = "<group>"; };
 		A9176B81246FF0A400027D6C /* InMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryBackend.swift; sourceTree = "<group>"; };
+		A94042A824757CEB003C26D2 /* DebugList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugList.swift; sourceTree = "<group>"; };
+		A94042AA247585E8003C26D2 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		A96ECFC1246C564600F2D55C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		A96ECFC3246C5A0200F2D55C /* BeaconDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDetector.swift; sourceTree = "<group>"; };
 		A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSession.swift; sourceTree = "<group>"; };
@@ -145,6 +150,7 @@
 		A96ECFEA246C608500F2D55C /* GroupHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupHeaderView.swift; sourceTree = "<group>"; };
 		A96ECFED246C611400F2D55C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A96ECFEF246C615500F2D55C /* RoomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomData.swift; sourceTree = "<group>"; };
+		A9F301D32475710400CCA27E /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,15 +173,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		48B33AF824682483000A1F5C /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				48241B6C246BAB2400EDAE16 /* AppState.swift */,
-				48241B70246BC94200EDAE16 /* BeaconView.swift */,
-			);
-			path = SwiftUI;
-			sourceTree = "<group>";
-		};
 		48DDD7B6245C5CD300A249BD = {
 			isa = PBXGroup;
 			children = (
@@ -205,7 +202,7 @@
 				A96ECFE1246C605400F2D55C /* Helpers */,
 				A96ECFC5246C5B3200F2D55C /* Services */,
 				A96ECFBF246C561A00F2D55C /* Views */,
-				48B33AF824682483000A1F5C /* SwiftUI */,
+				48241B6C246BAB2400EDAE16 /* AppState.swift */,
 				A96ECFC1246C564600F2D55C /* Models.swift */,
 				48DDD7C2245C5CD300A249BD /* AppDelegate.swift */,
 				48DDD7C4245C5CD300A249BD /* SceneDelegate.swift */,
@@ -243,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				48B33AF924682495000A1F5C /* ServerSettingsView.swift */,
+				A94042AA247585E8003C26D2 /* SettingsScreen.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -256,9 +254,19 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		A94042A724757CC7003C26D2 /* Debug Screens */ = {
+			isa = PBXGroup;
+			children = (
+				48241B70246BC94200EDAE16 /* BeaconDebugView.swift */,
+				A94042A824757CEB003C26D2 /* DebugList.swift */,
+			);
+			path = "Debug Screens";
+			sourceTree = "<group>";
+		};
 		A96ECFBF246C561A00F2D55C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A94042A724757CC7003C26D2 /* Debug Screens */,
 				A96ECFEC246C611400F2D55C /* Preview Content */,
 				A96ECFD0246C5F9B00F2D55C /* Common */,
 				A96ECFC0246C562600F2D55C /* RoomsScreen */,
@@ -329,6 +337,7 @@
 				A96ECFED246C611400F2D55C /* Preview Assets.xcassets */,
 				A96ECFEF246C615500F2D55C /* RoomData.swift */,
 				A9176B81246FF0A400027D6C /* InMemoryBackend.swift */,
+				A9F301D32475710400CCA27E /* Session.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -482,25 +491,28 @@
 				48AA3056246EA28500F7F9BA /* DateFormatter+Custom.swift in Sources */,
 				A96ECFDB246C5FAF00F2D55C /* RoomFullnessView.swift in Sources */,
 				48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */,
+				A94042AB247585E8003C26D2 /* SettingsScreen.swift in Sources */,
 				A96ECFD5246C5F9B00F2D55C /* Environment.swift in Sources */,
 				48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */,
 				A96ECFE7246C605C00F2D55C /* Color+Utils.swift in Sources */,
 				A96ECFEB246C608500F2D55C /* GroupHeaderView.swift in Sources */,
 				A96ECFCE246C5F0E00F2D55C /* PlaceHeaderView.swift in Sources */,
 				A9176B76246ED95C00027D6C /* OnBoardingScreen.swift in Sources */,
+				A94042A924757CEB003C26D2 /* DebugList.swift in Sources */,
 				A96ECFDD246C5FAF00F2D55C /* RoomRow.swift in Sources */,
 				A96ECFDC246C5FAF00F2D55C /* CircularProgress.swift in Sources */,
 				A96ECFE6246C605C00F2D55C /* UIKit+Mix.swift in Sources */,
 				A96ECFF0246C615500F2D55C /* RoomData.swift in Sources */,
 				A9176B7E246F3CF700027D6C /* CoThingsBackend.swift in Sources */,
 				A9176B82246FF0A400027D6C /* InMemoryBackend.swift in Sources */,
+				A9F301D42475710400CCA27E /* Session.swift in Sources */,
 				A9176B78246EDA5300027D6C /* StateController.swift in Sources */,
 				A96ECFD6246C5F9B00F2D55C /* Scrolling.swift in Sources */,
 				48B33AFA24682495000A1F5C /* ServerSettingsView.swift in Sources */,
 				A9176B7C246EED7100027D6C /* RoomsController.swift in Sources */,
 				48DDD7C3245C5CD300A249BD /* AppDelegate.swift in Sources */,
 				A96ECFE5246C605C00F2D55C /* Date+Ago.swift in Sources */,
-				48241B71246BC94200EDAE16 /* BeaconView.swift in Sources */,
+				48241B71246BC94200EDAE16 /* BeaconDebugView.swift in Sources */,
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
 				A96ECFCF246C5F0E00F2D55C /* RoomsScreen.swift in Sources */,
 				A96ECFCA246C5B3200F2D55C /* ServerBackend.swift in Sources */,
@@ -672,7 +684,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = 8STHWE4QY7;
 				INFOPLIST_FILE = "CoThings WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -695,7 +707,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = 8STHWE4QY7;
 				INFOPLIST_FILE = "CoThings WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -719,7 +731,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = 8STHWE4QY7;
 				IBSC_MODULE = CoThings_WatchKit_Extension;
 				INFOPLIST_FILE = "CoThings WatchKit App/Info.plist";
 				MARKETING_VERSION = 0.1.0;
@@ -739,7 +751,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = 8STHWE4QY7;
 				IBSC_MODULE = CoThings_WatchKit_Extension;
 				INFOPLIST_FILE = "CoThings WatchKit App/Info.plist";
 				MARKETING_VERSION = 0.1.0;
@@ -759,7 +771,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = 8STHWE4QY7;
 				INFOPLIST_FILE = CoThings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -781,7 +793,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = 8STHWE4QY7;
 				INFOPLIST_FILE = CoThings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

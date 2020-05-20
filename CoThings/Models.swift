@@ -11,7 +11,7 @@ import Foundation
 let ServerHostNameKey = "serverHostname"
 let PassOnboardingKey = "passOnboarding"
 
-struct Room: Hashable, Identifiable {
+struct Room: Identifiable {
     let id: Int
     var name: String
     var group: String
@@ -20,12 +20,25 @@ struct Room: Hashable, Identifiable {
     var lastUpdated: Date
     
     var altBeaconUUID: String?
-    var iBeaconUUID: String?
+    var iBeaconUUID: UUID?
     var major: Int?
     var minor: Int?
     
     var percentage: Int {
         Int(population / capacity * 100)
+    }
+}
+
+extension Room: Hashable {
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(iBeaconUUID)
+        hasher.combine(major)
+        hasher.combine(minor)
     }
 }
 

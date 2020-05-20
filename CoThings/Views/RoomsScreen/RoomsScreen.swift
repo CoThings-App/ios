@@ -12,8 +12,11 @@ import DateHelper
 struct RoomsScreen: View {
     @ObservedObject var roomsController: RoomsController
     
-	@State private var scrollOffset: CGFloat = 0
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.statusBarHeight) private var statusBarHeight
+    
+	@State private var scrollOffset: CGFloat = 0
+    
     
     var rowBackground: Color {
         colorScheme == .dark ? Color(hex: "111111") : Color.white
@@ -32,6 +35,11 @@ struct RoomsScreen: View {
     
     var body: some View {
         ZStack(alignment: .top) {
+            Rectangle()
+                .fill(Color.black.opacity(0.4))
+                .frame(height: statusBarHeight)
+                .zIndex(2)
+            
             GeometryReader { geom in
                 PlaceHeaderView(title: "CoThings", population: 14)
                     .opacity(Double(geom.frame(in: .global).maxY / 125))
@@ -55,8 +63,8 @@ struct RoomsScreen: View {
                     Section(header: self.sectionHeader(group: group)) {
                         ForEach(self.roomsController.rooms[group] ?? []) { room in
                             RoomRow(room: room,
-                                    onPlus: { self.roomsController.session.increasePopulation(room: $0)},
-                                    onMinus: { self.roomsController.session.decreasePopulation(room: $0)})
+                                    onPlus: { self.roomsController.session.increasePopulation(roomID: $0.id)},
+                                    onMinus: { self.roomsController.session.decreasePopulation(roomID: $0.id)})
                                 .listRowInsets(EdgeInsets())
                                 .frame(height: 84)
                                 .padding([.leading, .trailing])
@@ -79,7 +87,7 @@ struct RoomsScreen: View {
 
 struct SpacesScreen_Previews: PreviewProvider {
     static var previews: some View {
-        let roomsController = RoomsController(session: PlaceSession(service: InMemoryBackend()))
+        let roomsController = RoomsController(session: previewSession)
         return Group {
 			RoomsScreen(roomsController: roomsController)
                 .colorScheme(.dark)

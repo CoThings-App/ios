@@ -20,6 +20,6 @@ struct OnBoardingScreen: View {
 
 struct OnBoardingScreen_Previews: PreviewProvider {
     static var previews: some View {
-        OnBoardingScreen(stateController: StateController(state: .initialRun))
+        OnBoardingScreen(stateController: StateController(state: .initialRun, beaconDetector: previewBeaconDetector))
     }
 }

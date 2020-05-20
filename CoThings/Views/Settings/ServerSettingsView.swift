@@ -11,8 +11,10 @@ import Foundation
 import Combine
 
 struct ServerSettingsView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
 	@ObservedObject var stateController: StateController
-    @State var serverHostname: String = ""
+    @State var serverHostname: String = UserDefaults.standard.string(forKey: ServerHostNameKey) ?? ""
     
     var isHostnameValid: Bool {
         if serverHostname.starts(with: "https://") {
@@ -23,24 +25,24 @@ struct ServerSettingsView: View {
     }
     
 	var body: some View {
-		NavigationView {
-            Form {
-                Section(header: Text("Server URL")) {
-                    HStack(alignment: .firstTextBaseline, spacing: 1) {
-                        Text("https://")
-                        TextField("demo.cothings.app", text: $serverHostname)
-                            .keyboardType(.URL)
-                            .disableAutocorrection(true)
-                            .autocapitalization(.none)
-                            .frame(maxWidth: .infinity)
-                    }
+        Form {
+            Section(header: Text("Server URL")) {
+                HStack(alignment: .firstTextBaseline, spacing: 1) {
+                    Text("https://")
+                    TextField("demo-eu.cothings.app", text: $serverHostname)
+                        .keyboardType(.URL)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .frame(maxWidth: .infinity)
                 }
             }
-            .navigationBarTitle("Server Settings", displayMode: .inline)
-            .navigationBarItems(
-                trailing: Button("Done", action: self.save).disabled(!isHostnameValid)
-            )
+            
+            Section {
+                Button("Done", action: self.save)
+            }
         }
+        .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
+        .navigationBarTitle("Server Settings", displayMode: .inline)
 	}
     
     func save() {
@@ -55,6 +57,6 @@ struct ServerSettingsView: View {
 
 struct OnBoardView_Previews: PreviewProvider {
 	static var previews: some View {
-        ServerSettingsView(stateController: StateController(state: .configurationNeeded))
+        ServerSettingsView(stateController: StateController(state: .configurationNeeded, beaconDetector: previewBeaconDetector))
 	}
 }

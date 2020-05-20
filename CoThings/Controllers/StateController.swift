@@ -10,9 +10,11 @@ import Foundation
 
 class StateController: ObservableObject {
     @Published var appState: AppState
+    let beaconDetector: BeaconDetector
     
-    init(state: AppState) {
+    init(state: AppState, beaconDetector: BeaconDetector) {
         appState = state
+        self.beaconDetector = beaconDetector
     }
     
     func completeOnBoarding() {
@@ -22,10 +24,10 @@ class StateController: ObservableObject {
     
     func saveConfiguration(hostname: String) {
         UserDefaults.standard.set(hostname, forKey: ServerHostNameKey)
-        appState = .ready(session: Self.sessionFrom(hostname: hostname))
+        appState = .ready(session: Self.sessionFrom(hostname: hostname, beaconDetector: beaconDetector))
     }
     
-    private static func sessionFrom(hostname: String) -> PlaceSession {
-        return PlaceSession(service: ServerBackend(hostname: hostname))
+    private static func sessionFrom(hostname: String, beaconDetector: BeaconDetector) -> PlaceSession {
+        return PlaceSession(service: ServerBackend(hostname: hostname), beaconDetector: beaconDetector)
     }
 }
