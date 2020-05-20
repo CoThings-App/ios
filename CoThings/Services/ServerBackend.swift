@@ -48,26 +48,26 @@ class ServerBackend: ObservableObject, CoThingsBackend {
         self.init(url: url, socketURL: socketURL)
     }
     
-    func increasePopulation(room: Room, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+    func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         guard let lobbyChan = lobbyChan else {
-            print("failed to increase population for \(room.name), because there is no active channel")
+            print("failed to increase population for \(roomID), because there is no active channel")
             completionHandler(.failure(UpdateError()))
             return
         }
         
-        lobbyChan.push("inc", payload: ["room_id" : room.id])
+        lobbyChan.push("inc", payload: ["room_id" : roomID])
             .receive("ok", callback: { _ in completionHandler(.success(())) })
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError())) })
     }
     
-    func decreasePopulation(room: Room, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+    func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         guard let lobbyChan = lobbyChan else {
-            print("failed to decrease population for \(room.name), because there is no active channel")
+            print("failed to decrease population for \(roomID), because there is no active channel")
             completionHandler(.failure(UpdateError()))
             return
         }
         
-        lobbyChan.push("dec", payload: ["room_id": room.id])
+        lobbyChan.push("dec", payload: ["room_id": roomID])
             .receive("ok", callback: { _ in completionHandler(.success(()))})
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError()))})
     }
@@ -121,7 +121,7 @@ class ServerBackend: ObservableObject, CoThingsBackend {
         for (index, item) in self.rooms.enumerated() {
             if item.id == newRoom.id {
                 self.rooms[index] = newRoom
-                break;
+                break
             }
         }
 	}

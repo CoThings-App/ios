@@ -18,9 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        let beaconDetector = BeaconDetector()
         let session = UserDefaults.standard.string(forKey: ServerHostNameKey)
             .map { hn in ServerBackend(hostname: hn) }
-            .map { server in PlaceSession(service: server ) }
+            .map { server in PlaceSession(service: server, beaconDetector: beaconDetector) }
             .map { session in AppState.ready(session: session) }
         
         let initialRun = UserDefaults.standard.bool(forKey: PassOnboardingKey)
@@ -28,11 +29,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             : AppState.initialRun
         
         let appState = session ?? initialRun
-        let stateController = StateController(state: appState)
+        let stateController = StateController(state: appState, beaconDetector: beaconDetector)
 
 		if let windowScene =  scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = CoHostingController(rootView: RootView(stateController: stateController))
+            
+            let rootView = RootView(stateController: stateController)
+                .environment(\.hostingWindow, { self.window })
+            
+            self.window?.rootViewController = CoHostingController(rootView: rootView)
             self.window?.makeKeyAndVisible()
         }
     }

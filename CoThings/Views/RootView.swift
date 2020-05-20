@@ -17,9 +17,27 @@ struct RootView: View {
         case .initialRun:
             return AnyView(OnBoardingScreen(stateController: stateController))
         case .configurationNeeded:
-            return AnyView(ServerSettingsView(stateController: stateController))
+            return AnyView(NavigationView {ServerSettingsView(stateController: stateController) })
         case let .ready(session: session):
-            return AnyView(RoomsScreen(roomsController: RoomsController(session: session)))
+            return AnyView(readyView(session))
+        }
+    }
+    
+    func readyView(_ session: PlaceSession) -> some View {
+        let roomsController = RoomsController(session: session)
+        
+        return TabView {
+            RoomsScreen(roomsController: roomsController)
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Rooms")
+                }
+            
+            SettingsScreen(stateController: self.stateController, session: session)
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
+                }
         }
     }
     
@@ -30,12 +48,11 @@ struct RootView: View {
 
 struct RootView_Previews: PreviewProvider {
     static let readyStateController =
-        StateController(state: .ready(session: PlaceSession(service: InMemoryBackend())))
+        StateController(state: .ready(session: previewSession), beaconDetector: previewBeaconDetector)
     
     static var previews: some View {
         Group {
-            RootView(stateController: StateController(state: .configurationNeeded))
-            
+            RootView(stateController: StateController(state: .configurationNeeded, beaconDetector: previewBeaconDetector))
             RootView(stateController: Self.readyStateController)
         }
     }

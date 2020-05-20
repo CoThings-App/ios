@@ -10,95 +10,120 @@ import Foundation
 import CoreLocation
 import Combine
 
-enum BeaconStatus: String {
-	case found
-	case lost
+struct BeaconIdentity: Hashable {
+    let uuid: UUID
+    let major: CLBeaconMajorValue
+    let minor: CLBeaconMinorValue
+}
+
+extension Room {
+    var beaconIdentity: BeaconIdentity? {
+        guard let uuid = self.iBeaconUUID, let minor = self.minor, let major = self.major else { return nil }
+        return BeaconIdentity(uuid: uuid,
+                              major: CLBeaconMajorValue(major),
+                              minor: CLBeaconMinorValue(minor))
+    }
+}
+
+extension CLBeacon {
+    var beaconIdentity: BeaconIdentity {
+        return BeaconIdentity(uuid: self.uuid,
+                              major: CLBeaconMajorValue(truncating: self.major),
+                              minor: CLBeaconMinorValue(truncating: self.minor))
+    }
+}
+
+struct Beacon {
+    var proximity: CLProximity
+    var strength: Int
+    var accuracy: Double
+    var constraint: CLBeaconIdentityConstraint
+    var roomID: Room.ID
 }
 
 class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
+    @Published private(set) var beacons: [BeaconIdentity: Beacon] = [:]
+    @Published private(set) var permissionGranted: Bool? = nil
+    
+    private(set) var enters = PassthroughSubject<Room.ID, Never>()
+    private(set) var exits = PassthroughSubject<Room.ID, Never>()
 
-	var beaconExitTimer: Timer? = nil
-	var entered: Bool = false
+	private var locationManager = CLLocationManager()
 
-	var localitionManager = CLLocationManager()
-	@Published var rooms: [Room]
-
-	override init() {
-		self.rooms = [
-
-			// Sample Data
-			Room(id: 1, name: "Cooking", group: "Common", population: 5, capacity: 12, lastUpdated: Date(), altBeaconUUID: nil, iBeaconUUID: UUID(uuidString: "9419F9BF-AC27-4F5A-8531-125CA957B139"), major: 1, minor: 10, beaconFound: false),
-			Room(id: 2, name: "My Room", group: "Common", population: 1, capacity: 12, lastUpdated: Date(), altBeaconUUID: nil, iBeaconUUID: UUID(uuidString: "0DC76D8D-4197-4F32-ADD1-379E109AFC12"), major: 2, minor: 20, beaconFound: false)
-
-		]
+    override init() {
         super.init()
 
-		localitionManager.delegate = self
-		localitionManager.requestAlwaysAuthorization()
+		locationManager.delegate = self
+		locationManager.requestAlwaysAuthorization()
 	}
+    
+    func startScanning(room: Room) {
+        guard let beaconID = room.beaconIdentity,
+            beacons[beaconID] == nil else { return }
+        
+        let constraint = CLBeaconIdentityConstraint(uuid: beaconID.uuid,
+                                                    major: beaconID.major,
+                                                    minor: beaconID.minor)
 
-	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-		if status == .authorizedAlways || status == .authorizedWhenInUse {
-			if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
-				startScanning()
-			} else {
-				// TODO: warn user
-			}
-		}
-	}
+        locationManager.startRangingBeacons(satisfying: constraint)
+        beacons[beaconID] = Beacon(proximity: .unknown,
+                                   strength: 0,
+                                   accuracy: 0,
+                                   constraint: constraint,
+                                   roomID: room.id)
+    }
+    
+    func stopScanning(room: Room) {
+        guard let beaconID = room.beaconIdentity,
+            let beacon = beacons[beaconID] else { return }
+        
+        locationManager.stopRangingBeacons(satisfying: beacon.constraint)
+        beacons.removeValue(forKey: beaconID)
+    }
 
-	func startScanning() {
-		for room in self.rooms {
-			if room.iBeaconUUID != nil {
-				// no need to extra monitoring, when starting in ranging it will monitoring it
-//				let beaconRegion = CLBeaconRegion(uuid: room.iBeaconUUID!, identifier: String(room.id))
-//				localitionManager.startMonitoring(for: beaconRegion)
-				let constraint = createConstraintForTheRoom(room: room)
-				localitionManager.startRangingBeacons(satisfying: constraint)
-			}
-		}
-	}
+    // MARK: - CLLocationManager delegate
+    internal func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+                permissionGranted = true
+                return
+            }
+        }
+        
+        permissionGranted = false
+    }
 
-	func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-		if (beacons.count == 0) {
-			return
-		}
-
-		 #if DEBUG
-			print("monitored region count:\(localitionManager.monitoredRegions.count)")
-			print("beacon count= \(beacons.count)")
+	internal func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+		#if DEBUG
+        print("monitored region count:\(locationManager.monitoredRegions.count)")
+        print("beacon count= \(beacons.count)")
 		#endif
 
 		for beacon in beacons {
-			if let room = self.rooms.first(where: { $0.iBeaconUUID == beacon.uuid }) {
-				let beaconStatus = beacon.proximity != .unknown
-				let roomIndex = findRoomIndexByRegion(room: room)
-				if (room.beaconFound != beaconStatus) {
-					self.rooms[roomIndex].beaconFound = beaconStatus
-					self.rooms[roomIndex].lastUpdated = Date()
-				}
-				self.rooms[roomIndex].info = "rssi: \(beacon.rssi)"
-			}
+            let beaconID = beacon.beaconIdentity
+            guard var oldBeacon = self.beacons[beaconID] else { continue }
+            
+            let insideTheRoom = beacon.proximity == .near || beacon.proximity == .immediate
+            let wasInsideTheRoom =  oldBeacon.proximity == .near || oldBeacon.proximity == .immediate
+            
+            if insideTheRoom && !wasInsideTheRoom {
+                enters.send(oldBeacon.roomID)
+            } else if wasInsideTheRoom && !insideTheRoom {
+                exits.send(oldBeacon.roomID)
+            }
+            
+            oldBeacon.proximity = beacon.proximity
+            oldBeacon.strength = beacon.rssi
+            oldBeacon.accuracy = beacon.accuracy
+            self.beacons[beaconID] = oldBeacon
 		}
 	}
 
-	func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+	internal func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
 		print("Failed monitoring region: \(error.localizedDescription)")
 	}
 
-	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+	internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("Location manager failed: \(error.localizedDescription)")
-	}
-
-	func findRoomByRegion(region: CLRegion) -> Room {
-		return self.rooms.first(where: { String($0.id) == region.identifier })!
-	}
-
-	func findRoomIndexByRegion(room: Room) -> Int {
-		return self.rooms.firstIndex(of: room)!
-	}
-
-	func createConstraintForTheRoom(room: Room) -> CLBeaconIdentityConstraint {
-		return CLBeaconIdentityConstraint(uuid: room.iBeaconUUID!, major: CLBeaconMajorValue(room.major!), minor: CLBeaconMinorValue(room.minor!))
 	}
 }

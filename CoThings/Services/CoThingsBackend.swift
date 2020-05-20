@@ -27,6 +27,6 @@ protocol CoThingsBackend {
     var rooms: [Room] { get }
     var roomsPublisher: AnyPublisher<[Room], Never> { get }
 
-    func increasePopulation(room: Room, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
-    func decreasePopulation(room: Room, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
+    func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
+    func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
 }
