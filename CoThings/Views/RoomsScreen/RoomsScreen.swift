@@ -61,7 +61,7 @@ struct RoomsScreen: View {
                 
                 ForEach(roomsController.groups, id: \.self) { group in
                     Section(header: self.sectionHeader(group: group)) {
-						ForEach(self.sortRooms(rooms: self.roomsController.rooms[group] ?? [])) { room in
+						ForEach(self.roomsController.rooms[group] ?? []) { room in
                             RoomRow(room: room,
                                     onPlus: { self.roomsController.session.increasePopulation(roomID: $0.id)},
                                     onMinus: { self.roomsController.session.decreasePopulation(roomID: $0.id)})
@@ -83,10 +83,6 @@ struct RoomsScreen: View {
         }
         .edgesIgnoringSafeArea(.top)
     }
-
-	func sortRooms(rooms: [Room]) -> [Room] {
-		return rooms.sorted(by: { $0.name < $1.name })
-	}
 }
 
 struct SpacesScreen_Previews: PreviewProvider {

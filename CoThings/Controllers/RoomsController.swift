@@ -22,8 +22,10 @@ class RoomsController: ObservableObject {
         self.session = session
         
         roomsSubscription = session.$rooms
-            .sink { rooms in                
-                self.rooms = Dictionary(grouping: rooms, by: { $0.group })
+            .sink { rooms in
+                let sortedRooms = rooms.sorted {$0.name < $1.name}
+                self.rooms = Dictionary(grouping: sortedRooms, by: { $0.group })
+                
                 self.groups = NSOrderedSet(array: rooms.map(\.group), copyItems: true).array as! [String]
                 
                 var groupPopulations = [String: Int]()
