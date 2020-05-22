@@ -27,6 +27,7 @@
 		48DDD7EE245C5CD600A249BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7ED245C5CD600A249BD /* Assets.xcassets */; };
 		48DDD800245C76F400A249BD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FE245C76F400A249BD /* README.md */; };
 		48DDD801245C76F400A249BD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FF245C76F400A249BD /* LICENSE */; };
+		66DDE94A2478230D00723CB8 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DDE9492478230D00723CB8 /* QRCodeView.swift */; };
 		A9176B76246ED95C00027D6C /* OnBoardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */; };
 		A9176B78246EDA5300027D6C /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B77246EDA5300027D6C /* StateController.swift */; };
 		A9176B7C246EED7100027D6C /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B7B246EED7100027D6C /* RoomsController.swift */; };
@@ -124,6 +125,7 @@
 		48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		48DDD7FE245C76F400A249BD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		66DDE9492478230D00723CB8 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingScreen.swift; sourceTree = "<group>"; };
 		A9176B77246EDA5300027D6C /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		A9176B7B246EED7100027D6C /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				48B33AF924682495000A1F5C /* ServerSettingsView.swift */,
 				A94042AA247585E8003C26D2 /* SettingsScreen.swift */,
+				66DDE9492478230D00723CB8 /* QRCodeView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */,
 				A96ECFE7246C605C00F2D55C /* Color+Utils.swift in Sources */,
 				A96ECFEB246C608500F2D55C /* GroupHeaderView.swift in Sources */,
+				66DDE94A2478230D00723CB8 /* QRCodeView.swift in Sources */,
 				A96ECFCE246C5F0E00F2D55C /* PlaceHeaderView.swift in Sources */,
 				A9176B76246ED95C00027D6C /* OnBoardingScreen.swift in Sources */,
 				A94042A924757CEB003C26D2 /* DebugList.swift in Sources */,
@@ -684,7 +688,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = S7A54AJQ72;
 				INFOPLIST_FILE = "CoThings WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -707,7 +711,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = S7A54AJQ72;
 				INFOPLIST_FILE = "CoThings WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -731,7 +735,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = S7A54AJQ72;
 				IBSC_MODULE = CoThings_WatchKit_Extension;
 				INFOPLIST_FILE = "CoThings WatchKit App/Info.plist";
 				MARKETING_VERSION = 0.1.0;
@@ -751,7 +755,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = S7A54AJQ72;
 				IBSC_MODULE = CoThings_WatchKit_Extension;
 				INFOPLIST_FILE = "CoThings WatchKit App/Info.plist";
 				MARKETING_VERSION = 0.1.0;
@@ -771,7 +775,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = S7A54AJQ72;
 				INFOPLIST_FILE = CoThings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -793,7 +797,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 35HZ3WVY79;
+				DEVELOPMENT_TEAM = S7A54AJQ72;
 				INFOPLIST_FILE = CoThings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -16,6 +16,9 @@ struct ServerSettingsView: View {
 	@ObservedObject var stateController: StateController
     @State var serverHostname: String = UserDefaults.standard.string(forKey: ServerHostNameKey) ?? ""
     
+    @State var isScanningQRCode: Bool = false
+    @State var showCameraErrorAlert: Bool = false
+    
     var isHostnameValid: Bool {
         if serverHostname.starts(with: "https://") {
             return URL(string: serverHostname) != nil
@@ -25,32 +28,64 @@ struct ServerSettingsView: View {
     }
     
 	var body: some View {
-        Form {
-            Section(header: Text("Server URL")) {
-                HStack(alignment: .firstTextBaseline, spacing: 1) {
-                    Text("https://")
-                    TextField("demo-eu.cothings.app", text: $serverHostname)
-                        .keyboardType(.URL)
-                        .disableAutocorrection(true)
-                        .autocapitalization(.none)
-                        .frame(maxWidth: .infinity)
-                }
+        ZStack{
+            NavigationLink("Scan QR Code", destination: QRCodeView(
+            onFoundCode: { (code) in
+                self.isScanningQRCode = false
+                self.parseQRCode(code: code)
+            },
+            onCameraError: {
+                self.showCameraErrorAlert = true
             }
-            
-            Section {
-                Button("Done", action: self.save)
+            ), isActive: $isScanningQRCode)
+                .hidden()
+                .alert(isPresented: $showCameraErrorAlert) { () -> Alert in
+                    Alert(title: Text("Error"), message: Text("Cannot open camera.\nMake sure to allow CoThings to access your camera."), dismissButton: .default(Text("Back"), action: {
+                        self.isScanningQRCode = false
+                    }))
+            }
+            Form {
+                Section(header: Text("Server URL")) {
+                    GeometryReader { metrics in
+                        HStack(alignment: .center, spacing: 1) {
+                            Text("https://")
+                            TextField("demo-eu.cothings.app", text: self.$serverHostname)
+                                .keyboardType(.URL)
+                                .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                                .frame(maxWidth: .infinity)
+                            Image(self.colorScheme == .dark ? "qrWhiteIcon": "qrBlackIcon")
+                                .resizable()
+                                .frame(width: metrics.size.height, height: metrics.size.height)
+                                .onTapGesture {
+                                    self.isScanningQRCode = true
+                                }
+                        }
+                    }
+                }
+                
+                Section {
+                    Button("Done", action: self.save)
+                }
             }
         }
         .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
         .navigationBarTitle("Server Settings", displayMode: .inline)
 	}
     
+    private func parseQRCode(code: String) {
+        if (code.hasPrefix("https://")) {
+            serverHostname = String(code.dropFirst("https://".count))
+        }
+        save()
+    }
+    
     func save() {
         var cleanHostname = serverHostname
         if serverHostname.hasPrefix("https://") {
             cleanHostname = String(serverHostname.dropFirst("https://".count))
         }
-
+        
         stateController.saveConfiguration(hostname: cleanHostname)
     }
 }

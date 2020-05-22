@@ -24,6 +24,8 @@
 	<string>CoThings needs to use your location in background in order to update the room status.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>COThings needs to use your location in order to detect the beacon.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>CoThings needs to use your camera to scan QR codes</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
