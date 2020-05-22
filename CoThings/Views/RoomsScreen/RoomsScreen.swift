@@ -41,7 +41,7 @@ struct RoomsScreen: View {
                 .zIndex(2)
             
             GeometryReader { geom in
-                PlaceHeaderView(title: "CoThings", population: 14)
+                PlaceHeaderView(title: "CoThings", population: 30) //TODO: to be read from config
                     .opacity(Double(geom.frame(in: .global).maxY / 125))
             }
             .frame(height: 125 + self.scrollOffset)
@@ -61,7 +61,7 @@ struct RoomsScreen: View {
                 
                 ForEach(roomsController.groups, id: \.self) { group in
                     Section(header: self.sectionHeader(group: group)) {
-                        ForEach(self.roomsController.rooms[group] ?? []) { room in
+						ForEach(self.sortRooms(rooms: self.roomsController.rooms[group] ?? [])) { room in
                             RoomRow(room: room,
                                     onPlus: { self.roomsController.session.increasePopulation(roomID: $0.id)},
                                     onMinus: { self.roomsController.session.decreasePopulation(roomID: $0.id)})
@@ -83,6 +83,10 @@ struct RoomsScreen: View {
         }
         .edgesIgnoringSafeArea(.top)
     }
+
+	func sortRooms(rooms: [Room]) -> [Room] {
+		return rooms.sorted(by: { $0.name < $1.name })
+	}
 }
 
 struct SpacesScreen_Previews: PreviewProvider {
