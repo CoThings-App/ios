@@ -18,8 +18,8 @@ class PlaceSession: ObservableObject {
     
     private var roomsCancellable: AnyCancellable?
     private var connectionStatusCancellable: AnyCancellable?
-    private var beaconEnterCanceler: AnyCancellable?
-    private var beaconExitCanceler: AnyCancellable?
+    private var beaconEnterCanceller: AnyCancellable?
+    private var beaconExitCanceller: AnyCancellable?
     
     init(service: CoThingsBackend, beaconDetector: BeaconDetector) {
         self.service = service
@@ -43,11 +43,11 @@ class PlaceSession: ObservableObject {
         self.connectionStatusCancellable = self.service.statusPublisher
             .assign(to: \.connectionStatus, on: self)
         
-        beaconEnterCanceler = self.beaconDetector.enters.sink { roomID in
+        beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
             self.increasePopulation(roomID: roomID)
         }
         
-        beaconExitCanceler = self.beaconDetector.exits.sink { roomID in
+        beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
             self.decreasePopulation(roomID: roomID)
         }
     }
