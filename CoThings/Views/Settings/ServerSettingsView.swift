@@ -9,6 +9,7 @@
 import SwiftUI
 import Foundation
 import Combine
+import CoreLocation
 
 struct ServerSettingsView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -38,7 +39,7 @@ struct ServerSettingsView: View {
             }
             
             Section {
-                Button("Done", action: self.save)
+				Button("Done", action: self.save)
             }
         }
         .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
@@ -50,9 +51,16 @@ struct ServerSettingsView: View {
         if serverHostname.hasPrefix("https://") {
             cleanHostname = String(serverHostname.dropFirst("https://".count))
         }
-
+		stopMonitoringExistingBeacons()
         stateController.saveConfiguration(hostname: cleanHostname)
     }
+
+	func stopMonitoringExistingBeacons() {
+		let locationManager = CLLocationManager()
+		for region in locationManager.monitoredRegions {
+			locationManager.stopMonitoring(for: region)
+		}
+	}
 }
 
 struct OnBoardView_Previews: PreviewProvider {
