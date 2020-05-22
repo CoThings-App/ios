@@ -30,7 +30,7 @@ struct RootView: View {
             RoomsScreen(roomsController: roomsController)
                 .tabItem {
                     Image(systemName: "house")
-                    Text("Rooms")
+                    Text("Spaces")
                 }
             
             SettingsScreen(stateController: self.stateController, session: session)

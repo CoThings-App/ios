@@ -18,7 +18,9 @@ struct SettingsScreen: View {
         NavigationView {
             List {
                 NavigationLink("Server Settings", destination: ServerSettingsView(stateController: stateController))
+				#if DEBUG
                 NavigationLink("Debugger", destination: DebugList(session: session))
+				#endif
             }
             .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
             .navigationBarTitle("Settings")

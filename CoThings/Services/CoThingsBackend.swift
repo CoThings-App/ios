@@ -12,6 +12,7 @@ enum ConnectionStatus: String {
     case connecting
     case ready
     case failed
+	case disconnected
 }
 
 struct UpdateError: Error {
@@ -26,6 +27,9 @@ protocol CoThingsBackend {
 
     var rooms: [Room] { get }
     var roomsPublisher: AnyPublisher<[Room], Never> { get }
+
+	func connectInBackground()
+	func disconnectInBackground()
 
     func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
     func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)

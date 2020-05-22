@@ -9,8 +9,10 @@
 import SwiftUI
 import Foundation
 import Combine
+import CoreLocation
 
 struct ServerSettingsView: View {
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     
 	@ObservedObject var stateController: StateController
@@ -73,25 +75,15 @@ struct ServerSettingsView: View {
         .navigationBarTitle("Server Settings", displayMode: .inline)
 	}
     
-    private func parseQRCode(code: String) {
-        if (code.hasPrefix("https://")) {
-            serverHostname = String(code.dropFirst("https://".count))
-            save()
-        }
-    }
-    
-    func save() {
-        var cleanHostname = serverHostname
-        if serverHostname.hasPrefix("https://") {
-            cleanHostname = String(serverHostname.dropFirst("https://".count))
-        }
-        
-        stateController.saveConfiguration(hostname: cleanHostname)
+    private func save() {
+        stateController.saveConfiguration(hostname: serverHostname)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct OnBoardView_Previews: PreviewProvider {
 	static var previews: some View {
-        ServerSettingsView(stateController: StateController(state: .configurationNeeded, beaconDetector: previewBeaconDetector))
+        ServerSettingsView(stateController: StateController(state: .configurationNeeded,
+                                                            beaconDetector: previewBeaconDetector))
 	}
 }

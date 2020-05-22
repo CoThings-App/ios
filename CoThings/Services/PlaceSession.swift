@@ -18,8 +18,8 @@ class PlaceSession: ObservableObject {
     
     private var roomsCancellable: AnyCancellable?
     private var connectionStatusCancellable: AnyCancellable?
-    private var beaconEnterCanceler: AnyCancellable?
-    private var beaconExitCanceler: AnyCancellable?
+    private var beaconEnterCanceller: AnyCancellable?
+    private var beaconExitCanceller: AnyCancellable?
     
     init(service: CoThingsBackend, beaconDetector: BeaconDetector) {
         self.service = service
@@ -27,6 +27,7 @@ class PlaceSession: ObservableObject {
         self.connectionStatus = service.status
         self.beaconDetector = beaconDetector
         
+        self.beaconDetector.stopScanningAll()
         self.roomsCancellable = self.service.roomsPublisher
             .sink {newRooms in
                 for oldRoom in Set(self.rooms).subtracting(newRooms) {
@@ -43,14 +44,24 @@ class PlaceSession: ObservableObject {
         self.connectionStatusCancellable = self.service.statusPublisher
             .assign(to: \.connectionStatus, on: self)
         
-        beaconEnterCanceler = self.beaconDetector.enters.sink { roomID in
-            self.increasePopulation(roomID: roomID)
+        beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
+            self.increasePopulationInBackground(roomID: roomID)
         }
         
-        beaconExitCanceler = self.beaconDetector.exits.sink { roomID in
-            self.decreasePopulation(roomID: roomID)
+        beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
+            self.decreasePopulationInBackground(roomID: roomID)
         }
     }
+
+	internal func ensureSocketConnection() {
+		if connectionStatus != .ready {
+			service.connectInBackground()
+		}
+	}
+
+	internal func ensureSocketDisconnected() {
+		service.disconnectInBackground()
+	}
     
     func increasePopulation(roomID: Room.ID) {
         guard
@@ -87,4 +98,18 @@ class PlaceSession: ObservableObject {
             }
         }
     }
+
+	func increasePopulationInBackground(roomID: Room.ID) {
+		ensureSocketConnection()
+		service.increasePopulation(roomID: roomID) { res in
+			self.ensureSocketDisconnected()
+		}
+	}
+
+	func decreasePopulationInBackground(roomID: Room.ID) {
+		ensureSocketConnection()
+		service.decreasePopulation(roomID: roomID) { res in
+			self.ensureSocketDisconnected()
+		}
+	}
 }

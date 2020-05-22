@@ -47,6 +47,18 @@ class ServerBackend: ObservableObject, CoThingsBackend {
         
         self.init(url: url, socketURL: socketURL)
     }
+
+	func connectInBackground() {
+		if self.status != .ready {
+			self.socket.connect()
+		}
+	}
+
+	func disconnectInBackground() {
+		if self.status == .ready {
+			self.socket.disconnect()
+		}
+	}
     
     func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         guard let lobbyChan = lobbyChan else {
