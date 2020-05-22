@@ -27,6 +27,7 @@ class PlaceSession: ObservableObject {
         self.connectionStatus = service.status
         self.beaconDetector = beaconDetector
         
+        self.beaconDetector.stopScanningAll()
         self.roomsCancellable = self.service.roomsPublisher
             .sink {newRooms in
                 for oldRoom in Set(self.rooms).subtracting(newRooms) {

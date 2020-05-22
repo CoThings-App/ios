@@ -41,6 +41,7 @@ struct Beacon {
     var strength: Int
     var accuracy: Double
     var constraint: CLBeaconIdentityConstraint
+    var region: CLBeaconRegion
     var roomID: Room.ID
 }
 
@@ -76,6 +77,7 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
                                    strength: 0,
                                    accuracy: 0,
                                    constraint: constraint,
+                                   region: beaconRegion,
                                    roomID: room.id)
     }
     
@@ -89,6 +91,15 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 
         locationManager.stopRangingBeacons(satisfying: beacon.constraint)
         beacons.removeValue(forKey: beaconID)
+    }
+    
+    func stopScanningAll() {
+        for (_, beacon) in self.beacons {
+            locationManager.stopRangingBeacons(satisfying: beacon.constraint)
+            locationManager.stopMonitoring(for: beacon.region)
+        }
+        
+        self.beacons = [:]
     }
 
     // MARK: - CLLocationManager delegate
