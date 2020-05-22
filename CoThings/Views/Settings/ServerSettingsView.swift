@@ -76,8 +76,8 @@ struct ServerSettingsView: View {
     private func parseQRCode(code: String) {
         if (code.hasPrefix("https://")) {
             serverHostname = String(code.dropFirst("https://".count))
+            save()
         }
-        save()
     }
     
     func save() {
