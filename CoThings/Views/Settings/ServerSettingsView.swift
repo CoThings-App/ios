@@ -49,19 +49,22 @@ struct ServerSettingsView: View {
             Form {
                 Section(header: Text("Server URL")) {
                     GeometryReader { metrics in
-                        HStack(alignment: .center, spacing: 1) {
-                            Text("https://")
-                            TextField("demo-eu.cothings.app", text: self.$serverHostname)
-                                .keyboardType(.URL)
-                                .disableAutocorrection(true)
-                                .autocapitalization(.none)
-                                .frame(maxWidth: .infinity)
+                        HStack {
+                            HStack(alignment: .firstTextBaseline, spacing: 1) {
+                                Text("https://")
+                                TextField("demo-eu.cothings.app", text: self.$serverHostname)
+                                    .keyboardType(.URL)
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                    .frame(maxWidth: .infinity)
+                                
+                            }
                             Image(self.colorScheme == .dark ? "qrWhiteIcon": "qrBlackIcon")
-                                .resizable()
-                                .frame(width: metrics.size.height, height: metrics.size.height)
-                                .onTapGesture {
-                                    self.isScanningQRCode = true
-                                }
+                            .resizable()
+                                .frame(width: metrics.size.height, height: metrics.size.height, alignment: .center)
+                            .onTapGesture {
+                                self.isScanningQRCode = true
+                            }
                         }
                     }
                 }
@@ -74,6 +77,17 @@ struct ServerSettingsView: View {
         .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
         .navigationBarTitle("Server Settings", displayMode: .inline)
 	}
+    
+    private func parseQRCode(code: String) {
+        if(code.hasPrefix("https://")) {
+            serverHostname = String(code.dropFirst("https://".count))
+        } else {
+            serverHostname = code
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.save()
+        }
+    }
     
     private func save() {
         stateController.saveConfiguration(hostname: serverHostname)
