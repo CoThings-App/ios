@@ -23,8 +23,13 @@ class StateController: ObservableObject {
     }
     
     func saveConfiguration(hostname: String) {
-        UserDefaults.standard.set(hostname, forKey: ServerHostNameKey)
-        appState = .ready(session: Self.sessionFrom(hostname: hostname, beaconDetector: beaconDetector))
+        var cleanHostname = hostname
+        if hostname.hasPrefix("https://") {
+            cleanHostname = String(hostname.dropFirst("https://".count))
+        }
+
+        UserDefaults.standard.set(cleanHostname, forKey: ServerHostNameKey)
+        appState = .ready(session: Self.sessionFrom(hostname: cleanHostname, beaconDetector: beaconDetector))
     }
     
     private static func sessionFrom(hostname: String, beaconDetector: BeaconDetector) -> PlaceSession {

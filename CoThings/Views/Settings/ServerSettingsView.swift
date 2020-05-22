@@ -12,6 +12,7 @@ import Combine
 import CoreLocation
 
 struct ServerSettingsView: View {
+    @Environment(\.presentationMode) var presentationMode
     @Environment(\.colorScheme) var colorScheme
     
 	@ObservedObject var stateController: StateController
@@ -39,37 +40,22 @@ struct ServerSettingsView: View {
             }
             
             Section {
-				Button("Done", action: self.save)
+                Button("Done", action: self.save)
             }
         }
         .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
         .navigationBarTitle("Server Settings", displayMode: .inline)
 	}
     
-    func save() {
-        var cleanHostname = serverHostname
-        if serverHostname.hasPrefix("https://") {
-            cleanHostname = String(serverHostname.dropFirst("https://".count))
-        }
-		stopMonitoringExistingBeacons()
-		clearRoomStatuses()
-        stateController.saveConfiguration(hostname: cleanHostname)
+    private func save() {
+        stateController.saveConfiguration(hostname: serverHostname)
+        presentationMode.wrappedValue.dismiss()
     }
-
-	func stopMonitoringExistingBeacons() {
-		let locationManager = CLLocationManager()
-		for region in locationManager.monitoredRegions {
-			locationManager.stopMonitoring(for: region)
-		}
-	}
-
-	func clearRoomStatuses() {
-		UserDefaults.standard.set(nil, forKey: RoomStatusesKey)
-	}
 }
 
 struct OnBoardView_Previews: PreviewProvider {
 	static var previews: some View {
-        ServerSettingsView(stateController: StateController(state: .configurationNeeded, beaconDetector: previewBeaconDetector))
+        ServerSettingsView(stateController: StateController(state: .configurationNeeded,
+                                                            beaconDetector: previewBeaconDetector))
 	}
 }
