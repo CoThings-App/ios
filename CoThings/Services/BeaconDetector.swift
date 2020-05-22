@@ -172,6 +172,7 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		print("Location manager failed: \(error.localizedDescription)")
 	}
 
+	#if DEBUG
 	func push(roomId: Int, isEntered: Bool) {
 		let content = UNMutableNotificationContent()
 
@@ -189,4 +190,5 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		userNotificationCenter.add(request)
 
 	}
+	#endif
 }
