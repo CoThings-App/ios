@@ -44,13 +44,23 @@ class PlaceSession: ObservableObject {
             .assign(to: \.connectionStatus, on: self)
         
         beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
-            self.increasePopulation(roomID: roomID)
+            self.increasePopulationInBackground(roomID: roomID)
         }
         
         beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
-            self.decreasePopulation(roomID: roomID)
+            self.decreasePopulationInBackground(roomID: roomID)
         }
     }
+
+	internal func ensureSocketConnection() {
+		if connectionStatus != .ready {
+			service.connectInBackground()
+		}
+	}
+
+	internal func ensureSocketDisconnected() {
+		service.disconnectInBackground()
+	}
     
     func increasePopulation(roomID: Room.ID) {
         guard
@@ -87,4 +97,18 @@ class PlaceSession: ObservableObject {
             }
         }
     }
+
+	func increasePopulationInBackground(roomID: Room.ID) {
+		ensureSocketConnection()
+		service.increasePopulation(roomID: roomID) { res in
+			self.ensureSocketDisconnected()
+		}
+	}
+
+	func decreasePopulationInBackground(roomID: Room.ID) {
+		ensureSocketConnection()
+		service.decreasePopulation(roomID: roomID) { res in
+			self.ensureSocketDisconnected()
+		}
+	}
 }

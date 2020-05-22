@@ -47,6 +47,18 @@ class ServerBackend: ObservableObject, CoThingsBackend {
         
         self.init(url: url, socketURL: socketURL)
     }
+
+	func connectInBackground() {
+		if self.status != .ready {
+			self.socket.connect()
+		}
+	}
+
+	func disconnectInBackground() {
+		if self.status == .ready {
+			self.socket.disconnect()
+		}
+	}
     
     func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         guard let lobbyChan = lobbyChan else {
@@ -71,6 +83,14 @@ class ServerBackend: ObservableObject, CoThingsBackend {
             .receive("ok", callback: { _ in completionHandler(.success(()))})
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError()))})
     }
+
+	func increasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+		increasePopulation(roomID: roomID, completionHandler: completionHandler)
+	}
+
+	func decreasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+		decreasePopulation(roomID: roomID, completionHandler: completionHandler)
+	}
     
     // MARK: - Handle Socket Events
     
