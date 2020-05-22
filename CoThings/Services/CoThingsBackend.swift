@@ -33,8 +33,4 @@ protocol CoThingsBackend {
 
     func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
     func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
-
-	func increasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
-	func decreasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
-
 }

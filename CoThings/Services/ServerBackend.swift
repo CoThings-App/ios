@@ -83,14 +83,6 @@ class ServerBackend: ObservableObject, CoThingsBackend {
             .receive("ok", callback: { _ in completionHandler(.success(()))})
             .receive("error", callback: { _ in completionHandler(.failure(UpdateError()))})
     }
-
-	func increasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
-		increasePopulation(roomID: roomID, completionHandler: completionHandler)
-	}
-
-	func decreasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
-		decreasePopulation(roomID: roomID, completionHandler: completionHandler)
-	}
     
     // MARK: - Handle Socket Events
     

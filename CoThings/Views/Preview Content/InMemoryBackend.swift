@@ -30,12 +30,4 @@ class InMemoryBackend: CoThingsBackend {
     func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         completionHandler(.success(()))
     }
-
-	func increasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
-		completionHandler(.success(()))
-	}
-
-	func decreasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
-		completionHandler(.success(()))
-	}
 }
