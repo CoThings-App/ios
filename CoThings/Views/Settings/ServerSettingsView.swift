@@ -52,6 +52,7 @@ struct ServerSettingsView: View {
             cleanHostname = String(serverHostname.dropFirst("https://".count))
         }
 		stopMonitoringExistingBeacons()
+		clearRoomStatuses()
         stateController.saveConfiguration(hostname: cleanHostname)
     }
 
@@ -60,6 +61,10 @@ struct ServerSettingsView: View {
 		for region in locationManager.monitoredRegions {
 			locationManager.stopMonitoring(for: region)
 		}
+	}
+
+	func clearRoomStatuses() {
+		UserDefaults.standard.set(nil, forKey: RoomStatusesKey)
 	}
 }
 

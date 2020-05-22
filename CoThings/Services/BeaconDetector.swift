@@ -146,11 +146,11 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		guard let beaconIdentifier = beaconRegion?.identifier else { return }
 		let roomId = Int(beaconIdentifier)
 
-		var status: [String: Bool] = UserDefaults.standard.object(forKey: "room_statuses") as? [String : Bool] ?? [ : ]
+		var status: [String: Bool] = UserDefaults.standard.object(forKey: RoomStatusesKey) as? [String : Bool] ?? [ : ]
 
 		if status[beaconIdentifier] != isEntered {
 			status[beaconIdentifier] = isEntered
-			UserDefaults.standard.set(status, forKey: "room_statuses")
+			UserDefaults.standard.set(status, forKey: RoomStatusesKey)
 			if (isEntered) {
 				enters.send(roomId!)
 			} else {
