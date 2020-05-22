@@ -14,7 +14,15 @@ class InMemoryBackend: CoThingsBackend {
     
     @Published var rooms: [Room] = previewRooms
     lazy var roomsPublisher = $rooms.eraseToAnyPublisher()
-    
+
+	func connectInBackground() {
+		self.status = .ready
+	}
+
+	func disconnectInBackground() {
+		self.status = .disconnected
+	}
+
     func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         completionHandler(.success(()))
     }
@@ -22,4 +30,12 @@ class InMemoryBackend: CoThingsBackend {
     func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
         completionHandler(.success(()))
     }
+
+	func increasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+		completionHandler(.success(()))
+	}
+
+	func decreasePopulationInBackground(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+		completionHandler(.success(()))
+	}
 }
