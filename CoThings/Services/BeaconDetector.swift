@@ -145,7 +145,7 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 	func updateRoomStatus(for beaconRegion: CLBeaconRegion, isEntered: Bool) {
 		let beaconIdentifier = beaconRegion.identifier
-		let roomId = Int(beaconIdentifier) ?? 0 // beaconIdentifer = room.ID
+		guard let roomId = Int(beaconIdentifier) else { return } // beaconIdentifer = room.ID
 
 		// in our case one user (or device) can be only in one room at the same time,
 		// so if the user (or the device) if in the room it should exit first,
