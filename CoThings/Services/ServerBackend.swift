@@ -50,7 +50,7 @@ class ServerBackend: ObservableObject, CoThingsBackend {
 
 	func connectInBackground() {
 		self.socket.connect()
-		self.didSocketConnected() // we have join the channel in order to update the room status
+		self.didSocketConnected() // we have to join the channel in order to update the room status
 	}
 
 	func disconnectInBackground() {
