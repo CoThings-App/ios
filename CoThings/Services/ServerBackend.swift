@@ -49,15 +49,13 @@ class ServerBackend: ObservableObject, CoThingsBackend {
     }
 
 	func connectInBackground() {
-		if self.status != .ready {
-			self.socket.connect()
-		}
+		self.socket.connect()
+		self.didSocketConnected() // we have join the channel in order to update the room status
 	}
 
 	func disconnectInBackground() {
-		if self.status == .ready {
-			self.socket.disconnect()
-		}
+		// maybe leave the room before disconnect?
+		self.socket.disconnect()
 	}
     
     func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
