@@ -31,47 +31,43 @@ struct ServerSettingsView: View {
     
 	var body: some View {
         ZStack{
-            NavigationLink("Scan QR Code", destination: QRCodeView(
-            onFoundCode: { (code) in
-                self.isScanningQRCode = false
-                self.parseQRCode(code: code)
-            },
-            onCameraError: {
-                self.showCameraErrorAlert = true
-            }
-            ), isActive: $isScanningQRCode)
-                .hidden()
-                .alert(isPresented: $showCameraErrorAlert) { () -> Alert in
-                    Alert(title: Text("Error"), message: Text("Cannot open camera.\nMake sure to allow CoThings to access your camera."), dismissButton: .default(Text("Back"), action: {
-                        self.isScanningQRCode = false
-                    }))
-            }
             Form {
                 Section(header: Text("Server URL")) {
-                    GeometryReader { metrics in
-                        HStack {
-                            HStack(alignment: .firstTextBaseline, spacing: 1) {
-                                Text("https://")
-                                TextField("demo-eu.cothings.app", text: self.$serverHostname)
-                                    .keyboardType(.URL)
-                                    .disableAutocorrection(true)
-                                    .autocapitalization(.none)
-                                    .frame(maxWidth: .infinity)
-                                
-                            }
-                            Image(self.colorScheme == .dark ? "qrWhiteIcon": "qrBlackIcon")
-                            .resizable()
-                                .frame(width: metrics.size.height, height: metrics.size.height, alignment: .center)
-                            .onTapGesture {
-                                self.isScanningQRCode = true
-                            }
+                    HStack(spacing: 1) {
+                        TextField("", text: .constant("https://"))
+                            .disabled(true)
+                            .fixedSize()
+                        TextField("demo-eu.cothings.app", text: self.$serverHostname)
+                            .keyboardType(.URL)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
+                            .frame(maxWidth: .infinity)
+                            .layoutPriority(1)
+                        Button(action: {
+                            self.isScanningQRCode = true
+                        }) {
+                            Image("qrIcon")
+                                .resizable()
+                                .frame(minWidth: 35)
+                                .scaledToFit()
                         }
+                        
                     }
                 }
-                
                 Section {
                     Button("Done", action: self.save)
                 }
+            }
+            .sheet(isPresented: $isScanningQRCode) {
+                QRCodeView(
+                    onFoundCode: { (code) in
+                        self.isScanningQRCode = false
+                        self.parseQRCode(code: code)
+                    },
+                    onCameraError: {
+                        self.showCameraErrorAlert = true
+                    }
+                )
             }
         }
         .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
@@ -83,9 +79,6 @@ struct ServerSettingsView: View {
             serverHostname = String(code.dropFirst("https://".count))
         } else {
             serverHostname = code
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.save()
         }
     }
     

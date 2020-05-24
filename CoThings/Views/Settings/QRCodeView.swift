@@ -13,14 +13,18 @@ import UIKit
 
 struct QRCodeView: UIViewControllerRepresentable {
     
-    private var controller: QRCodeViewController = QRCodeViewController()
+    private var onFoundCode: (String) -> Void
+    private var onCameraError: () -> Void
     
     init(onFoundCode: @escaping (String) -> Void, onCameraError: @escaping () -> Void) {
-        controller.foundQRCode = onFoundCode
-        controller.failedToOpenCamera = onCameraError
+        self.onFoundCode = onFoundCode
+        self.onCameraError = onCameraError
     }
     
     func makeUIViewController(context: Context) -> QRCodeViewController {
+        let controller = QRCodeViewController()
+        controller.foundQRCode = onFoundCode
+        controller.failedToOpenCamera = onCameraError
         return controller
     }
     
@@ -29,8 +33,10 @@ struct QRCodeView: UIViewControllerRepresentable {
 }
 
 class QRCodeViewController: UIViewController {
-    var captureSession: AVCaptureSession!
-    var previewLayer: AVCaptureVideoPreviewLayer!
+    private var captureSession: AVCaptureSession!
+    private var previewLayer: AVCaptureVideoPreviewLayer!
+    private var sessionQueue = DispatchQueue(label: "AvCaptureSession")
+    private var qrCodeNotValidLabel = UILabel()
     
     var foundQRCode: (String) -> Void = {_ in}
     var failedToOpenCamera: () -> Void = {}
@@ -74,15 +80,48 @@ class QRCodeViewController: UIViewController {
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "Scan QR code"
+        titleLabel.font = .systemFont(ofSize: 20, weight: .heavy)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
+        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        let dismissButton = UIButton()
+        let crossImage = UIImage(systemName: "multiply", withConfiguration: UIImage.SymbolConfiguration(pointSize: 35, weight: .regular, scale: .large))
+        dismissButton.setImage(crossImage, for: .normal)
+        dismissButton.tintColor = .white
+        dismissButton.addTarget(self, action: #selector(onTapDismissButton), for: .touchUpInside)
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(dismissButton)
+        dismissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+        dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
+        dismissButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        dismissButton.widthAnchor.constraint(equalTo: dismissButton.heightAnchor).isActive = true
+        
+        
+        qrCodeNotValidLabel.text = ""
+        qrCodeNotValidLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        qrCodeNotValidLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(qrCodeNotValidLabel)
+        qrCodeNotValidLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        qrCodeNotValidLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
 
-        captureSession.startRunning()
+        sessionQueue.async {
+            self.captureSession.startRunning()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
+            sessionQueue.async {
+                self.captureSession.startRunning()
+            }
         }
     }
 
@@ -90,8 +129,14 @@ class QRCodeViewController: UIViewController {
         super.viewWillDisappear(animated)
 
         if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
+            sessionQueue.async {
+                self.captureSession.stopRunning()
+            }
         }
+    }
+    
+    @objc private func onTapDismissButton() {
+        dismiss(animated: true)
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -101,15 +146,22 @@ class QRCodeViewController: UIViewController {
 
 extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
 
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
+            guard stringValue.hasPrefix("https://") else {
+                qrCodeNotValidLabel.text = "Invalid QR code"
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self.qrCodeNotValidLabel.text = ""
+                }
+                return
+            }
+            captureSession.stopRunning()
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            foundQRCode(stringValue)
+            dismiss(animated: true, completion: {
+                self.foundQRCode(stringValue)
+            })
         }
-
-        dismiss(animated: true)
     }
 }
