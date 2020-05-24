@@ -147,30 +147,41 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		let beaconIdentifier = beaconRegion.identifier
 		guard let roomId = Int(beaconIdentifier) else { return } // beaconIdentifer = room.ID
 
+
+
 		// in our case one user (or device) can be only in one room at the same time,
 		// so if the user (or the device) if in the room it should exit first,
 		// in order to enter the room
 
 		let lastEnteredRoomId = UserDefaults.standard.integer(forKey: LastEnteredRoomIdKey)
 
-		// exiting case
-		if lastEnteredRoomId == roomId {
-			if !isEntered {
-				UserDefaults.standard.removeObject(forKey: LastEnteredRoomIdKey)
-				exits.send(roomId)
-			} else {
-				print("duplicated entering")
-				return
-			}
+		#if DEBUG
+		print("roomId: \(roomId) lastEnteredRoomId: \(lastEnteredRoomId) isEntered: \(isEntered)")
+		#endif
+		if lastEnteredRoomId == 0 {
+			// probably first time
+			isEntered ? enterTo(room: roomId) : removeFrom(room: roomId)
 		} else {
-			UserDefaults.standard.set(LastEnteredRoomIdKey, forKey: LastEnteredRoomIdKey)
-			enters.send(roomId)
+			if lastEnteredRoomId != roomId {
+				removeFrom(room: lastEnteredRoomId)
+			}
+			isEntered ? enterTo(room: roomId) : removeFrom(room: roomId)
 		}
 
 		#if DEBUG
 		print("monitored region count:\(locationManager.monitoredRegions.count)")
 		push(roomId: roomId, isEntered: isEntered)
 		#endif
+	}
+
+	internal func enterTo(room roomId: Int) {
+		enters.send(roomId)
+		UserDefaults.standard.set(roomId, forKey: LastEnteredRoomIdKey)
+	}
+
+	internal func removeFrom(room roomId: Int) {
+		exits.send(roomId)
+		UserDefaults.standard.removeObject(forKey: LastEnteredRoomIdKey)
 	}
 
 	internal func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
