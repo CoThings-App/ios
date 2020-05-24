@@ -123,15 +123,6 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 			let beaconID = beacon.beaconIdentity
 			guard var oldBeacon = self.beacons[beaconID] else { continue }
 
-//			let insideTheRoom = beacon.proximity == .near || beacon.proximity == .immediate
-//			let wasInsideTheRoom =  oldBeacon.proximity == .near || oldBeacon.proximity == .immediate
-//
-//			if insideTheRoom && !wasInsideTheRoom {
-//				enters.send(oldBeacon.roomID)
-//			} else if wasInsideTheRoom && !insideTheRoom {
-//				exits.send(oldBeacon.roomID)
-//			}
-
 			oldBeacon.proximity = beacon.proximity
 			oldBeacon.strength = beacon.rssi
 			oldBeacon.accuracy = beacon.accuracy
@@ -143,35 +134,42 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 	}
 
 	func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-		updateRoomStatus(for: region, isEntered: true)
+		guard let beaconRegion = region as? CLBeaconRegion else { return }
+		updateRoomStatus(for: beaconRegion, isEntered: true)
 	}
 
 	func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-		updateRoomStatus(for: region, isEntered: false)
+		guard let beaconRegion = region as? CLBeaconRegion else { return }
+		updateRoomStatus(for: beaconRegion, isEntered: false)
 	}
 
-	func updateRoomStatus(for region: CLRegion, isEntered: Bool) {
-		guard region is CLBeaconRegion else { return }
-		let beaconRegion = region as? CLBeaconRegion
+	func updateRoomStatus(for beaconRegion: CLBeaconRegion, isEntered: Bool) {
+		let beaconIdentifier = beaconRegion.identifier
+		let roomId = Int(beaconIdentifier) ?? 0 // beaconIdentifer = room.ID
 
-		guard let beaconIdentifier = beaconRegion?.identifier else { return }
-		let roomId = Int(beaconIdentifier)
+		// in our case one user (or device) can be only in one room at the same time,
+		// so if the user (or the device) if in the room it should exit first,
+		// in order to enter the room
 
-		var status: [String: Bool] = UserDefaults.standard.object(forKey: RoomStatusesKey) as? [String : Bool] ?? [ : ]
+		let lastEnteredRoomId = UserDefaults.standard.integer(forKey: LastEnteredRoomIdKey)
 
-		if status[beaconIdentifier] != isEntered {
-			status[beaconIdentifier] = isEntered
-			UserDefaults.standard.set(status, forKey: RoomStatusesKey)
-			if (isEntered) {
-				enters.send(roomId!)
+		// exiting case
+		if lastEnteredRoomId == roomId {
+			if !isEntered {
+				UserDefaults.standard.removeObject(forKey: LastEnteredRoomIdKey)
+				exits.send(roomId)
 			} else {
-				exits.send(roomId!)
+				print("duplicated entering")
+				return
 			}
+		} else {
+			UserDefaults.standard.set(LastEnteredRoomIdKey, forKey: LastEnteredRoomIdKey)
+			enters.send(roomId)
 		}
 
 		#if DEBUG
 		print("monitored region count:\(locationManager.monitoredRegions.count)")
-		push(roomId: roomId!, isEntered: isEntered)
+		push(roomId: roomId, isEntered: isEntered)
 		#endif
 	}
 

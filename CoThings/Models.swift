@@ -10,7 +10,7 @@ import Foundation
 
 let ServerHostNameKey = "serverHostname"
 let PassOnboardingKey = "passOnboarding"
-let RoomStatusesKey = "roomStatuses"
+let LastEnteredRoomIdKey = "lastEnteredRoomId"
 
 struct Room: Identifiable {
     let id: Int
