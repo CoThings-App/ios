@@ -118,7 +118,7 @@ class QRCodeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if (captureSession?.isRunning == false) {
+        if (!self.captureSession.isRunning) {
             sessionQueue.async {
                 self.captureSession.startRunning()
             }
@@ -128,7 +128,7 @@ class QRCodeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if (captureSession?.isRunning == true) {
+        if (self.captureSession.isRunning) {
             sessionQueue.async {
                 self.captureSession.stopRunning()
             }
