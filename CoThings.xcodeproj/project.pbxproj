@@ -100,6 +100,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		480CC117247B67F9000B2D7E /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		48241B6C246BAB2400EDAE16 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		48241B6E246BBE8D00EDAE16 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		48241B70246BC94200EDAE16 /* BeaconDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDebugView.swift; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 		48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		48DDD7FE245C76F400A249BD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		48F52925247B9070004AEAA2 /* CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONDUCT.md; sourceTree = "<group>"; };
 		A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingScreen.swift; sourceTree = "<group>"; };
 		A9176B77246EDA5300027D6C /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		A9176B7B246EED7100027D6C /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
@@ -176,6 +178,8 @@
 		48DDD7B6245C5CD300A249BD = {
 			isa = PBXGroup;
 			children = (
+				48F52925247B9070004AEAA2 /* CONDUCT.md */,
+				480CC117247B67F9000B2D7E /* CONTRIBUTING.md */,
 				48DDD7FF245C76F400A249BD /* LICENSE */,
 				48DDD7FE245C76F400A249BD /* README.md */,
 				48DDD7C1245C5CD300A249BD /* CoThings */,
