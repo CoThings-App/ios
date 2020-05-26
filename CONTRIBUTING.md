@@ -54,7 +54,7 @@ We respect the contributors' labor more than anything, so, we would like to conf
 
 **Pull Requests will be merged only after they are signed with valid GPG signatures from the author.**
 
-Please add your full name and email into the top of the file you're coding. If you don't want to share your private email, you may use GitHub's anonymous email address that has been created for you. This is need when release the version without `.git` history. Archives don't include  `.git` folder. So, your contributions always will be visible and public. 
+Please add your full name and email into the top of the file you're coding. This is need when release the version without `.git` history. Archives don't include  `.git` folder. So, your contributions always will be visible and public.
 
 Example:
 ```
@@ -62,7 +62,7 @@ Example:
 //  AppDelegate.swift
 //  CoThings
 //
-//  Created by Nesim Tunç <680806+nesimtunc@users.noreply.github.com> on 2020/05/01.
+//  Created by Nesim Tunç <nesimtunc@gmail.com> on 2020/05/01.
 //  Modified by Umur Gedik <mail@example.com> on 2020/05/02.
 //  Copyright © 2020 Rainlab. All rights reserved.
 //
