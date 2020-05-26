@@ -1,3 +1,23 @@
+Distribution of this software is governed mainly by GPL-3.0,
+with the following additions;
+
+- Binary distribution is ALSO allowed for App Store, runs by Apple.
+
+- When distributing iOS applications, a link to the corresponding source code,
+that can generate exactly same distributed binary, MUST be provided in one of
+the application's user interface.
+
+- When distributing an unofficial derivative work of this software,
+you MUST retain all original contributor list (with any additions),
+and this license document unmodified.
+
+- The name "CoThings", or any remarkably similar names and icons SHOULD NOT be used
+when distributing an unofficial derivative work, to avoid user confusion.
+
+- Besides the points above, GPL-3.0 licensing apply for distribution of this work, as follows.
+
+---------------------------------------------------------------------------------------
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
