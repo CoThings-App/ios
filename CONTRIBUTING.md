@@ -9,8 +9,8 @@ Please read it before you start participating.
 * [Reporting Security Issues](#reporting-security-issues)
 * [Reporting Issues](#reporting-other-issues)
 * [Opening Pull Requests](#opening-pull-requests)
-* [Developers Certificate of Origin](#developers-certificate-of-origin)
-* [Code of Conduct](#code-of-conduct)
+* [Developer Certificate of Origin](#developer-certificate-of-origin)
+* [Code of Conduct](#code-of-conduct
 
 ## Asking Questions
 
@@ -22,7 +22,7 @@ Feel free to join and ask your questions. Or you can send us an email at <info@c
 We take  security seriously. If you discover a security issue, please bring it to our attention right away!
 
 Please **DO NOT** file a public issue,
-instead send your report privately to us via [email](mailto:info@cothings.app?subject:Security Issue)
+instead send your report privately to us via [email](mailto:info@cothings.app?subject=Security%20Issue).
 This will help ensure that any vulnerabilities that _are_ found
 can be [disclosed responsibly](https://en.wikipedia.org/wiki/Responsible_disclosure)
 to any affected parties.
@@ -69,8 +69,9 @@ Example:
 ```
 
 After your contribution has done, please make sure that you've added your name in the Contributors section of the project's [README](readme.md#Contributors) with a signed commit, as a part of the pull request. 
- 
-## Developer's Certificate of Origin 1.1
+
+## Developer Certificate of Origin
+Version 1.1
 
 By making a contribution to this project, I certify that:
 
