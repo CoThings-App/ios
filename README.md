@@ -23,3 +23,4 @@ All feedbacks and contributions are welcome. Please read the [contributing](cont
 
 ### Contributors
 - [Nesim Tunç](https://github.com/nesimtunc)
+- [Jay Zisch](https://github.com/jz709u)
