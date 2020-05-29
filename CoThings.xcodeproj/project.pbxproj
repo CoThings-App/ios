@@ -104,6 +104,7 @@
 		48241B6C246BAB2400EDAE16 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		48241B6E246BBE8D00EDAE16 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		48241B70246BC94200EDAE16 /* BeaconDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDebugView.swift; sourceTree = "<group>"; };
+		4877A2172481324E002558CA /* CONTRIBUTORS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTORS.md; sourceTree = "<group>"; };
 		48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Custom.swift"; sourceTree = "<group>"; };
 		48B33AF924682495000A1F5C /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		48DDD7BF245C5CD300A249BD /* CoThings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoThings.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +179,7 @@
 		48DDD7B6245C5CD300A249BD = {
 			isa = PBXGroup;
 			children = (
+				4877A2172481324E002558CA /* CONTRIBUTORS.md */,
 				48F52925247B9070004AEAA2 /* CONDUCT.md */,
 				480CC117247B67F9000B2D7E /* CONTRIBUTING.md */,
 				48DDD7FF245C76F400A249BD /* LICENSE */,
