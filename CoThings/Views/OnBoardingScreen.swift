@@ -32,7 +32,7 @@ struct OnBoardingScreen: View {
 			.padding(.all, -10.0)
 			Text("is a realtime counter for shared things.")
 				.italic()
-				.foregroundColor(Color.blue)
+				.foregroundColor(Color.gray)
 				.multilineTextAlignment(.center)
 
 			Text("It accounts for current number of people using shared areas or utilities in realtime. The project’s main purpose is avoiding you to visit crowded areas during COVID-19 pandemic if you live in a community.\n\nYou need a server to use this app. If you don't have a server you can contact us to have one. If you already have one please set the url in next screen.\n\nIf you want to test the app you can use our demo server.")
@@ -41,6 +41,9 @@ struct OnBoardingScreen: View {
 				.padding(.top, 10.0)
 				.padding(.horizontal, 20.0)
 
+			Button("Privacy Policy", action: {
+				UIApplication.shared.open(URL.init(string: "https://cothings.app/privacy")!)
+			}).padding(.top, 16)
 
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
