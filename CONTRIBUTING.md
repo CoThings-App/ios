@@ -10,7 +10,7 @@ Please read it before you start participating.
 * [Reporting Issues](#reporting-other-issues)
 * [Opening Pull Requests](#opening-pull-requests)
 * [Developer Certificate of Origin](#developer-certificate-of-origin)
-* [Code of Conduct](#code-of-conduct
+* [Code of Conduct](#code-of-conduct)
 
 ## Asking Questions
 
