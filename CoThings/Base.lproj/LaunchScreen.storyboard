@@ -15,15 +15,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Made by Rainlab with ❤️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="knu-WY-oXJ">
-                                <rect key="frame" x="16" y="620" width="382" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="P7L-Mt-uVW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="4mU-ga-5Zt">
                                 <rect key="frame" x="47" y="208" width="320" height="320"/>
                                 <constraints>
@@ -36,9 +27,6 @@
                         <constraints>
                             <constraint firstItem="4mU-ga-5Zt" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="QQk-Ou-X7q"/>
                             <constraint firstItem="4mU-ga-5Zt" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Vwg-Gj-Fj8"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="knu-WY-oXJ" secondAttribute="trailing" constant="16" id="ZUq-UG-E2j"/>
-                            <constraint firstItem="knu-WY-oXJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="gh8-Ys-e6T"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="knu-WY-oXJ" secondAttribute="bottom" constant="16" id="sVr-Oc-FmU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
