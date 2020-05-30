@@ -15,6 +15,7 @@ class PlaceSession: ObservableObject {
     
     let beaconDetector: BeaconDetector
     private let service: CoThingsBackend
+	private let notificationService = NotificationService()
     
     private var roomsCancellable: AnyCancellable?
     private var connectionStatusCancellable: AnyCancellable?
@@ -46,18 +47,20 @@ class PlaceSession: ObservableObject {
         
         beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
             self.increasePopulationInBackground(roomID: roomID)
+			self.sendNotification(roomId: roomID, isEntered: true)
         }
         
         beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
             self.decreasePopulationInBackground(roomID: roomID)
+			self.sendNotification(roomId: roomID, isEntered: true)
         }
     }
 
-	internal func ensureSocketConnection() {
+	private func ensureSocketConnection() {
 		service.connectInBackground()
 	}
 
-	internal func ensureSocketDisconnected() {
+	private func ensureSocketDisconnected() {
 		service.disconnectInBackground()
 	}
     
@@ -109,5 +112,10 @@ class PlaceSession: ObservableObject {
 		service.decreasePopulation(roomID: roomID) { _ in
 			self.ensureSocketDisconnected()
 		}
+	}
+
+	func sendNotification(roomId: Int, isEntered: Bool) {
+		let message = isEntered ? "Entered" : "Exited";
+		notificationService.showPushNotificationIfEnabled(for: isEntered, title: "RoomId: \(roomId)", message: message)
 	}
 }
