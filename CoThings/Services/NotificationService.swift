@@ -41,7 +41,13 @@ class NotificationService: ObservableObject {
 		}
 	}
 
-	internal func notificationRequest() {
+	@Published var notifyWithOneLineMessage: Bool = UserDefaults.standard.bool(forKey: NotifyWithOneLineMessageKey) {
+		didSet {
+			UserDefaults.standard.set(self.notifyWithOneLineMessage, forKey: NotifyWithOneLineMessageKey)
+		}
+	}
+
+	private func notificationRequest() {
 		let notificationCenter = UNUserNotificationCenter.current()
 		let options: UNAuthorizationOptions = [.alert, .sound]
 		notificationCenter.requestAuthorization(options: options) {
@@ -61,7 +67,7 @@ class NotificationService: ObservableObject {
 		}
 	}
 
-	internal func shouldShowAlert() -> Bool {
+	private func shouldShowAlert() -> Bool {
 		return notifyOnEnter || notifyOnExit || notifyWithSound
 	}
 
@@ -77,8 +83,12 @@ class NotificationService: ObservableObject {
 
 		let content = UNMutableNotificationContent()
 
-		content.title = title
-		content.body = message
+		content.title = !notifyWithOneLineMessage ? title : title + " " + message
+
+		if !notifyWithOneLineMessage {
+			content.body = message
+		}
+
 		if notifyWithSound {
 			content.sound = .default
 		}

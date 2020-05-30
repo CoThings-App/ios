@@ -23,6 +23,14 @@ struct NotificationSettings: View {
 			Toggle(isOn: $notificationService.notifyWithSound) {
 				Text("Notify with Sound")
 			}
+			Toggle(isOn: $notificationService.notifyWithOneLineMessage) {
+				VStack(alignment: .leading, spacing: 0, content: {
+					Text("Show one line message")
+					Text("For small smart watch screens")
+						.font(.footnote)
+						.foregroundColor(.gray)
+				})
+			}
 			Spacer()
 		}).navigationBarTitle("Notification")
 			.padding(.all, 16)

@@ -14,6 +14,7 @@ let LastEnteredRoomIdKey = "lastEnteredRoomId"
 let NotifyOnEnterKey = "notifyOnEnter"
 let NotifyOnExitKey = "notifyOnExit"
 let NotifyWithSoundKey = "notifyWithSound"
+let NotifyWithOneLineMessageKey = "notifyWithOneLineMessage"
 
 struct Room: Identifiable {
     let id: Int
