@@ -11,6 +11,9 @@ import Foundation
 let ServerHostNameKey = "serverHostname"
 let PassOnboardingKey = "passOnboarding"
 let LastEnteredRoomIdKey = "lastEnteredRoomId"
+let NotifyOnEnterKey = "notifyOnEnter"
+let NotifyOnExitKey = "notifyOnExit"
+let NotifyWithSoundKey = "notifyWithSound"
 
 struct Room: Identifiable {
     let id: Int

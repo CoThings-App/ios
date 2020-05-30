@@ -18,6 +18,7 @@ struct SettingsScreen: View {
         NavigationView {
             List {
                 NavigationLink("Server Settings", destination: ServerSettingsView(stateController: stateController))
+				NavigationLink("Notification Settings", destination: NotificationSettings())
 				#if DEBUG
                 NavigationLink("Debugger", destination: DebugList(session: session))
 				#endif
