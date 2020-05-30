@@ -14,28 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 
-		// notificationRequest()
-
 		return true
 	}
-
-
-	func notificationRequest() {
-		let notificationCenter = UNUserNotificationCenter.current()
-		let options: UNAuthorizationOptions = [.alert, .sound]
-		notificationCenter.requestAuthorization(options: options) {
-			(didAllow, _) in
-			if !didAllow {
-				print("User has declined notifications")
-			}
-		}
-		notificationCenter.getNotificationSettings { (settings) in
-			if settings.authorizationStatus != .authorized {
-				// Notifications not allowed
-			}
-		}
-	}
-
 
 	// MARK: UISceneSession Lifecycle
 
