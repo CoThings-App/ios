@@ -50,7 +50,6 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
     private(set) var exits = PassthroughSubject<Room.ID, Never>()
 
 	private var locationManager = CLLocationManager()
-	private var notificationService = NotificationService()
 
     override init() {
         super.init()
@@ -169,8 +168,6 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		#if DEBUG
 		print("monitored region count:\(locationManager.monitoredRegions.count)")
 		#endif
-
-		notify(roomId: roomId, isEntered: isEntered)
 	}
 
 	internal func enterTo(room roomId: Int) {
@@ -189,10 +186,5 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 	internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("Location manager failed: \(error.localizedDescription)")
-	}
-
-	func notify(roomId: Int, isEntered: Bool) {
-		let message = isEntered ? "Entered" : "Exited";
-		notificationService.showPushNotificationIfEnabled(for: isEntered, title: "RoomId: \(roomId)", message: message)
 	}
 }
