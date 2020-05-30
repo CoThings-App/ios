@@ -26,6 +26,14 @@ struct NotificationSettings: View {
 			Spacer()
 		}).navigationBarTitle("Notification")
 			.padding(.all, 16)
+			.alert(isPresented: $notificationService.showingAlert) {
+					Alert(title: Text("Push Notification is disabled"),
+						  message: Text("Please allow it in Settings"),
+						  primaryButton: .cancel(),
+						  secondaryButton: .default(Text("Settings"), action: {
+							UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+						}))
+		}
 	}
 }
 
