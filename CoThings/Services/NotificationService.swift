@@ -18,7 +18,7 @@ class NotificationService: ObservableObject {
 		didSet {
 			UserDefaults.standard.set(self.notifyOnEnter, forKey: NotifyOnEnterKey)
 			if self.notifyOnEnter {
-				self.notificationRequest()
+				self.requestNotificationPermission()
 			}
 		}
 	}
@@ -27,7 +27,7 @@ class NotificationService: ObservableObject {
 		didSet {
 			UserDefaults.standard.set(self.notifyOnExit, forKey: NotifyOnExitKey)
 			if self.notifyOnExit {
-				self.notificationRequest()
+				self.requestNotificationPermission()
 			}
 		}
 	}
@@ -36,7 +36,7 @@ class NotificationService: ObservableObject {
 		didSet {
 			UserDefaults.standard.set(self.notifyWithSound, forKey: NotifyWithSoundKey)
 			if self.notifyWithSound {
-				self.notificationRequest()
+				self.requestNotificationPermission()
 			}
 		}
 	}
@@ -47,7 +47,7 @@ class NotificationService: ObservableObject {
 		}
 	}
 
-	private func notificationRequest() {
+	func requestNotificationPermission() {
 		let notificationCenter = UNUserNotificationCenter.current()
 		let options: UNAuthorizationOptions = [.alert, .sound]
 		notificationCenter.requestAuthorization(options: options) {
