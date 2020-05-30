@@ -19,13 +19,13 @@ class NotificationService: ObservableObject {
 
 	@Published var notifyOnExit: Bool = UserDefaults.standard.bool(forKey: NotifyOnExitKey) {
 		didSet {
-			UserDefaults.standard.set(self.notifyOnEnter, forKey: NotifyOnExitKey)
+			UserDefaults.standard.set(self.notifyOnExit, forKey: NotifyOnExitKey)
 		}
 	}
 
 	@Published var notifyWithSound: Bool = UserDefaults.standard.bool(forKey: NotifyWithSoundKey) {
 		didSet {
-			UserDefaults.standard.set(self.notifyOnEnter, forKey: NotifyWithSoundKey)
+			UserDefaults.standard.set(self.notifyWithSound, forKey: NotifyWithSoundKey)
 		}
 	}
 }
