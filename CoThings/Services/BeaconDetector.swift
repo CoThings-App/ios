@@ -9,9 +9,6 @@
 import Foundation
 import CoreLocation
 import Combine
-#if DEBUG
-import UserNotifications
-#endif
 
 struct BeaconIdentity: Hashable {
     let uuid: UUID
@@ -53,6 +50,7 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
     private(set) var exits = PassthroughSubject<Room.ID, Never>()
 
 	private var locationManager = CLLocationManager()
+	private var notificationService = NotificationService()
 
     override init() {
         super.init()
@@ -170,8 +168,9 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 		#if DEBUG
 		print("monitored region count:\(locationManager.monitoredRegions.count)")
-		push(roomId: roomId, isEntered: isEntered)
 		#endif
+
+		notify(roomId: roomId, isEntered: isEntered)
 	}
 
 	internal func enterTo(room roomId: Int) {
@@ -192,23 +191,8 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 		print("Location manager failed: \(error.localizedDescription)")
 	}
 
-	#if DEBUG
-	func push(roomId: Int, isEntered: Bool) {
-		let content = UNMutableNotificationContent()
-
-		let action = isEntered ? "Enter" : "Exit"
-
-		content.title = "CoThings Room: \(roomId)"
-		content.body = "Action:\(action) beacon count:\(self.beacons.count)"
-		content.sound = .default
-
-		let request = UNNotificationRequest(identifier: "testNotification" + String(Int.random(in: 200...300)),
-											content: content,
-											trigger: nil)
-
-		let userNotificationCenter = UNUserNotificationCenter.current()
-		userNotificationCenter.add(request)
-
+	func notify(roomId: Int, isEntered: Bool) {
+		let message = isEntered ? "Entered" : "Exited";
+		notificationService.showPushNotificationIfEnabled(for: isEntered, title: "RoomId: \(roomId)", message: message)
 	}
-	#endif
 }

@@ -41,7 +41,7 @@ class NotificationService: ObservableObject {
 		}
 	}
 
-	func notificationRequest() {
+	internal func notificationRequest() {
 		let notificationCenter = UNUserNotificationCenter.current()
 		let options: UNAuthorizationOptions = [.alert, .sound]
 		notificationCenter.requestAuthorization(options: options) {
@@ -61,8 +61,34 @@ class NotificationService: ObservableObject {
 		}
 	}
 
-	func shouldShowAlert() -> Bool {
+	internal func shouldShowAlert() -> Bool {
 		return notifyOnEnter || notifyOnExit || notifyWithSound
+	}
+
+	func showPushNotificationIfEnabled(for actionEntered: Bool, title: String, message: String) {
+
+		if (actionEntered && !notifyOnEnter) {
+			return
+		}
+
+		if (!actionEntered && !notifyOnExit) {
+			return
+		}
+
+		let content = UNMutableNotificationContent()
+
+		content.title = title
+		content.body = message
+		if self.notifyWithSound {
+			content.sound = .default
+		}
+
+		let request = UNNotificationRequest(identifier: "CoThingsNotificationId_" + String(Int.random(in: 200...300)),
+											content: content,
+											trigger: nil)
+
+		let userNotificationCenter = UNUserNotificationCenter.current()
+		userNotificationCenter.add(request)
 	}
 
 
