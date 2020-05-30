@@ -79,7 +79,7 @@ class NotificationService: ObservableObject {
 
 		content.title = title
 		content.body = message
-		if self.notifyWithSound {
+		if notifyWithSound {
 			content.sound = .default
 		}
 
