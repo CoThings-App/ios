@@ -14,25 +14,31 @@ class PlaceSession: ObservableObject {
     @Published var rooms: [Room]
     
     let beaconDetector: BeaconDetector
-    private let service: CoThingsBackend
-	private let notificationService = NotificationService()
-    
+	let userPreferences: UserPreferences
+	let notificationService: NotificationService
+
+	private let service: CoThingsBackend
+
     private var roomsCancellable: AnyCancellable?
     private var connectionStatusCancellable: AnyCancellable?
     private var beaconEnterCanceller: AnyCancellable?
     private var beaconExitCanceller: AnyCancellable?
-
-	private var notifyOnEnter: Bool = UserDefaults.standard.bool(forKey: NotifyOnEnterKey)
-	private var notifyOnExit: Bool = UserDefaults.standard.bool(forKey: NotifyOnExitKey)
-	private var notifyWithSound: Bool = UserDefaults.standard.bool(forKey: NotifyWithSoundKey)
-	private var notifyWithOneLineMessage: Bool = UserDefaults.standard.bool(forKey: NotifyWithOneLineMessageKey)
+	private var userPreferenceCanceller: AnyCancellable?
 
     init(service: CoThingsBackend, beaconDetector: BeaconDetector) {
         self.service = service
         self.rooms = []
         self.connectionStatus = service.status
         self.beaconDetector = beaconDetector
-        
+		self.userPreferences = UserPreferences()
+		self.notificationService = NotificationService(userPreferences: self.userPreferences)
+
+		self.userPreferenceCanceller = self.userPreferences.$notifyOnEnter.combineLatest(self.userPreferences.$notifyOnExit).sink { _ in
+			self.onNotificationPreferenceChanged()
+		}
+
+		self.onNotificationPreferenceChanged()
+
         self.beaconDetector.stopScanningAll()
         self.roomsCancellable = self.service.roomsPublisher
             .sink {newRooms in
@@ -52,14 +58,24 @@ class PlaceSession: ObservableObject {
         
         beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
             self.increasePopulationInBackground(roomID: roomID)
-			self.sendNotificationIfEnabled(roomId: roomID, isEntered: true)
+			self.notificationService.show(on: .enters, title: "Room: \(roomID)", message: "Entered")
         }
         
         beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
             self.decreasePopulationInBackground(roomID: roomID)
-			self.sendNotificationIfEnabled(roomId: roomID, isEntered: true)
+			self.notificationService.show(on: .exits, title: "Room: \(roomID)", message: "Exited")
         }
     }
+
+	private func onNotificationPreferenceChanged() {
+		if self.userPreferences.notifyOnEnter {
+			self.notificationService.enableChannel(.enters)
+		}
+
+		if self.userPreferences.notifyOnExit {
+			self.notificationService.enableChannel(.exits)
+		}
+	}
 
 	private func ensureSocketConnection() {
 		service.connectInBackground()
@@ -117,21 +133,5 @@ class PlaceSession: ObservableObject {
 		service.decreasePopulation(roomID: roomID) { _ in
 			self.ensureSocketDisconnected()
 		}
-	}
-
-	func sendNotificationIfEnabled(roomId: Int, isEntered: Bool) {
-		if (isEntered && !notifyOnEnter) {
-			return
-		}
-
-		if (!isEntered && !notifyOnExit) {
-			return
-		}
-
-		let message = isEntered ? "Entered" : "Exited"
-		var title = "Room: \(roomId)"
-		title = !notifyWithOneLineMessage ? title : title + " " + message
-
-		notificationService.showNotification(title: title, message: message, withSound: notifyWithSound)
 	}
 }

@@ -10,77 +10,47 @@ import Foundation
 import Combine
 import UserNotifications
 
+enum NotificationChannel {
+	case enters
+	case exits
+}
+
 class NotificationService: ObservableObject {
 
-	@Published var showingAlert: Bool = false
+	@Published private(set) var permissionGranted: Bool = false
 
-	@Published var notifyOnEnter: Bool = UserDefaults.standard.bool(forKey: NotifyOnEnterKey) {
-		didSet {
-			UserDefaults.standard.set(self.notifyOnEnter, forKey: NotifyOnEnterKey)
-			if self.notifyOnEnter {
-				self.requestNotificationPermission()
-			}
-		}
-	}
+	private let userPreferences: UserPreferences
+	private var activeChannels: Set<NotificationChannel>
 
-	@Published var notifyOnExit: Bool = UserDefaults.standard.bool(forKey: NotifyOnExitKey) {
-		didSet {
-			UserDefaults.standard.set(self.notifyOnExit, forKey: NotifyOnExitKey)
-			if self.notifyOnExit {
-				self.requestNotificationPermission()
-			}
-		}
-	}
-
-	@Published var notifyWithSound: Bool = UserDefaults.standard.bool(forKey: NotifyWithSoundKey) {
-		didSet {
-			UserDefaults.standard.set(self.notifyWithSound, forKey: NotifyWithSoundKey)
-			if self.notifyWithSound {
-				self.requestNotificationPermission()
-			}
-		}
-	}
-
-	@Published var notifyWithOneLineMessage: Bool = UserDefaults.standard.bool(forKey: NotifyWithOneLineMessageKey) {
-		didSet {
-			UserDefaults.standard.set(self.notifyWithOneLineMessage, forKey: NotifyWithOneLineMessageKey)
+	init(userPreferences: UserPreferences) {
+		self.userPreferences = userPreferences
+		self.activeChannels = Set<NotificationChannel>()
+		UNUserNotificationCenter.current().getNotificationSettings { settings in
+			print("called: getNotificationSettings")
+			self.permissionGranted = settings.authorizationStatus == .authorized
 		}
 	}
 
 	func requestNotificationPermission() {
 		let notificationCenter = UNUserNotificationCenter.current()
 		let options: UNAuthorizationOptions = [.alert, .sound]
-		notificationCenter.requestAuthorization(options: options) {
-			(didAllow, _) in
-			if !didAllow {
-				 DispatchQueue.main.async {
-					self.showingAlert = self.shouldShowAlert()
-				}
-			}
-		}
-		notificationCenter.getNotificationSettings { (settings) in
-			if settings.authorizationStatus != .authorized {
-				 DispatchQueue.main.async {
-					self.showingAlert = self.shouldShowAlert()
-				}
-			}
+		notificationCenter.requestAuthorization(options: options) { didAllow, _ in
+			self.permissionGranted = didAllow
 		}
 	}
 
-	private func shouldShowAlert() -> Bool {
-		return notifyOnEnter || notifyOnExit || notifyWithSound
-	}
-
-	func showNotification(title: String, message: String, withSound: Bool = true) {
-
+	func show(on channel: NotificationChannel, title: String, message: String) {
+		guard activeChannels.contains(channel) else { return }
 		let content = UNMutableNotificationContent()
-		content.title = title
-		content.body = message
 
-		if withSound {
+		content.title = userPreferences.optimizeNotificationsForSmartWatches ? title + " " + message : title
+		content.body = userPreferences.optimizeNotificationsForSmartWatches ? "" : message
+
+		if userPreferences.notifyWithSound {
 			content.sound = .default
 		}
 
+		// TODO: make unique identifier for notification id
 		let request = UNNotificationRequest(identifier: "CoThingsNotificationId_" + String(Int.random(in: 200...300)),
 											content: content,
 											trigger: nil)
@@ -88,4 +58,13 @@ class NotificationService: ObservableObject {
 		let userNotificationCenter = UNUserNotificationCenter.current()
 		userNotificationCenter.add(request)
 	}
+
+	func enableChannel(_ channel: NotificationChannel) {
+		activeChannels.insert(channel)
+	}
+
+	func disableChannel(_ channel: NotificationChannel) {
+		activeChannels.remove(channel)
+	}
+
 }

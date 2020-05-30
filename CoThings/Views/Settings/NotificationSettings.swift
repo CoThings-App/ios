@@ -10,43 +10,49 @@ import SwiftUI
 
 struct NotificationSettings: View {
 
-	@ObservedObject var notificationService = NotificationService()
+	@ObservedObject var userPreferences: UserPreferences
+	@ObservedObject var notificationService: NotificationService
 
 	var body: some View {
-		VStack(alignment: .trailing, spacing: 16, content: {
-			Toggle(isOn: $notificationService.notifyOnEnter) {
-				Text("Notify on Enter")
+		Form {
+			Section {
+				Toggle(isOn: $userPreferences.notifyOnEnter) {
+					Text("Notify on enter")
+				}
+				Toggle(isOn: $userPreferences.notifyOnExit) {
+					Text("Notify on exit")
+				}
+				Toggle(isOn: $userPreferences.notifyWithSound) {
+					Text("Notify with sound")
+				}
+				Toggle(isOn: $userPreferences.optimizeNotificationsForSmartWatches) {
+					VStack(alignment: .leading, spacing: 0, content: {
+						Text("Optimize for smart watches")
+						Text("For small smart watch screens")
+							.font(.footnote)
+							.foregroundColor(.gray)
+					})
+				}
 			}
-			Toggle(isOn: $notificationService.notifyOnExit) {
-				Text("Notify on Exit")
+			if !notificationService.permissionGranted && (userPreferences.notifyOnEnter || userPreferences.notifyOnExit) {
+				Button("Allow Notification") {
+					UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+				}
 			}
-			Toggle(isOn: $notificationService.notifyWithSound) {
-				Text("Notify with Sound")
-			}
-			Toggle(isOn: $notificationService.notifyWithOneLineMessage) {
-				VStack(alignment: .leading, spacing: 0, content: {
-					Text("Show one line message")
-					Text("For small smart watch screens")
-						.font(.footnote)
-						.foregroundColor(.gray)
-				})
-			}
-			Spacer()
-		}).navigationBarTitle("Notification")
-			.padding(.all, 16)
-			.alert(isPresented: $notificationService.showingAlert) {
-					Alert(title: Text("Push Notification is disabled"),
-						  message: Text("Please allow it in Settings"),
-						  primaryButton: .cancel(),
-						  secondaryButton: .default(Text("Settings"), action: {
-							UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-						}))
+		}.navigationBarTitle("Notifications")
+			.onAppear() {
+				self.notificationService.requestNotificationPermission()
 		}
 	}
 }
 
 struct NotificationSettings_Previews: PreviewProvider {
+	static let userPreferences = UserPreferences()
 	static var previews: some View {
-		NotificationSettings()
+		NavigationView {
+			NotificationSettings(userPreferences: userPreferences, notificationService: NotificationService(userPreferences: userPreferences))
+		}
 	}
 }
+
+
