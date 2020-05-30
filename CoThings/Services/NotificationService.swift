@@ -71,25 +71,13 @@ class NotificationService: ObservableObject {
 		return notifyOnEnter || notifyOnExit || notifyWithSound
 	}
 
-	func showPushNotificationIfEnabled(for actionEntered: Bool, title: String, message: String) {
-
-		if (actionEntered && !notifyOnEnter) {
-			return
-		}
-
-		if (!actionEntered && !notifyOnExit) {
-			return
-		}
+	func showNotification(title: String, message: String, withSound: Bool = true) {
 
 		let content = UNMutableNotificationContent()
+		content.title = title
+		content.body = message
 
-		content.title = !notifyWithOneLineMessage ? title : title + " " + message
-
-		if !notifyWithOneLineMessage {
-			content.body = message
-		}
-
-		if notifyWithSound {
+		if withSound {
 			content.sound = .default
 		}
 
@@ -100,6 +88,4 @@ class NotificationService: ObservableObject {
 		let userNotificationCenter = UNUserNotificationCenter.current()
 		userNotificationCenter.add(request)
 	}
-
-
 }

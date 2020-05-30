@@ -21,7 +21,12 @@ class PlaceSession: ObservableObject {
     private var connectionStatusCancellable: AnyCancellable?
     private var beaconEnterCanceller: AnyCancellable?
     private var beaconExitCanceller: AnyCancellable?
-    
+
+	private var notifyOnEnter: Bool = UserDefaults.standard.bool(forKey: NotifyOnEnterKey)
+	private var notifyOnExit: Bool = UserDefaults.standard.bool(forKey: NotifyOnExitKey)
+	private var notifyWithSound: Bool = UserDefaults.standard.bool(forKey: NotifyWithSoundKey)
+	private var notifyWithOneLineMessage: Bool = UserDefaults.standard.bool(forKey: NotifyWithOneLineMessageKey)
+
     init(service: CoThingsBackend, beaconDetector: BeaconDetector) {
         self.service = service
         self.rooms = []
@@ -47,12 +52,12 @@ class PlaceSession: ObservableObject {
         
         beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
             self.increasePopulationInBackground(roomID: roomID)
-			self.sendNotification(roomId: roomID, isEntered: true)
+			self.sendNotificationIfEnabled(roomId: roomID, isEntered: true)
         }
         
         beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
             self.decreasePopulationInBackground(roomID: roomID)
-			self.sendNotification(roomId: roomID, isEntered: true)
+			self.sendNotificationIfEnabled(roomId: roomID, isEntered: true)
         }
     }
 
@@ -114,8 +119,19 @@ class PlaceSession: ObservableObject {
 		}
 	}
 
-	func sendNotification(roomId: Int, isEntered: Bool) {
-		let message = isEntered ? "Entered" : "Exited";
-		notificationService.showPushNotificationIfEnabled(for: isEntered, title: "RoomId: \(roomId)", message: message)
+	func sendNotificationIfEnabled(roomId: Int, isEntered: Bool) {
+		if (isEntered && !notifyOnEnter) {
+			return
+		}
+
+		if (!isEntered && !notifyOnExit) {
+			return
+		}
+
+		let message = isEntered ? "Entered" : "Exited"
+		var title = "Room: \(roomId)"
+		title = !notifyWithOneLineMessage ? title : title + " " + message
+
+		notificationService.showNotification(title: title, message: message, withSound: notifyWithSound)
 	}
 }
