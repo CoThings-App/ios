@@ -54,9 +54,7 @@ class PlaceSession: ObservableObject {
     }
 
 	internal func ensureSocketConnection() {
-		if connectionStatus != .ready {
-			service.connectInBackground()
-		}
+		service.connectInBackground()
 	}
 
 	internal func ensureSocketDisconnected() {
@@ -101,14 +99,14 @@ class PlaceSession: ObservableObject {
 
 	func increasePopulationInBackground(roomID: Room.ID) {
 		ensureSocketConnection()
-		service.increasePopulation(roomID: roomID) { res in
+		service.increasePopulation(roomID: roomID) { _ in
 			self.ensureSocketDisconnected()
 		}
 	}
 
 	func decreasePopulationInBackground(roomID: Room.ID) {
 		ensureSocketConnection()
-		service.decreasePopulation(roomID: roomID) { res in
+		service.decreasePopulation(roomID: roomID) { _ in
 			self.ensureSocketDisconnected()
 		}
 	}

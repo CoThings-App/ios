@@ -16,3 +16,7 @@ Min. iOS Support: 13.0+
 ### Contact with the team
  - info@cothings.app
  - IRC channel on freenode.net #cothings
+
+## Contributions
+
+All feedbacks and contributions are welcome. Please read the [contributing](contributing.md) guidelines before contribute the project.
