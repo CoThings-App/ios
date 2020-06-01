@@ -57,3 +57,8 @@ extension Room: Decodable {
         case lastUpdated = "updated_at"
     }
 }
+
+struct AppConfig: Codable {
+	var title: String
+	var imageUrl: String
+}
