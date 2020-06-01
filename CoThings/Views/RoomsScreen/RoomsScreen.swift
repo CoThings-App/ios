@@ -16,8 +16,6 @@ struct RoomsScreen: View {
     @Environment(\.statusBarHeight) private var statusBarHeight
     
 	@State private var scrollOffset: CGFloat = 0
-    
-    
     var rowBackground: Color {
         colorScheme == .dark ? Color(hex: "111111") : Color.white
     }
@@ -25,7 +23,6 @@ struct RoomsScreen: View {
     var rowBorder: Color {
         colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd")
     }
-    
     func sectionHeader(group: String) -> some View {
         return GroupHeaderView(title: group, occupants: roomsController.groupPopulations[group] ?? 0)
             .padding(.top)
@@ -41,7 +38,7 @@ struct RoomsScreen: View {
                 .zIndex(2)
             
             GeometryReader { geom in
-                PlaceHeaderView(title: "CoThings", population: 30) //TODO: to be read from config
+				PlaceHeaderView(title: self.roomsController.appConfig.title, population: 30) //FIX ME: Maybe we can show the total count of usage instead of population since we don't have such feature in backend.
                     .opacity(Double(geom.frame(in: .global).maxY / 125))
             }
             .frame(height: 125 + self.scrollOffset)
