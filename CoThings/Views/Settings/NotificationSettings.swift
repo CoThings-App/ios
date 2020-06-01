@@ -35,7 +35,7 @@ struct NotificationSettings: View {
 				}
 			}
 			if !notificationService.permissionGranted && (userPreferences.notifyOnEnter || userPreferences.notifyOnExit) {
-				Button("Allow Notification") {
+				Button("Allow Notifications") {
 					UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
 				}
 			}

@@ -25,17 +25,25 @@ class NotificationService: ObservableObject {
 	init(userPreferences: UserPreferences) {
 		self.userPreferences = userPreferences
 		self.activeChannels = Set<NotificationChannel>()
-		UNUserNotificationCenter.current().getNotificationSettings { settings in
-			print("called: getNotificationSettings")
-			self.permissionGranted = settings.authorizationStatus == .authorized
-		}
+		checkNotificationAuthorization()
 	}
 
 	func requestNotificationPermission() {
 		let notificationCenter = UNUserNotificationCenter.current()
 		let options: UNAuthorizationOptions = [.alert, .sound]
 		notificationCenter.requestAuthorization(options: options) { didAllow, _ in
-			self.permissionGranted = didAllow
+			DispatchQueue.main.async {
+				self.permissionGranted = didAllow
+			}
+		}
+//		checkNotificationAuthorization()
+	}
+
+	func checkNotificationAuthorization() {
+		UNUserNotificationCenter.current().getNotificationSettings { settings in
+			DispatchQueue.main.async {
+				self.permissionGranted = settings.authorizationStatus == .authorized
+			}
 		}
 	}
 
