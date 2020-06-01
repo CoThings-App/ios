@@ -50,8 +50,7 @@ class NotificationService: ObservableObject {
 			content.sound = .default
 		}
 
-		// TODO: make unique identifier for notification id
-		let request = UNNotificationRequest(identifier: "CoThingsNotificationId_" + String(Int.random(in: 200...300)),
+		let request = UNNotificationRequest(identifier: "CoThingsNotification",
 											content: content,
 											trigger: nil)
 
