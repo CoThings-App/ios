@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48154916248510330045E41F /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48154915248510330045E41F /* APIRequest.swift */; };
 		48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6C246BAB2400EDAE16 /* AppState.swift */; };
 		48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* RootView.swift */; };
 		48241B71246BC94200EDAE16 /* BeaconDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconDebugView.swift */; };
@@ -103,6 +104,7 @@
 
 /* Begin PBXFileReference section */
 		480CC117247B67F9000B2D7E /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		48154915248510330045E41F /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		48241B6C246BAB2400EDAE16 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		48241B6E246BBE8D00EDAE16 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		48241B70246BC94200EDAE16 /* BeaconDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDebugView.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */,
 				A96ECFC7246C5B3200F2D55C /* ServerBackend.swift */,
 				A9176B7D246F3CF700027D6C /* CoThingsBackend.swift */,
+				48154915248510330045E41F /* APIRequest.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
 				A96ECFCF246C5F0E00F2D55C /* RoomsScreen.swift in Sources */,
 				A96ECFCA246C5B3200F2D55C /* ServerBackend.swift in Sources */,
+				48154916248510330045E41F /* APIRequest.swift in Sources */,
 				A96ECFD4246C5F9B00F2D55C /* EdgeBorderModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
