@@ -58,14 +58,23 @@ class PlaceSession: ObservableObject {
         
         beaconEnterCanceller = self.beaconDetector.enters.sink { roomID in
             self.increasePopulationInBackground(roomID: roomID)
-			self.notificationService.show(on: .enters, title: "Room: \(roomID)", message: "Entered")
+			let title = self.createTitleForPushNotification(roomID)
+			self.notificationService.show(on: .enters, title: title, message: "Entered")
         }
         
         beaconExitCanceller = self.beaconDetector.exits.sink { roomID in
             self.decreasePopulationInBackground(roomID: roomID)
-			self.notificationService.show(on: .exits, title: "Room: \(roomID)", message: "Exited")
+			let title = self.createTitleForPushNotification(roomID)
+			self.notificationService.show(on: .exits, title: title, message: "Exited")
         }
     }
+
+	private func createTitleForPushNotification(_ roomId: Int) -> String {
+		guard let room = self.rooms.first(where: {$0.id == roomId}) else {
+			return "Room: \(roomId)";
+		}
+		return room.name
+	}
 
 	private func onNotificationPreferenceChanged() {
 		if self.userPreferences.notifyOnEnter {
