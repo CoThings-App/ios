@@ -19,15 +19,20 @@ struct AboutRowView: View {
 			Text(title)
 				.font(.headline)
 			Spacer(minLength: 30)
-			Text(detail)
-				.font(.subheadline)
-//				.padding(.top, 12.0)
-			})
-		.frame(minWidth: 320, maxWidth: .infinity)
-		.onTapGesture {
-		  guard let urlToOpen = self.url else { return }
-		  UIApplication.shared.open(urlToOpen)
-		}
+			if (self.url != nil) {
+				Button(action: {
+					guard let urlToOpen = self.url else { return }
+					UIApplication.shared.open(urlToOpen)
+				})
+				{
+					Text(detail)
+						.foregroundColor(Color.blue)
+				}
+			} else {
+				Text(detail)
+					.font(.subheadline)
+			}
+			}).frame(minWidth: 320, maxWidth: .infinity)
     }
 }
 

@@ -20,7 +20,7 @@ struct AboutView: View {
 				Divider()
 				AboutRowView(title: "Contact:", detail:"info@cothings.app", url: URL(string: "mailto:info@cothings.app?subject=iOS%20App"))
 				Divider()
-				AboutRowView(title: "Privacy", detail: "We care about it", url: URL(string: "https://cohtings.app/privacy"))
+				AboutRowView(title: "Privacy", detail: "We care about it", url: URL(string: "https://\(UserDefaults.standard.string(forKey: ServerHostNameKey) ?? "")/privacy"))
 				Divider()
 			}.navigationBarTitle("About")
 			Text(getVersionInfo())
