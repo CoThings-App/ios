@@ -9,9 +9,6 @@
 import Foundation
 import CoreLocation
 import Combine
-#if DEBUG
-import UserNotifications
-#endif
 
 struct BeaconIdentity: Hashable {
     let uuid: UUID
@@ -170,7 +167,6 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 
 		#if DEBUG
 		print("monitored region count:\(locationManager.monitoredRegions.count)")
-		push(roomId: roomId, isEntered: isEntered)
 		#endif
 	}
 
@@ -191,24 +187,4 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
 	internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("Location manager failed: \(error.localizedDescription)")
 	}
-
-	#if DEBUG
-	func push(roomId: Int, isEntered: Bool) {
-		let content = UNMutableNotificationContent()
-
-		let action = isEntered ? "Enter" : "Exit"
-
-		content.title = "CoThings Room: \(roomId)"
-		content.body = "Action:\(action) beacon count:\(self.beacons.count)"
-		content.sound = .default
-
-		let request = UNNotificationRequest(identifier: "testNotification" + String(Int.random(in: 200...300)),
-											content: content,
-											trigger: nil)
-
-		let userNotificationCenter = UNUserNotificationCenter.current()
-		userNotificationCenter.add(request)
-
-	}
-	#endif
 }

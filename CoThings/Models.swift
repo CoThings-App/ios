@@ -8,6 +8,7 @@
 
 import Foundation
 
+//TODO: convert to Enum
 let ServerHostNameKey = "serverHostname"
 let PassOnboardingKey = "passOnboarding"
 let LastEnteredRoomIdKey = "lastEnteredRoomId"
@@ -56,4 +57,41 @@ extension Room: Decodable {
         case minor
         case lastUpdated = "updated_at"
     }
+}
+
+
+
+class UserPreferences: ObservableObject {
+
+	private enum Keys: String {
+		case notifyOnEnter
+		case notifyOnExit
+		case notifyWithSound
+		case optimizeNotificationsForSmartWatches
+	}
+
+	@Published var notifyOnEnter: Bool = UserDefaults.standard.bool(forKey: Keys.notifyOnEnter.rawValue) {
+		didSet {
+			UserDefaults.standard.set(self.notifyOnEnter, forKey: Keys.notifyOnEnter.rawValue)
+		}
+	}
+
+	@Published var notifyOnExit: Bool = UserDefaults.standard.bool(forKey: Keys.notifyOnExit.rawValue) {
+		didSet {
+			UserDefaults.standard.set(self.notifyOnExit, forKey: Keys.notifyOnExit.rawValue)
+		}
+	}
+
+	@Published var notifyWithSound: Bool = UserDefaults.standard.bool(forKey: Keys.notifyWithSound.rawValue) {
+		didSet {
+			UserDefaults.standard.set(self.notifyWithSound, forKey: Keys.notifyWithSound.rawValue)
+		}
+	}
+
+	@Published var optimizeNotificationsForSmartWatches: Bool = UserDefaults.standard.bool(forKey: Keys.optimizeNotificationsForSmartWatches.rawValue) {
+		didSet {
+			UserDefaults.standard.set(self.optimizeNotificationsForSmartWatches, forKey: Keys.optimizeNotificationsForSmartWatches.rawValue)
+		}
+	}
+
 }
