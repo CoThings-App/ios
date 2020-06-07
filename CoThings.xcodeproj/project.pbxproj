@@ -31,6 +31,7 @@
 		48DDD7EE245C5CD600A249BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7ED245C5CD600A249BD /* Assets.xcassets */; };
 		48DDD800245C76F400A249BD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FE245C76F400A249BD /* README.md */; };
 		48DDD801245C76F400A249BD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FF245C76F400A249BD /* LICENSE */; };
+		6633A62524858E8A0010C340 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633A62424858E8A0010C340 /* QRCodeView.swift */; };
 		A9176B76246ED95C00027D6C /* OnBoardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */; };
 		A9176B78246EDA5300027D6C /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B77246EDA5300027D6C /* StateController.swift */; };
 		A9176B7C246EED7100027D6C /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B7B246EED7100027D6C /* RoomsController.swift */; };
@@ -135,6 +136,7 @@
 		48DDD7FE245C76F400A249BD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		48F52925247B9070004AEAA2 /* CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONDUCT.md; sourceTree = "<group>"; };
+		6633A62424858E8A0010C340 /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingScreen.swift; sourceTree = "<group>"; };
 		A9176B77246EDA5300027D6C /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		A9176B7B246EED7100027D6C /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				48B33AF924682495000A1F5C /* ServerSettingsView.swift */,
 				A94042AA247585E8003C26D2 /* SettingsScreen.swift */,
 				48397BB824827C5D00A697C4 /* NotificationSettings.swift */,
+				6633A62424858E8A0010C340 /* QRCodeView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				48397BB924827C5D00A697C4 /* NotificationSettings.swift in Sources */,
 				A96ECFD5246C5F9B00F2D55C /* Environment.swift in Sources */,
 				48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */,
+				6633A62524858E8A0010C340 /* QRCodeView.swift in Sources */,
 				A96ECFE7246C605C00F2D55C /* Color+Utils.swift in Sources */,
 				A96ECFEB246C608500F2D55C /* GroupHeaderView.swift in Sources */,
 				A96ECFCE246C5F0E00F2D55C /* PlaceHeaderView.swift in Sources */,
