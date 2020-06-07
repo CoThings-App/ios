@@ -62,7 +62,7 @@ Example:
 //  AppDelegate.swift
 //  CoThings
 //
-//  Created by Nesim Tunç <nesimtunc@gmail.com> on 2020/05/01.
+//  Created by Nesim Tunç <mail@example.com> on 2020/05/01.
 //  Modified by Umur Gedik <mail@example.com> on 2020/05/02.
 //  Copyright © 2020 Rainlab. All rights reserved.
 //
