@@ -59,7 +59,11 @@ extension Room: Decodable {
     }
 }
 
+struct AppConfig: Codable {
+	var title: String
+	var imageUrl: String
 
+}
 
 class UserPreferences: ObservableObject {
 

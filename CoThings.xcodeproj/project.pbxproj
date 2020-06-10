@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48154916248510330045E41F /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48154915248510330045E41F /* APIRequest.swift */; };
 		48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6C246BAB2400EDAE16 /* AppState.swift */; };
 		48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* RootView.swift */; };
 		48241B71246BC94200EDAE16 /* BeaconDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconDebugView.swift */; };
+		482566E124910E34004E5442 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 482566E024910E34004E5442 /* SDWebImageSwiftUI */; };
 		48397BB724827BF600A697C4 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48397BB624827BF600A697C4 /* NotificationService.swift */; };
 		48397BB924827C5D00A697C4 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48397BB824827C5D00A697C4 /* NotificationSettings.swift */; };
 		487C3005248100310085B94F /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C3004248100310085B94F /* AboutView.swift */; };
@@ -106,6 +108,7 @@
 
 /* Begin PBXFileReference section */
 		480CC117247B67F9000B2D7E /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		48154915248510330045E41F /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		48241B6C246BAB2400EDAE16 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		48241B6E246BBE8D00EDAE16 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		48241B70246BC94200EDAE16 /* BeaconDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDebugView.swift; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				482566E124910E34004E5442 /* SDWebImageSwiftUI in Frameworks */,
 				A96ECFE0246C602100F2D55C /* DateHelper in Frameworks */,
 				48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */,
 			);
@@ -324,6 +328,7 @@
 				A96ECFC6246C5B3200F2D55C /* PlaceSession.swift */,
 				A96ECFC7246C5B3200F2D55C /* ServerBackend.swift */,
 				A9176B7D246F3CF700027D6C /* CoThingsBackend.swift */,
+				48154915248510330045E41F /* APIRequest.swift */,
 				48397BB624827BF600A697C4 /* NotificationService.swift */,
 			);
 			path = Services;
@@ -392,6 +397,7 @@
 			packageProductDependencies = (
 				48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */,
 				A96ECFDF246C602100F2D55C /* DateHelper */,
+				482566E024910E34004E5442 /* SDWebImageSwiftUI */,
 			);
 			productName = CoThings;
 			productReference = 48DDD7BF245C5CD300A249BD /* CoThings.app */;
@@ -464,6 +470,8 @@
 			packageReferences = (
 				48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */,
 				A96ECFDE246C602100F2D55C /* XCRemoteSwiftPackageReference "DateHelper" */,
+				482566DC24910DAE004E5442 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 48DDD7C0245C5CD300A249BD /* Products */;
 			projectDirPath = "";
@@ -550,6 +558,7 @@
 				48DDD7C5245C5CD300A249BD /* SceneDelegate.swift in Sources */,
 				A96ECFCF246C5F0E00F2D55C /* RoomsScreen.swift in Sources */,
 				A96ECFCA246C5B3200F2D55C /* ServerBackend.swift in Sources */,
+				48154916248510330045E41F /* APIRequest.swift in Sources */,
 				A96ECFD4246C5F9B00F2D55C /* EdgeBorderModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -891,6 +900,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		482566DC24910DAE004E5442 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
+		482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 		48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davidstump/SwiftPhoenixClient.git";
@@ -910,6 +935,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		482566E024910E34004E5442 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */;
