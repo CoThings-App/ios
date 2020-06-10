@@ -19,4 +19,4 @@ Min. iOS Support: 13.0+
 
 ## Contributions
 
-All feedbacks and contributions are welcome. Please read the [contributing](contributing.md) guidelines before contribute the project.
+All feedbacks and contributions are welcome. Please read the [contributing](CONTRIBUTING.md) guidelines before contribute the project.
