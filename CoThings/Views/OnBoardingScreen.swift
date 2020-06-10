@@ -24,7 +24,7 @@ struct OnBoardingScreen: View {
     var body: some View {
 
 		VStack {
-			Image("launch")
+			Image("launcher")
 				.resizable()
 				.frame(width: 96.0, height: 96.0)
 

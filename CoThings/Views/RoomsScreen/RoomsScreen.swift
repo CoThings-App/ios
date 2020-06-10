@@ -38,7 +38,7 @@ struct RoomsScreen: View {
                 .zIndex(2)
             
             GeometryReader { geom in
-				PlaceHeaderView(title: self.roomsController.appConfig.title, population: 30) //FIX ME: Maybe we can show the total count of usage instead of population since we don't have such feature in backend.
+				PlaceHeaderView(title: self.roomsController.appConfig.title, imageUrl: self.roomsController.appConfig.imageUrl) 
                     .opacity(Double(geom.frame(in: .global).maxY / 125))
             }
             .frame(height: 125 + self.scrollOffset)
