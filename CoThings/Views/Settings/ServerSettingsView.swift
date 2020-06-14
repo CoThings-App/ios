@@ -55,8 +55,11 @@ struct ServerSettingsView: View {
                     }
                 }
                 Section {
-                    Button("Done", action: self.save)
+					Button("Done", action: self.save)
 						.disabled(!(self.serverHostname.count > 2 && self.serverHostname.contains(".")))
+					Button("Demo Server", action:  {
+						self.serverHostname = "demo-eu.cothings.app"
+					})
                 }
             }
             .sheet(isPresented: $isScanningQRCode) {
