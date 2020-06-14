@@ -34,6 +34,7 @@
 		48DDD800245C76F400A249BD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FE245C76F400A249BD /* README.md */; };
 		48DDD801245C76F400A249BD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 48DDD7FF245C76F400A249BD /* LICENSE */; };
 		6633A62524858E8A0010C340 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6633A62424858E8A0010C340 /* QRCodeView.swift */; };
+		691DF0192496006400B2E624 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DF0182496006400B2E624 /* LoadingView.swift */; };
 		A9176B76246ED95C00027D6C /* OnBoardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */; };
 		A9176B78246EDA5300027D6C /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B77246EDA5300027D6C /* StateController.swift */; };
 		A9176B7C246EED7100027D6C /* RoomsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9176B7B246EED7100027D6C /* RoomsController.swift */; };
@@ -140,6 +141,7 @@
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		48F52925247B9070004AEAA2 /* CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONDUCT.md; sourceTree = "<group>"; };
 		6633A62424858E8A0010C340 /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		691DF0182496006400B2E624 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingScreen.swift; sourceTree = "<group>"; };
 		A9176B77246EDA5300027D6C /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		A9176B7B246EED7100027D6C /* RoomsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsController.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				A96ECFE2246C605C00F2D55C /* Date+Ago.swift */,
 				A96ECFE3246C605C00F2D55C /* UIKit+Mix.swift */,
 				48AA3055246EA28500F7F9BA /* DateFormatter+Custom.swift */,
+				691DF0182496006400B2E624 /* LoadingView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				A94042AB247585E8003C26D2 /* SettingsScreen.swift in Sources */,
 				48397BB924827C5D00A697C4 /* NotificationSettings.swift in Sources */,
 				A96ECFD5246C5F9B00F2D55C /* Environment.swift in Sources */,
+				691DF0192496006400B2E624 /* LoadingView.swift in Sources */,
 				48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */,
 				6633A62524858E8A0010C340 /* QRCodeView.swift in Sources */,
 				A96ECFE7246C605C00F2D55C /* Color+Utils.swift in Sources */,
