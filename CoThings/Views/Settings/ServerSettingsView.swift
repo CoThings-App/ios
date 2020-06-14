@@ -56,6 +56,7 @@ struct ServerSettingsView: View {
                 }
                 Section {
                     Button("Done", action: self.save)
+						.disabled(!(self.serverHostname.count > 2 && self.serverHostname.contains(".")))
                 }
             }
             .sheet(isPresented: $isScanningQRCode) {
@@ -83,6 +84,9 @@ struct ServerSettingsView: View {
     }
     
     private func save() {
+		if (!isHostnameValid) {
+			return
+		}
         stateController.saveConfiguration(hostname: serverHostname)
         presentationMode.wrappedValue.dismiss()
     }
