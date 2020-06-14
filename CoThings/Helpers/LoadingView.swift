@@ -2,7 +2,11 @@
 //  LoadingView.swift
 //  CoThings
 //
-//  Created by Jay Zisch on 2020/06/14.
+//  Initial Version Created by Karthick Selvaraj on 23/05/20
+//  in ActivityAnimations (https://github.com/karthironald/ActivityAnimations)
+//
+//  Modified by Jay Zisch on 2020/06/14.
+//  Modified by Nesim Tunç on 2020/06/14.
 //  Copyright © 2020 Rainlab. All rights reserved.
 //
 
