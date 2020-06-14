@@ -82,7 +82,7 @@ struct ServerSettingsView: View {
 						self.askedForReadingPrivacy = true
 						UIApplication.shared.open(URL(string:"https://" +  self.serverHostname + "/privacy")!)
 					}),
-					  secondaryButton: .default(Text("I don't care"), action: {
+					  secondaryButton: .default(Text("I agree"), action: {
 						self.askedForReadingPrivacy = true
 						self.save()
 					}))
