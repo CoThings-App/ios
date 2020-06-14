@@ -12,7 +12,7 @@ struct AboutView: View {
 	var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
 			List {
-				AboutRowView(title: "Contributors:", detail:"Who made this app?", url: URL(string: "https://cothings.app/about"))
+				AboutRowView(title: "Contributors:", detail:"Who made this project?", url: URL(string: "https://cothings.app/about"))
 				Divider()
 				AboutRowView(title: "Source Code:", detail:"Browse the codes", url: URL(string: "https://cothings.app/"))
 				Divider()
