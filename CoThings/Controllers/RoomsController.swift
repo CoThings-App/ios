@@ -15,6 +15,7 @@ class RoomsController: ObservableObject, APIRequestDelegate {
     @Published var rooms: [String: [Room]] = [:]
     @Published var groups: [String] = []
     @Published var groupPopulations: [String: Int] = [:]
+    @Published var isLoading: Bool = false
     
     private var roomsSubscription: AnyCancellable!
 
@@ -23,6 +24,7 @@ class RoomsController: ObservableObject, APIRequestDelegate {
     init(session: PlaceSession) {
         self.session = session
         
+        isLoading = true
         roomsSubscription = session.$rooms
             .sink { rooms in
                 let sortedRooms = rooms.sorted {$0.name < $1.name}
@@ -37,6 +39,8 @@ class RoomsController: ObservableObject, APIRequestDelegate {
                 }
                 
                 self.groupPopulations = groupPopulations
+                
+                self.isLoading = false
             }
 
 		getAppConfig()
