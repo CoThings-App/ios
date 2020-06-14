@@ -20,6 +20,8 @@ struct ServerSettingsView: View {
     
     @State var isScanningQRCode: Bool = false
     @State var showCameraErrorAlert: Bool = false
+	@State var showingPrivacyPolicy: Bool = false
+	@State var askedForReadingPrivacy = false
     
     var isHostnameValid: Bool {
         if serverHostname.starts(with: "https://") {
@@ -73,6 +75,18 @@ struct ServerSettingsView: View {
                     }
                 )
             }
+			.alert(isPresented: $showingPrivacyPolicy) {
+				Alert(title: Text("Privacy Policy"),
+					  message: Text("Please take a few minutes to read the policy before using the application.\n\n This action will open the privacy policy in your browser for the server: \(self.serverHostname)\n\nIf the page (https://\(self.serverHostname)/privacy will not found;\nPlease don't use the app!"),
+					  primaryButton: .default(Text("OK, Let me read it!"), action: {
+						self.askedForReadingPrivacy = true
+						UIApplication.shared.open(URL(string:"https://" +  self.serverHostname + "/privacy")!)
+					}),
+					  secondaryButton: .default(Text("I don't care"), action: {
+						self.askedForReadingPrivacy = true
+						self.save()
+					}))
+			}
         }
         .background(colorScheme == .dark ? Color.black : Color(hex: "F5F6F7"))
         .navigationBarTitle("Server Settings", displayMode: .inline)
@@ -87,9 +101,15 @@ struct ServerSettingsView: View {
     }
     
     private func save() {
-		if (!isHostnameValid) {
+		if !isHostnameValid {
 			return
 		}
+
+		if !askedForReadingPrivacy {
+			showingPrivacyPolicy = true
+			return
+		}
+
         stateController.saveConfiguration(hostname: serverHostname)
         presentationMode.wrappedValue.dismiss()
     }

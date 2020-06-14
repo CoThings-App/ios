@@ -40,11 +40,6 @@ struct OnBoardingScreen: View {
 				.multilineTextAlignment(.leading)
 				.padding(.top, 10.0)
 				.padding(.horizontal, 20.0)
-
-			Button("Privacy Policy", action: {
-				UIApplication.shared.open(URL.init(string: "https://cothings.app/privacy")!)
-			}).padding(.top, 16)
-
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
 		.overlay(Button("Skip", action: stateController.completeOnBoarding).padding(), alignment: .topTrailing)
