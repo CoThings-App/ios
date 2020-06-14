@@ -33,9 +33,6 @@ struct RoomsScreen: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            
-            
-            
             Rectangle()
                 .fill(Color.black.opacity(0.4))
                 .frame(height: statusBarHeight)
@@ -49,8 +46,8 @@ struct RoomsScreen: View {
             .clipped()
             .edgeBorder(self.colorScheme == .dark ? Color(hex: "222222") : Color(hex: "dddddd"), edges: .bottom)
             .zIndex(1)
-            if roomsController.isLoading {
-                LoadingView(shouldAnimate: roomsController.isLoading)
+			if roomsController.rooms.count == 0 {
+                LoadingView(shouldAnimate: true)
             } else {
                 List {
                     Spacer()
