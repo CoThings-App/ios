@@ -42,7 +42,7 @@ struct OnBoardingScreen: View {
 				.padding(.horizontal, 20.0)
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity)
-		.overlay(Button("Skip", action: stateController.completeOnBoarding).padding(), alignment: .topTrailing)
+		.overlay(Button("Next", action: stateController.completeOnBoarding).padding(), alignment: .topTrailing)
     }
 }
 

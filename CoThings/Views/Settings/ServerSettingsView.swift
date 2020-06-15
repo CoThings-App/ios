@@ -59,7 +59,7 @@ struct ServerSettingsView: View {
                 Section {
 					Button("Done", action: self.save)
 						.disabled(!(self.serverHostname.count > 2 && self.serverHostname.contains(".")))
-					Button("Demo Server", action:  {
+					Button("Use Demo Server to see how it's like", action:  {
 						self.serverHostname = "demo-eu.cothings.app"
 					})
                 }
@@ -77,7 +77,7 @@ struct ServerSettingsView: View {
             }
 			.alert(isPresented: $showingPrivacyPolicy) {
 				Alert(title: Text("Privacy Policy"),
-					  message: Text("Please take a few minutes to read the policy before using the application.\n\n This action will open the privacy policy in your browser for the server: \(self.serverHostname)\n\nIf the page (https://\(self.serverHostname)/privacy will not found;\nPlease don't use the app!"),
+					  message: Text("Please take a few minutes to read the policy before using the application.\n\n This action will open the privacy policy in your browser for the server: \(self.serverHostname)"),
 					  primaryButton: .default(Text("OK, Let me read it!"), action: {
 						UIApplication.shared.open(URL(string:"https://" +  self.serverHostname + "/privacy")!)
 					}),
