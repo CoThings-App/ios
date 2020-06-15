@@ -79,7 +79,6 @@ struct ServerSettingsView: View {
 				Alert(title: Text("Privacy Policy"),
 					  message: Text("Please take a few minutes to read the policy before using the application.\n\n This action will open the privacy policy in your browser for the server: \(self.serverHostname)\n\nIf the page (https://\(self.serverHostname)/privacy will not found;\nPlease don't use the app!"),
 					  primaryButton: .default(Text("OK, Let me read it!"), action: {
-						self.askedForReadingPrivacy = true
 						UIApplication.shared.open(URL(string:"https://" +  self.serverHostname + "/privacy")!)
 					}),
 					  secondaryButton: .default(Text("I agree"), action: {
