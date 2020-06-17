@@ -78,6 +78,7 @@ struct RoomsScreen: View {
 					UITableView.appearance().backgroundColor = .clear
 					UITableView.appearance().separatorStyle = .none
 					UITableView.appearance().sectionFooterHeight = .leastNonzeroMagnitude
+					self.roomsController.session.beaconDetector.requestLocationPermission();
 				}
 			}
 		}

@@ -55,6 +55,9 @@ class BeaconDetector: NSObject, ObservableObject, CLLocationManagerDelegate {
         super.init()
 
 		locationManager.delegate = self
+	}
+
+	func requestLocationPermission() {
 		locationManager.requestAlwaysAuthorization()
 	}
     
