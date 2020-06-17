@@ -35,7 +35,7 @@ struct OnBoardingScreen: View {
 				.foregroundColor(Color.gray)
 				.multilineTextAlignment(.center)
 
-			Text("It accounts for current number of people using shared areas or utilities in realtime. The project’s main purpose is avoiding you to visit crowded areas during COVID-19 pandemic if you live in a community.\n\nYou need a server to use this app. If you don't have a server you can contact us to have one. If you already have one please set the url in next screen.\n\nIf you want to test the app you can use our demo server.")
+			Text("It accounts for the current number of people using shared areas like the kitchen or utilities like washing machines, dryers in realtime, using iBeacons as optional.\n\nTo run this application you need a server. If you don't have a server you can contact us to have one. If you already have one please set the URL in the next screen.\n\nIf you want to test the app you can use our demo server on the next screen.")
 				.fontWeight(.medium)
 				.multilineTextAlignment(.leading)
 				.padding(.top, 10.0)
