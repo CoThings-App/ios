@@ -101,4 +101,4 @@ this project or the open source license(s) involved.
 
 The Code of Conduct governs how we behave in public or in private whenever the project will be judged by our actions. We expect it to be honored by everyone who contributes to this project.
 
-Please see the [CONDUCT.md](CONDUCT.md) for details.
+Please see the [CODE OF CONDUCT](CODE_OF_CONDUCT.md) for details.
