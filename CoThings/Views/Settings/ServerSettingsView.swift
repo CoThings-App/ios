@@ -39,7 +39,7 @@ struct ServerSettingsView: View {
                         TextField("", text: .constant("https://"))
                             .disabled(true)
                             .fixedSize()
-                        TextField("demo-eu.cothings.app", text: self.$serverHostname)
+                        TextField("demo.cothings.app", text: self.$serverHostname)
                             .keyboardType(.URL)
                             .disableAutocorrection(true)
                             .autocapitalization(.none)
@@ -60,7 +60,7 @@ struct ServerSettingsView: View {
 					Button("Done", action: self.save)
 						.disabled(!(self.serverHostname.count > 2 && self.serverHostname.contains(".")))
 					Button("Use Demo Server to see how it's like", action:  {
-						self.serverHostname = "demo-eu.cothings.app"
+						self.serverHostname = "demo.cothings.app"
 					})
                 }
             }

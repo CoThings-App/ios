@@ -48,7 +48,7 @@ struct PlaceHeaderView: View {
 
 struct PlaceHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-		let headerView = PlaceHeaderView(title: "CoThings", imageUrl: "https://demo-eu.cothings.app/images/app_image.jpg")
+		let headerView = PlaceHeaderView(title: "CoThings", imageUrl: "https://demo.cothings.app/images/app_image.jpg")
             .edgesIgnoringSafeArea(.all)
         
         return Group {
