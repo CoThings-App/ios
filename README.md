@@ -1,6 +1,12 @@
 # CoThings iOS
 
+
+
 [CoThings](https://github.com/rainlab-inc/cothings)'s iOS applications.
+
+You can download the application from the App Store
+
+[![](https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred_2x.png)](https://apps.apple.com/app/CoThings/id1523609550)
 
 Project's progress is [here](https://github.com/rainlab-inc/cothings-ios/projects/1)
 
