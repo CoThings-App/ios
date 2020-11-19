@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		481365612565FE1500AD7222 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 481365602565FE1500AD7222 /* SDWebImage */; };
 		48154916248510330045E41F /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48154915248510330045E41F /* APIRequest.swift */; };
 		48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6C246BAB2400EDAE16 /* AppState.swift */; };
 		48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* RootView.swift */; };
@@ -100,7 +101,6 @@
 		48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		48DDD7FE245C76F400A249BD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		48F52925247B9070004AEAA2 /* CONDUCT.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONDUCT.md; sourceTree = "<group>"; };
 		6633A62424858E8A0010C340 /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		691DF0182496006400B2E624 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A9176B75246ED95C00027D6C /* OnBoardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingScreen.swift; sourceTree = "<group>"; };
@@ -139,6 +139,7 @@
 			files = (
 				482566E124910E34004E5442 /* SDWebImageSwiftUI in Frameworks */,
 				A96ECFE0246C602100F2D55C /* DateHelper in Frameworks */,
+				481365612565FE1500AD7222 /* SDWebImage in Frameworks */,
 				48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				4877A2172481324E002558CA /* CONTRIBUTORS.md */,
-				48F52925247B9070004AEAA2 /* CONDUCT.md */,
 				480CC117247B67F9000B2D7E /* CONTRIBUTING.md */,
 				48DDD7FF245C76F400A249BD /* LICENSE */,
 				48DDD7FE245C76F400A249BD /* README.md */,
@@ -353,6 +353,7 @@
 				48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */,
 				A96ECFDF246C602100F2D55C /* DateHelper */,
 				482566E024910E34004E5442 /* SDWebImageSwiftUI */,
+				481365602565FE1500AD7222 /* SDWebImage */,
 			);
 			productName = CoThings;
 			productReference = 48DDD7BF245C5CD300A249BD /* CoThings.app */;
@@ -365,7 +366,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = Rainlab;
 				TargetAttributes = {
 					48DDD7BE245C5CD300A249BD = {
@@ -385,8 +386,8 @@
 			packageReferences = (
 				48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */,
 				A96ECFDE246C602100F2D55C /* XCRemoteSwiftPackageReference "DateHelper" */,
-				482566DC24910DAE004E5442 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				4813655F2565FE1500AD7222 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 48DDD7C0245C5CD300A249BD /* Products */;
 			projectDirPath = "";
@@ -528,6 +529,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -588,6 +590,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -630,7 +633,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.cothings.mobile.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -653,7 +656,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = app.cothings.mobile.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -686,12 +689,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		482566DC24910DAE004E5442 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		4813655F2565FE1500AD7222 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.8.0;
+				minimumVersion = 5.9.5;
 			};
 		};
 		482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -721,6 +724,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		481365602565FE1500AD7222 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4813655F2565FE1500AD7222 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		482566E024910E34004E5442 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
