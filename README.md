@@ -14,10 +14,13 @@ You can checkout applications' designs from [here](https://github.com/rainlab-in
 
 #### Stack Versions
 
-Swift: 5.2
-Xcode:14.4.1
-iOS SDK: 13.4
-Min. iOS Support: 13.0+
+Swift: 5.3
+
+Xcode: 12.2
+
+Base iOS SDK: 14.2
+
+Targetted Deployment: 13.4
 
 ### Contact with the team
  - info@cothings.app
