@@ -3,7 +3,7 @@
 //  CoThings
 //
 //  Created by Nesim Tunç on 2020/06/01.
-//  Copyright © 2020 Rainlab. All rights reserved.
+//  Copyright © 2020 CoThings. All rights reserved.
 //
 
 import Foundation

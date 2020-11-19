@@ -64,7 +64,7 @@ Example:
 //
 //  Created by Nesim Tunç <mail@example.com> on 2020/05/01.
 //  Modified by Umur Gedik <mail@example.com> on 2020/05/02.
-//  Copyright © 2020 Rainlab. All rights reserved.
+//  Copyright © 2020 CoThings. All rights reserved.
 //
 ```
 

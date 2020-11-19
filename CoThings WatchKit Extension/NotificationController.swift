@@ -3,7 +3,7 @@
 //  CoThings WatchKit Extension
 //
 //  Created by Neso on 2020/05/01.
-//  Copyright © 2020 Rainlab. All rights reserved.
+//  Copyright © 2020 CoThings. All rights reserved.
 //
 
 import WatchKit

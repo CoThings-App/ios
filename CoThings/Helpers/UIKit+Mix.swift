@@ -3,7 +3,7 @@
 //  CoThings
 //
 //  Created by Umur Gedik on 2020/05/06.
-//  Copyright © 2020 Umur Gedik. All rights reserved.
+//  Copyright © 2020 CoThings. All rights reserved.
 //
 
 import UIKit

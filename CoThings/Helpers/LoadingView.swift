@@ -7,7 +7,7 @@
 //
 //  Modified by Jay Zisch on 2020/06/14.
 //  Modified by Nesim Tunç on 2020/06/14.
-//  Copyright © 2020 Rainlab. All rights reserved.
+//  Copyright © 2020 CoThings. All rights reserved.
 //
 
 import SwiftUI
