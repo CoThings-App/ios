@@ -20,7 +20,7 @@ Xcode: 12.2
 
 Base iOS SDK: 14.2
 
-Targetted Deployment: 13.4
+Targeted Deployment: 13.4
 
 ### Contact with the team
  - info@cothings.app
