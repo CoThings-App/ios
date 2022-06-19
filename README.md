@@ -6,7 +6,7 @@
 
 You can download the application from the App Store
 
-[![](https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred_2x.png)](https://apps.apple.com/app/CoThings/id1523609550)
+[![](https://developer.apple.com/app-store/marketing/guidelines/images/badge-example-preferred_2x.png)](https://apps.apple.com/app/cothings/id1523609550?uo=4)
 
 Project's progress is [here](https://github.com/CoThings-App/ios/projects/1)
 
