@@ -10,8 +10,8 @@ import SwiftUI
 import Combine
 
 struct RootView: View {
-	@ObservedObject var stateController: StateController
-    
+    @ObservedObject var stateController: StateController
+
     private var screen: AnyView {
         switch stateController.appState {
         case .initialRun:
@@ -22,17 +22,17 @@ struct RootView: View {
             return AnyView(readyView(session))
         }
     }
-    
+
     func readyView(_ session: PlaceSession) -> some View {
         let roomsController = RoomsController(session: session)
-        
+
         return TabView {
             RoomsScreen(roomsController: roomsController)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Spaces")
                 }
-            
+
             SettingsScreen(stateController: self.stateController, session: session)
                 .tabItem {
                     Image(systemName: "gear")
@@ -40,19 +40,23 @@ struct RootView: View {
                 }
         }
     }
-    
-	var body: some View {
+
+    var body: some View {
         screen
-	}
+    }
 }
 
 struct RootView_Previews: PreviewProvider {
     static let readyStateController =
-        StateController(state: .ready(session: previewSession), beaconDetector: previewBeaconDetector)
-    
+    StateController(state: .ready(session: previewSession), 
+                    beaconDetector: previewBeaconDetector)
+
     static var previews: some View {
         Group {
-            RootView(stateController: StateController(state: .configurationNeeded, beaconDetector: previewBeaconDetector))
+            RootView(stateController: 
+                        StateController(state: .configurationNeeded, beaconDetector: previewBeaconDetector)
+            )
+
             RootView(stateController: Self.readyStateController)
         }
     }

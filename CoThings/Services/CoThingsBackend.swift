@@ -12,7 +12,7 @@ enum ConnectionStatus: String {
     case connecting
     case ready
     case failed
-	case disconnected
+    case disconnected
 }
 
 struct UpdateError: Error {
@@ -22,15 +22,22 @@ struct UpdateError: Error {
 }
 
 protocol CoThingsBackend {
+
+    typealias CompletionHandler = (Result<Void, UpdateError>) -> Void
+
     var status: ConnectionStatus { get }
     var statusPublisher: AnyPublisher<ConnectionStatus, Never> { get }
 
     var rooms: [Room] { get }
     var roomsPublisher: AnyPublisher<[Room], Never> { get }
 
-	func connectInBackground()
-	func disconnectInBackground()
+    func connectInBackground()
 
-    func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
-    func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void)
+    func disconnectInBackground()
+
+    func increasePopulation(roomID: Room.ID,
+                            completionHandler: @escaping CompletionHandler)
+
+    func decreasePopulation(roomID: Room.ID,
+                            completionHandler: @escaping CompletionHandler)
 }

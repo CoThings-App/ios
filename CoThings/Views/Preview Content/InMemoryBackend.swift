@@ -23,11 +23,13 @@ class InMemoryBackend: CoThingsBackend {
 		self.status = .disconnected
 	}
 
-    func increasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+    func increasePopulation(roomID: Room.ID, 
+                            completionHandler: @escaping CompletionHandler) {
         completionHandler(.success(()))
     }
     
-    func decreasePopulation(roomID: Room.ID, completionHandler: @escaping (Result<Void, UpdateError>) -> Void) {
+    func decreasePopulation(roomID: Room.ID, 
+                            completionHandler: @escaping CompletionHandler) {
         completionHandler(.success(()))
     }
 }

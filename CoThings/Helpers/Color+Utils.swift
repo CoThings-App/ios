@@ -25,7 +25,7 @@ extension Color {
             blue: Double(b) / 0xff
         )
     }
-    
+
     static func hex(_ hex: String) -> Color {
         Color(hex: hex)
     }
