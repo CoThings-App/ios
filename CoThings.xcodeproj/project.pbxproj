@@ -89,15 +89,6 @@
 		48DDD7CB245C5CD500A249BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48DDD7CE245C5CD500A249BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48DDD7D0245C5CD500A249BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		48DDD7D9245C5CD500A249BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		48DDD7DB245C5CD500A249BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		48DDD7DD245C5CD500A249BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		48DDD7E7245C5CD600A249BD /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		48DDD7E9245C5CD600A249BD /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		48DDD7EB245C5CD600A249BD /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		48DDD7ED245C5CD600A249BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		48DDD7EF245C5CD600A249BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		48DDD7FE245C76F400A249BD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		48DDD7FF245C76F400A249BD /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6633A62424858E8A0010C340 /* QRCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
@@ -162,8 +153,6 @@
 				48DDD7FF245C76F400A249BD /* LICENSE */,
 				48DDD7FE245C76F400A249BD /* README.md */,
 				48DDD7C1245C5CD300A249BD /* CoThings */,
-				48DDD7D7245C5CD500A249BD /* CoThings WatchKit App */,
-				48DDD7E6245C5CD600A249BD /* CoThings WatchKit Extension */,
 				48DDD7C0245C5CD300A249BD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -192,29 +181,6 @@
 				48DDD7D0245C5CD500A249BD /* Info.plist */,
 			);
 			path = CoThings;
-			sourceTree = "<group>";
-		};
-		48DDD7D7245C5CD500A249BD /* CoThings WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				48DDD7D8245C5CD500A249BD /* Interface.storyboard */,
-				48DDD7DB245C5CD500A249BD /* Assets.xcassets */,
-				48DDD7DD245C5CD500A249BD /* Info.plist */,
-			);
-			path = "CoThings WatchKit App";
-			sourceTree = "<group>";
-		};
-		48DDD7E6245C5CD600A249BD /* CoThings WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				48DDD7E7245C5CD600A249BD /* InterfaceController.swift */,
-				48DDD7E9245C5CD600A249BD /* ExtensionDelegate.swift */,
-				48DDD7EB245C5CD600A249BD /* NotificationController.swift */,
-				48DDD7ED245C5CD600A249BD /* Assets.xcassets */,
-				48DDD7EF245C5CD600A249BD /* Info.plist */,
-				48DDD7F0245C5CD600A249BD /* PushNotificationPayload.apns */,
-			);
-			path = "CoThings WatchKit Extension";
 			sourceTree = "<group>";
 		};
 		A9176B79246EDF8500027D6C /* Settings */ = {
@@ -487,14 +453,6 @@
 				48DDD7CE245C5CD500A249BD /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		48DDD7D8245C5CD500A249BD /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48DDD7D9245C5CD500A249BD /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
