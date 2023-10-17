@@ -3,16 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		481365612565FE1500AD7222 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 481365602565FE1500AD7222 /* SDWebImage */; };
 		48154916248510330045E41F /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48154915248510330045E41F /* APIRequest.swift */; };
+		481593C12ADEA43600EBBFDB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 481593C02ADEA43600EBBFDB /* Kingfisher */; };
 		48241B6D246BAB2400EDAE16 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6C246BAB2400EDAE16 /* AppState.swift */; };
 		48241B6F246BBE8D00EDAE16 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B6E246BBE8D00EDAE16 /* RootView.swift */; };
 		48241B71246BC94200EDAE16 /* BeaconDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48241B70246BC94200EDAE16 /* BeaconDebugView.swift */; };
-		482566E124910E34004E5442 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 482566E024910E34004E5442 /* SDWebImageSwiftUI */; };
 		48397BB724827BF600A697C4 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48397BB624827BF600A697C4 /* NotificationService.swift */; };
 		48397BB924827C5D00A697C4 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48397BB824827C5D00A697C4 /* NotificationSettings.swift */; };
 		487C3005248100310085B94F /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487C3004248100310085B94F /* AboutView.swift */; };
@@ -137,10 +136,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				482566E124910E34004E5442 /* SDWebImageSwiftUI in Frameworks */,
 				A96ECFE0246C602100F2D55C /* DateHelper in Frameworks */,
-				481365612565FE1500AD7222 /* SDWebImage in Frameworks */,
 				48ADEE9F245D6A7B00265BB2 /* SwiftPhoenixClient in Frameworks */,
+				481593C12ADEA43600EBBFDB /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,8 +350,7 @@
 			packageProductDependencies = (
 				48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */,
 				A96ECFDF246C602100F2D55C /* DateHelper */,
-				482566E024910E34004E5442 /* SDWebImageSwiftUI */,
-				481365602565FE1500AD7222 /* SDWebImage */,
+				481593C02ADEA43600EBBFDB /* Kingfisher */,
 			);
 			productName = CoThings;
 			productReference = 48DDD7BF245C5CD300A249BD /* CoThings.app */;
@@ -386,8 +383,7 @@
 			packageReferences = (
 				48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */,
 				A96ECFDE246C602100F2D55C /* XCRemoteSwiftPackageReference "DateHelper" */,
-				482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				4813655F2565FE1500AD7222 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				481593BF2ADEA43600EBBFDB /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 48DDD7C0245C5CD300A249BD /* Products */;
 			projectDirPath = "";
@@ -609,7 +605,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -689,20 +685,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4813655F2565FE1500AD7222 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		481593BF2ADEA43600EBBFDB /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.5;
-			};
-		};
-		482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
+				minimumVersion = 7.9.1;
 			};
 		};
 		48ADEE9D245D6A7B00265BB2 /* XCRemoteSwiftPackageReference "SwiftPhoenixClient" */ = {
@@ -724,15 +712,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		481365602565FE1500AD7222 /* SDWebImage */ = {
+		481593C02ADEA43600EBBFDB /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4813655F2565FE1500AD7222 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		482566E024910E34004E5442 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 482566DF24910E34004E5442 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
+			package = 481593BF2ADEA43600EBBFDB /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		48ADEE9E245D6A7B00265BB2 /* SwiftPhoenixClient */ = {
 			isa = XCSwiftPackageProductDependency;

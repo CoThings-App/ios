@@ -10,21 +10,12 @@
       }
     },
     {
-      "identity" : "sdwebimage",
+      "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
       "state" : {
-        "revision" : "1f06ef5007b6a580b3873ed2adee19e05d3b215a",
-        "version" : "5.18.3"
-      }
-    },
-    {
-      "identity" : "sdwebimageswiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
-      "state" : {
-        "revision" : "4c7f169e39bc35d6b80d42b8eb8301bee9cd0907",
-        "version" : "1.5.0"
+        "revision" : "b6f62758f21a8c03cd64f4009c037cfa580a256e",
+        "version" : "7.9.1"
       }
     },
     {
