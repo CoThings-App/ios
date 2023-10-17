@@ -328,8 +328,9 @@
 		48DDD7B7245C5CD300A249BD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = Rainlab;
 				TargetAttributes = {
 					48DDD7BE245C5CD300A249BD = {
