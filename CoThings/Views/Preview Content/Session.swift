@@ -9,4 +9,5 @@
 import Foundation
 
 let previewBeaconDetector = BeaconDetector()
-let previewSession = PlaceSession(service: InMemoryBackend(), beaconDetector: previewBeaconDetector)
+let previewSession = PlaceSession(service: InMemoryBackend(), 
+                                  beaconDetector: previewBeaconDetector)

@@ -14,7 +14,7 @@ struct HostingWindowKey: EnvironmentKey {
 #elseif canImport(AppKit)
     typealias WrappedValue = NSWindow
 #else
-    #error("Unsupported platform")
+#error("Unsupported platform")
 #endif
 
     typealias Value = () -> WrappedValue? // needed for weak link
@@ -36,12 +36,12 @@ extension EnvironmentValues {
             self[HostingWindowKey.self] = newValue
         }
     }
-    
-    #if canImport(UIKit)
+
+#if canImport(UIKit)
     var statusBarHeight: StatusBarHeightKey.Value {
         get {
             hostingWindow()?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         }
     }
-    #endif
+#endif
 }

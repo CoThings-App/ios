@@ -10,21 +10,21 @@ import SwiftUI
 
 struct RoomFullnessView: View {
     let percentage: Float
-    
+
     static let percentageFont = Font.custom("DIN Condensed", size: 20).bold()
-    
+
     var percentageText: String {
         percentage == 0 ? "―" : String(format: "%.0f%%", percentage * 100.0)
     }
-    
+
     var textColor: Color {
         percentage == 0 ? Color(UIColor.tertiaryLabel) : .primary
     }
-    
+
     var body: some View {
         ZStack {
             CircularProgress(percentage: percentage)
-            
+
             Text(percentageText)
                 .foregroundColor(textColor)
                 .font(RoomFullnessView.percentageFont)

@@ -11,67 +11,69 @@ import Combine
 import UserNotifications
 
 enum NotificationChannel {
-	case enters
-	case exits
+    case enters
+    case exits
 }
 
 class NotificationService: ObservableObject {
 
-	@Published private(set) var permissionGranted: Bool = false
+    @Published private(set) var permissionGranted: Bool = false
 
-	private let userPreferences: UserPreferences
-	private var activeChannels: Set<NotificationChannel>
+    private let userPreferences: UserPreferences
+    private var activeChannels: Set<NotificationChannel>
 
-	init(userPreferences: UserPreferences) {
-		self.userPreferences = userPreferences
-		self.activeChannels = Set<NotificationChannel>()
-		checkNotificationAuthorization()
-	}
+    init(userPreferences: UserPreferences) {
+        self.userPreferences = userPreferences
+        self.activeChannels = Set<NotificationChannel>()
+        checkNotificationAuthorization()
+    }
 
-	func requestNotificationPermission() {
-		let notificationCenter = UNUserNotificationCenter.current()
-		let options: UNAuthorizationOptions = [.alert, .sound]
-		notificationCenter.requestAuthorization(options: options) { didAllow, _ in
-			DispatchQueue.main.async {
-				self.permissionGranted = didAllow
-			}
-		}
-//		checkNotificationAuthorization()
-	}
+    func requestNotificationPermission() {
+        let options: UNAuthorizationOptions = [.alert, .sound]
 
-	func checkNotificationAuthorization() {
-		UNUserNotificationCenter.current().getNotificationSettings { settings in
-			DispatchQueue.main.async {
-				self.permissionGranted = settings.authorizationStatus == .authorized
-			}
-		}
-	}
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: options) { didAllow, _ in
+            DispatchQueue.main.async {
+                self.permissionGranted = didAllow
+            }
+        }
+    }
 
-	func show(on channel: NotificationChannel, title: String, message: String) {
-		guard activeChannels.contains(channel) else { return }
-		let content = UNMutableNotificationContent()
+    func checkNotificationAuthorization() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                self.permissionGranted = settings.authorizationStatus == .authorized
+            }
+        }
+    }
 
-		content.title = userPreferences.optimizeNotificationsForSmartWatches ? title + " " + message : title
-		content.body = userPreferences.optimizeNotificationsForSmartWatches ? "" : message
+    func show(on channel: NotificationChannel, title: String, message: String) {
+        guard activeChannels.contains(channel) else { return }
+        let content = UNMutableNotificationContent()
 
-		if userPreferences.notifyWithSound {
-			content.sound = .default
-		}
+        content.title = userPreferences.optimizeNotificationsForSmartWatches
+        ? title + " " + message : title
 
-		let request = UNNotificationRequest(identifier: "CoThingsNotification",
-											content: content,
-											trigger: nil)
+        content.body = userPreferences.optimizeNotificationsForSmartWatches
+        ? "" : message
 
-		let userNotificationCenter = UNUserNotificationCenter.current()
-		userNotificationCenter.add(request)
-	}
+        if userPreferences.notifyWithSound {
+            content.sound = .default
+        }
 
-	func enableChannel(_ channel: NotificationChannel) {
-		activeChannels.insert(channel)
-	}
+        let request = UNNotificationRequest(identifier: "CoThingsNotification",
+                                            content: content,
+                                            trigger: nil)
 
-	func disableChannel(_ channel: NotificationChannel) {
-		activeChannels.remove(channel)
-	}
+        let userNotificationCenter = UNUserNotificationCenter.current()
+        userNotificationCenter.add(request)
+    }
 
+    func enableChannel(_ channel: NotificationChannel) {
+        activeChannels.insert(channel)
+    }
+
+    func disableChannel(_ channel: NotificationChannel) {
+        activeChannels.remove(channel)
+    }
 }

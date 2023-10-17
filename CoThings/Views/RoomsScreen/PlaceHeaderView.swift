@@ -7,14 +7,14 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+import Kingfisher
 
 struct PlaceHeaderView: View {
     @Environment(\.statusBarHeight) var statusBarHeight: CGFloat
     static let titleFont = Font.custom("Avenir", size: 24).weight(.black)
     
     let title: String
-	let imageUrl: String
+    let imageUrl: String
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,16 +35,20 @@ struct PlaceHeaderView: View {
             .frame(maxWidth: .infinity)
         }
         .background(
-			WebImage(url: URL(string: imageUrl))
-				.resizable()
-				.placeholder(Image("place-photo"))
-				.indicator(.activity)
-				.transition(.fade(duration: 0.5))
-				.aspectRatio(contentMode: .fill)
+            KFImage(URL(string: imageUrl))
+                .placeholder {
+                    Image("place-photo")
+                        .resizable()
+                        .scaledToFit()
+                }
+                .resizable()
+                .scaledToFill()
+                .clipped()
         )
         .clipped()
     }
 }
+
 
 struct PlaceHeaderView_Previews: PreviewProvider {
     static var previews: some View {
