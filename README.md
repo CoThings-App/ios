@@ -14,13 +14,13 @@ You can checkout applications' designs from [here](https://github.com/CoThings-A
 
 #### Stack Versions
 
-Swift: 5.3
+Swift: 5.9
 
-Xcode: 12.2
+Xcode: 15
 
-Base iOS SDK: 14.2
+Base iOS SDK: 17
 
-Targeted Deployment: 13.4
+Targeted Deployment: 14.5
 
 ### Contact with the team
  - info@cothings.app
